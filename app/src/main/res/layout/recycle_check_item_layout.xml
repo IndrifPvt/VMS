@@ -29,7 +29,6 @@
         android:onClick="onClick"
         android:gravity="top"
         android:drawablePadding="@dimen/_3sdp"
-        android:button="@drawable/checkbox"
-        />
+        android:button="@drawable/checkbox"/>
 
 </android.support.constraint.ConstraintLayout>
