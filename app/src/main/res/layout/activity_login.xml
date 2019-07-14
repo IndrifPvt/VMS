@@ -64,7 +64,7 @@
             android:textColor="@color/colorBlack"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textEmailAddress"
-            android:hint="@string/hint_user_email" />
+        />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -73,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_25sdp"
         app:passwordToggleEnabled="true"
+        app:passwordToggleDrawable="@mipmap/key"
         app:passwordToggleTint="@color/colorWhite"
         android:gravity="center"
         android:hint="@string/hint_user_password"
@@ -85,12 +86,11 @@
             android:backgroundTint="@color/colorBlack"
             android:textColor="@color/colorBlack"
             android:gravity="start"
-            android:drawableEnd="@mipmap/key"
             android:textColorHint="@color/colorBlack"
             android:fontFamily="@font/ralewayregular"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textPassword"
-            android:hint="@string/hint_user_password" />
+        />
     </android.support.design.widget.TextInputLayout>
 
     <TextView

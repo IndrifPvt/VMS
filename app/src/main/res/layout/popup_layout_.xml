@@ -20,6 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/eighty_dp"
             android:background="@mipmap/popup_image"
+            android:backgroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -8,13 +8,8 @@ class DataPojo :Serializable{
     var user_id:String=""
     var token:String=""
     var device_token:String=""
-    var remarks:String = ""
-    var remarks_complete_job:String = ""
-    var isUpdated:String = ""
-    var complete_job:String = ""
     var message:String = ""
-    var sign_image:ArrayList<SignaturePojo> = ArrayList()
-
+    var admin_id:String = ""
 }
 
 

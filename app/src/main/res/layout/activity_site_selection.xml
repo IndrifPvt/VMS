@@ -12,14 +12,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_15sdp">
-        <!--<ImageView
-                android:id="@+id/iv_back"
+        <ImageView
+                android:id="@+id/iv_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:src="@drawable/ic_arrow_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />-->
+                android:padding="@dimen/_5sdp"
+                android:onClick="onClick"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_settings_black_24dp"
+        />
         <ImageView
                 android:id="@+id/iv_app_logo"
                 android:layout_width="wrap_content"
@@ -67,19 +70,27 @@
         <Spinner
                 android:id="@+id/sp_address"
                 android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/spinner_backgrounds"
-                android:popupBackground="@color/colorWhite"
+                android:popupBackground="@color/colorLightGray_"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:spinnerMode="dropdown"
-                android:textAlignment="gravity"
+                android:textAlignment="viewStart"
                 android:gravity="start"
-                android:padding="@dimen/_3sdp"
                 android:theme="@style/MatchSpinnerTheme"
                 android:dropDownWidth="match_parent"
-                android:dropDownVerticalOffset="35dp"
+                android:dropDownVerticalOffset="@dimen/_30sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_select_site_txt"/>
+
+        <Button android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+        app:layout_constraintTop_toBottomOf="@+id/sp_address"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:background="@drawable/button_white_background"
+        android:text="@string/submit"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/ralewaymedium"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

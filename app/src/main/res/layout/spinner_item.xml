@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView android:id="@+id/tv_sp_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAlignment="center"
-    android:textColor="@color/colorPrimary"
-    android:paddingTop="@dimen/_2sdp"
-    android:layout_gravity="center|top"
-    android:paddingBottom="@dimen/_3sdp"
-    android:paddingStart="@dimen/_4sdp"
-    android:paddingEnd="@dimen/_12sdp"
+    android:layout_height="@dimen/_35sdp"
+    android:textColor="@color/colorGray"
+    android:layout_gravity="start|center_vertical"
     android:singleLine="true"
+          android:padding="@dimen/_3sdp"
     android:ellipsize="end"
     xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -97,6 +97,7 @@
     <!--popup-->
     <string name="str_uploading">Uploading...</string>
     <string name="choose">CHOOSE ACTION</string>
+    <string name="submit">SUBMIT</string>
 
 
 </resources>

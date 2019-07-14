@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F3715B</color>
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDark">#FA531D</color>
     <color name="colorAccent">#F3715B</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorLightGray_">#ECECEC</color>
+    <color name="colorLightGray">#EEEDED</color>
+
     <color name="colorGray">#757575</color>
     <color name="colorPrimaryUnslected">#F3715B</color>
     <color name="transparent_dialog">#82757575</color>
