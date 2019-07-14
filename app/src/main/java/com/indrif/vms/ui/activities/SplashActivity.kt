@@ -7,18 +7,23 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
-import com.indrif.vms.R
 import com.indrif.vms.data.prefs.PreferenceHandler
 import kotlinx.android.synthetic.main.activity_splash.*
+import android.view.WindowManager
+import android.os.Build
+import com.indrif.vms.R
+import com.indrif.vms.core.BaseActivty
 
-class SplashActivity : AppCompatActivity() {
+
+class SplashActivity : BaseActivty() {
+
     private val SPLASHDELAY: Long = 2500
     private var mDelayHandler: Handler? = null
 
     internal val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
             if (PreferenceHandler.readBoolean(applicationContext, PreferenceHandler.IS_LOGGED_IN, false)) {
-           //     startActivity(Intent(applicationContext, DashBoardActivity::class.java))
+                startActivity(Intent(applicationContext, SiteSelectionActivity::class.java))
                 finish()
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             } else {
@@ -30,9 +35,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       /* setTheme(R.style.AppTheme)
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION*/
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         setScaleAnimation(iv_app_logo)
@@ -63,6 +65,10 @@ class SplashActivity : AppCompatActivity() {
         val anim = ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
         anim.duration = 900
         view.startAnimation(anim)
+    }
+
+    override fun onClick(v: View) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
 

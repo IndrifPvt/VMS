@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="site_array">
-        <item>Site A</item>
-        <item>Site B</item>
+        <item>The Minton</item>
+        <item>YMCA</item>
         <item>Site C</item>
         <item>Site D</item>
     </string-array>

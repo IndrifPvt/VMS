@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.indrif.vms.data.api.ApiService
 import com.indrif.vms.utils.CallProgressWheel
@@ -26,6 +27,8 @@ abstract class BaseActivty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context = this
+        val w = window
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 //        getFbKeyHash()
     }
 

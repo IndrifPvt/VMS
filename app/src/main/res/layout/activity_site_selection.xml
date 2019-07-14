@@ -1,27 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sv_complete_job"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activities.SiteSelectionActivity">
-    <Spinner
-            android:id="@+id/sp_address"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:background="@drawable/spinner_backgrounds"
-            android:popupBackground="@color/colorWhite"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginLeft="@dimen/_6sdp"
-            android:layout_marginRight="@dimen/_3sdp"
-            android:spinnerMode="dropdown"
-            android:padding="@dimen/_3sdp"
-            android:theme="@style/MatchSpinnerTheme"
-            android:dropDownWidth="match_parent"
-            android:dropDownVerticalOffset="35dp"
-           app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:fitsSystemWindows="true"
+        android:background="@mipmap/background">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_15sdp">
+        <!--<ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
+        <ImageView
+                android:id="@+id/iv_app_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_45sdp"
+                android:src="@mipmap/company_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+                android:id="@+id/tv_proceed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose your"
+                android:textSize="@dimen/_17sdp"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/ralewayregular"
+                android:layout_marginTop="@dimen/_26sdp"
+                app:layout_constraintTop_toBottomOf="@id/iv_app_logo"
+                app:layout_constraintStart_toStartOf="parent"
+        />
+        <TextView
+                android:id="@+id/tv_site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Site"
+                android:textSize="@dimen/_17sdp"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/ralewaybold"
+                android:layout_marginTop="@dimen/_1sdp"
+                app:layout_constraintTop_toBottomOf="@id/tv_proceed"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_select_site_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select site"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/ralewayregular"
+                android:layout_marginTop="@dimen/_26sdp"
+                app:layout_constraintTop_toBottomOf="@id/tv_site"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <Spinner
+                android:id="@+id/sp_address"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:background="@drawable/spinner_backgrounds"
+                android:popupBackground="@color/colorWhite"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="gravity"
+                android:gravity="start"
+                android:padding="@dimen/_3sdp"
+                android:theme="@style/MatchSpinnerTheme"
+                android:dropDownWidth="match_parent"
+                android:dropDownVerticalOffset="35dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_site_txt"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

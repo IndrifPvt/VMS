@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F3715B</color>
-    <color name="colorPrimaryDark">#F43920</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#F3715B</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorLightGray_">#ECECEC</color>
-    <color name="colorLightGray">#d2d1d1</color>
-    <color name="colorGray">#8F8D8D</color>
+    <color name="colorGray">#757575</color>
     <color name="colorPrimaryUnslected">#F3715B</color>
-    <color name="transparent_dialog">#82F3715B</color>
-    <color name="colorDarkGray">#afaeae</color>
+    <color name="transparent_dialog">#82757575</color>
+    <color name="colorDarkGray">#757575</color>
     <color name="color_white_trans">#10000000</color>
 
 </resources>
