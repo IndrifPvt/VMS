@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">VMS</string>
+
+    <!--validations messages-->
+    <string name="err_msg_email_address">Please Enter Valid Email Address.</string>
+    <string name="err_msg_password">Please Enter Valid Password.</string>
+    <string name="err_msg_phone">Phone Number can not be Blank.</string>
+    <string name="err_msg_gender">Please choose gender.</string>
+    <string name="err_msg_password_length">Password must be 6 characters along with 1 special characters</string>
+    <string name="err_msg_current_password">Please fill current password</string>
+    <string name="err_msg_internet">Please check you internet connection.</string>
+    <string name="err_msg_full_name">Please Enter Valid Full Name.</string>
+    <string name="err_fullname_length_signup">Username must contain at least 3 characters.</string>
+    <string name="err_msg_confirm_password">Please Enter Valid Confirm Password.</string>
+    <string name="err_msg_same_confirm_password">Confirm Password should be same as Password.</string>
+    <string name="err_invalid_image">Please select valid image.</string>
+    <string name="err_permission_camera">Please consider granting it Camera permission to use camera.</string>
+    <string name="err_msg_buisness_name">Please Enter Business Name.</string>
+    <string name="err_msg_buisness_reg_no">Please Enter Business Registration no.</string>
+    <string name="err_msg_buisness_nature">Please Enter Nature of Business.</string>
+    <string name="err_msg_postal_code">Please Enter Valid Postal code.</string>
+    <string name="err_msg_contact_no">Please Enter Valid Contact Number.</string>
+    <string name="err_msg">Error</string>
+    <string name="success_msg">Success</string>
+    <string name="err_msg_pod_sign">Please upload POD and Signature</string>
+    <string name="logout_alert">LogOut</string>
+    <string name="logout_alert_msg">Do you really want to LogOut?</string>
+    <string name="password_reset_msg">New Password has been sent on your Email.</string>
+    <string name="pwd_email_sent">New Password Email has been sent.</string>
+
+    <!--Login Screen-->
+    <string name="hint_user_email">Admin Email</string>
+    <string name="hint_user_password">Admin Password</string>
+    <string name="forgot_pswd">Forgot Password?</string>
+
+    <!--Dashboard Screen-->
+    <string name="dashboard_title">Jobs Allocated</string>
+    <string name="str_compled">Complete</string>
+    <string name="str_pending">Pending</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="err_no_data_found">No JOb Allocated</string>
+
+
+    <!--Forgot password-->
+    <string name="forgot_password">Forgot Password</string>
+    <string name="enter_email">Enter your email below to receive your reset password instructions</string>
+    <string name="hint_your_email">Your Email Address</string>
+
+    <!--Job detail Screen-->
+    <string name="job_detail_title">Job Id-123456789</string>
+    <string name="customer_name">CUSTOMER NAME</string>
+    <string name="company_name">COMPANY NAME</string>
+    <string name="address">COMPANY ADDRESS</string>
+    <string name="phone_no">DIRECT PHONE NUMBER</string>
+    <string name="email_add">EMAIL ADDRESS</string>
+    <string name="collection_date">COLLECTION DATE</string>
+    <string name="collection_address">COLLECTION ADDRESS</string>
+    <string name="delivery_address">DELIVERY ADDRESS</string>
+    <string name="allocated_vehicle">ALLOCATED VEHICLE</string>
+
+    <!--VEHICLE CHECKLIST-->
+    <string name="vehicle">Vehicle Checklist</string>
+    <string name="vehicle_checklist">VEHICLE CHECKLIST :</string>
+    <string name="satisfactory">Satisfactory/Available</string>
+    <string name="or">OR</string>
+    <string name="defective">Defective/Missing</string>
+    <string name="remarks">REMARKS:</string>
+    <string name="upload_images">UPLOAD IMAGES:</string>
+    <string name="enter_remarks">Please Add Your Remarks.</string>
+    <string name="condition_satisfactory">CONDITIONS OF THE ABOVE VEHICLE IS SATISFACTORY</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_photo">Choose Photo</string>
+    <string name="select_images">Select Images</string>
+    <string name="hint_google_drive">GoogleDrive</string>
+    <string name="permision_denied">"Permission Denied!!!\n You cannot use local drive."</string>
+    <string name="max_ten_images">"You can only select maximum ten images"</string>
+
+    <string-array name="Issues">
+        <item>Upright Vehicle with No Visible fluid leak</item>
+        <item>Oil Level</item>
+        <item>Windscreen and Windows</item>
+        <item>Washes Fluid Level</item>
+        <item>Windscreen Wiper</item>
+        <item>Coolant Level</item>
+    </string-array>
+
+    <!--Complete Job Activity-->
+    <string name="complete_job">Complete The Job</string>
+    <string name="upload_pod">UPLOAD POD:</string>
+    <string name="customer_signature">CUSTOMER SIGNATURE:</string>
+    <string name="use_finger">Use Finger For Signature</string>
+    <string name="done">DONE</string>
+    <string name="sign_auth">Name Of Signing Authority :</string>
+    <string name="cancel_pod">Please Click Image Again and Enter Remarks Again!</string>
+
+    <!--popup-->
+    <string name="str_uploading">Uploading...</string>
+    <string name="choose">CHOOSE ACTION</string>
+
+
+</resources>
