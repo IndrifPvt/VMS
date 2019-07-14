@@ -7,6 +7,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorLightGray_">#ECECEC</color>
     <color name="colorLightGray">#d2d1d1</color>
+    <color name="colorGray">#8F8D8D</color>
     <color name="colorPrimaryUnslected">#F3715B</color>
     <color name="transparent_dialog">#82F3715B</color>
     <color name="colorDarkGray">#afaeae</color>

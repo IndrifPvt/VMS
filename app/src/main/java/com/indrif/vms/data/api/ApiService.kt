@@ -38,7 +38,7 @@ interface ApiService {
         }
     }
 
-    @POST("userLogin")
+    @POST("login")
     fun loginUser(@Body map: Map<String, String>): Observable<ResponseModel>
 
     @POST("forgotPassword")
@@ -64,7 +64,7 @@ interface ApiService {
     @POST("deleteimage")
     fun deleteImageFromServer(@Body map: Map<String, String>): Observable<ResponseModel>
 
-    @POST("logoutuser")
+    @POST("logOut")
     fun logOutUser(@Body map: Map<String, String>): Observable<ResponseModel>
 
 }

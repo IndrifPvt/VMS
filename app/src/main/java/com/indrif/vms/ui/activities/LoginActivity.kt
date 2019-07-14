@@ -52,9 +52,8 @@ class LoginActivity : BaseActivty() {
 
     private fun loginUser() {
         val mountMap = HashMap<String, String>()
-        mountMap.put("user_email", et_email.text.toString().trim())
-        mountMap.put("user_password", et_password.text.toString().trim())
-        mountMap.put("device_token", "")
+        mountMap.put("email", et_email.text.toString().trim())
+        mountMap.put("password", et_password.text.toString().trim())
         try {
             showProgressDialog()
             compositeDrawable.add(
@@ -68,7 +67,7 @@ class LoginActivity : BaseActivty() {
                                         CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
                                         PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_LOGGED_IN, true)
                                         PreferenceHandler.writeString(applicationContext, PreferenceHandler.USER_ID, result.data.user_id)
-                                      //  startActivity(Intent(this, DashBoardActivity::class.java))
+                                        startActivity(Intent(this, SiteSelectionActivity::class.java))
                                         finish()
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                                     } else
