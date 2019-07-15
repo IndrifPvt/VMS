@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@mipmap/background"
+                                             android:padding="@dimen/_15sdp">
+    <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+            android:id="@+id/iv_fgt_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/company_logo"
+            android:layout_marginTop="@dimen/_45sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+            android:id="@+id/tv_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot your"
+            android:textSize="@dimen/_17sdp"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/ralewayregular"
+            android:layout_marginTop="@dimen/_26sdp"
+            app:layout_constraintTop_toBottomOf="@id/iv_fgt_pwd"
+            app:layout_constraintStart_toStartOf="parent"
+    />
+    <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password ?"
+            android:textSize="@dimen/_18sdp"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/ralewaybold"
+            android:layout_marginTop="@dimen/_1sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv_forgot"
+            app:layout_constraintStart_toStartOf="parent"
+    />
+
+    <TextView
+            android:id="@+id/tv_enter_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:text="@string/enter_email"
+            android:textAlignment="textStart"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/ralewayregular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_password"/>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_forgot_layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:textColorHint="@color/colorBlack"
+            app:layout_constraintTop_toBottomOf="@+id/tv_enter_email"
+            app:layout_constraintVertical_chainStyle="packed">
+
+        <EditText
+                android:id="@+id/et_forgot_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBlack"
+                android:gravity="start"
+                android:hint="Email"
+                android:fontFamily="@font/roboto_regular"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorWhite"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:onClick="onClick"
+            android:text="SEND PASSWORD"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/ralewaybold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@+id/input_forgot_layout_email"/>
+
+</android.support.constraint.ConstraintLayout>
