@@ -17,6 +17,9 @@ import com.indrif.vms.BuildConfig
 import com.indrif.vms.models.ResponseModel
 import okhttp3.RequestBody
 import org.json.JSONObject
+import retrofit2.http.GET
+
+
 
 interface ApiService {
     companion object Factory {
@@ -67,4 +70,6 @@ interface ApiService {
     @POST("logOut")
     fun logOutUser(@Body map: Map<String, String>): Observable<ResponseModel>
 
+    @GET("getSites")
+    fun getSiteList(): Observable<ResponseModel>
 }
