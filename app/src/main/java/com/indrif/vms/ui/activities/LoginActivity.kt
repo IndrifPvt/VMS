@@ -15,9 +15,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
-
-
-
 class LoginActivity : BaseActivty() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +32,7 @@ class LoginActivity : BaseActivty() {
         when (v.id) {
             R.id.tv_forgot_password -> {
                 startActivity(Intent(this, SiteSelectionActivity::class.java))
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-            }
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out) }
 
             R.id.btn_sign_in -> {
                 if (Validations.isValidEmail(et_email.text.toString().trim())) {
@@ -86,8 +82,5 @@ class LoginActivity : BaseActivty() {
             e.printStackTrace()
         }
     }
-
-
-
 }
 

@@ -20,7 +20,7 @@
                 android:layout_marginTop="@dimen/_45sdp"
                 android:src="@mipmap/company_logo"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
         <TextView
                 android:id="@+id/tv_proceed"
                 android:layout_width="wrap_content"
@@ -31,8 +31,7 @@
                 android:fontFamily="@font/ralewayregular"
                 android:layout_marginTop="@dimen/_26sdp"
                 app:layout_constraintTop_toBottomOf="@id/iv_app_logo"
-                app:layout_constraintStart_toStartOf="parent"
-        />
+                app:layout_constraintStart_toStartOf="parent"/>
         <TextView
                 android:id="@+id/tv_site"
                 android:layout_width="wrap_content"
@@ -74,13 +73,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_select_site_txt"/>
 
-        <Button android:layout_width="match_parent"
+        <Button
+                android:id="@+id/btn_submit_site"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
-        app:layout_constraintTop_toBottomOf="@+id/sp_address"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:background="@drawable/button_white_background"
-        android:text="@string/submit"
-        android:textColor="@color/colorWhite"
-        android:fontFamily="@font/ralewaymedium"/>
+                android:onClick="onClick"
+                app:layout_constraintTop_toBottomOf="@+id/sp_address"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:background="@drawable/button_white_background"
+                android:text="@string/submit"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/ralewaymedium"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
