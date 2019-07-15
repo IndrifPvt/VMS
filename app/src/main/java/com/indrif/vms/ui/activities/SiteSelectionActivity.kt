@@ -15,7 +15,7 @@ import com.indrif.vms.utils.dialog.CustomAlertDialogListener
 import kotlinx.android.synthetic.main.activity_site_selection.*
 
 class SiteSelectionActivity : BaseActivty() {
-
+private var selectedSite =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_selection)
@@ -32,19 +32,22 @@ class SiteSelectionActivity : BaseActivty() {
          }
 
          override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-             PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_SITE_SELECTED, true)
-             PreferenceHandler.writeString(applicationContext, PreferenceHandler.SELECTED_SITE, siteArray[position])
+             selectedSite = siteArray[position]
          }
 
      }
  }
-    private fun inItData(){
-
-    }
 
     override fun onClick(v: View) {
         when (v.id) {
-           /* R.id.iv_settings -> {
+            R.id.btn_submit->{
+                PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_SITE_SELECTED, true)
+                PreferenceHandler.writeString(applicationContext, PreferenceHandler.SELECTED_SITE, selectedSite)
+                startActivity(Intent(this, DashBoardActivity::class.java))
+                finish()
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+            }
+            /* R.id.iv_settings -> {
                CommonUtils.showMessagePopup(context,resources.getString(R.string.logout_alert),resources.getString(R.string.logout_alert_msg), R.mipmap.info, clickListner,View.GONE)
             }*/
             }
