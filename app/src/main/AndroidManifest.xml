@@ -25,6 +25,12 @@
             android:roundIcon="@mipmap/app_icon_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.activities.HistoryActivity">
+        </activity>
+        <activity android:name=".ui.activities.CheckOutActivity">
+        </activity>
+        <activity android:name=".ui.activities.CheckInActivity">
+        </activity>
         <activity android:name=".ui.activities.DashBoardActivity">
         </activity>
         <activity android:name=".ui.activities.SiteSelectionActivity">
@@ -33,8 +39,9 @@
         </activity>
         <activity android:name=".ui.activities.MainActivity">
         </activity>
-        <activity android:name=".ui.activities.SplashActivity"
-                  android:theme="@style/AppTheme.Splash" >
+        <activity
+                android:name=".ui.activities.SplashActivity"
+                android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
