@@ -1,20 +1,17 @@
 package com.indrif.vms.ui.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
 import com.indrif.vms.data.prefs.PreferenceHandler
-import com.indrif.vms.utils.CommonUtils
-import com.indrif.vms.utils.Validations
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_selected_site.*
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.PopupMenu
+
+
 
 
 class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuItemClickListener {
@@ -38,7 +35,20 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         tv_site_name.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
     }
     override fun onMenuItemClick(item: MenuItem?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return if (item != null) {
+            when (item.getItemId()) {
+                R.id.changepassword -> {
+                    startActivity(Intent(this, ChangePasswordActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    return true
+                }
+
+
+                else -> return true
+            }
+        } else {
+            return true
+        }
     }
 
     override fun onClick(v: View) {
@@ -50,7 +60,7 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
                 showMenu(v);
             }
             R.id.btn_check_in -> {
-                startActivity(Intent(this, CheckInActivity::class.java))
+                startActivity(Intent(this, IdProofSelectionActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out) }
 
             R.id.btn_check_out -> {

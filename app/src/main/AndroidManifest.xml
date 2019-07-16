@@ -25,11 +25,18 @@
             android:roundIcon="@mipmap/app_icon_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.activities.ChangePasswordActivity">
+        </activity>
+        <activity
+                android:name=".ui.activities.DashBoardTestActivity"
+                android:label="@string/title_activity_dash_board_test"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".ui.activities.HistoryActivity">
         </activity>
         <activity android:name=".ui.activities.CheckOutActivity">
         </activity>
-        <activity android:name=".ui.activities.CheckInActivity">
+        <activity android:name=".ui.activities.IdProofSelectionActivity">
         </activity>
         <activity android:name=".ui.activities.DashBoardActivity">
         </activity>

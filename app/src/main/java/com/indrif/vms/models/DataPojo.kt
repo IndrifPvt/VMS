@@ -10,6 +10,7 @@ class DataPojo :Serializable{
     var device_token:String=""
     var message:String = ""
     var admin_id:String = ""
+    var sites:List<SiteData> = ArrayList()
 }
 
 
