@@ -37,7 +37,6 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
     private fun inItData(){
         tv_site_name.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
     }
-<<<<<<< HEAD
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return if (item != null) {
             when (item.getItemId()) {
@@ -53,7 +52,6 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         } else {
             return true
         }
-=======
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_change_pswd -> {
@@ -67,7 +65,6 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
             }
         }
         return  true
->>>>>>> 48ad5fc499e9e664104da2f6b526e9a3f4018378
     }
 
     override fun onClick(v: View) {
