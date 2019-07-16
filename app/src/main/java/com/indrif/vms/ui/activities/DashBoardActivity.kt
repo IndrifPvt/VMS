@@ -1,5 +1,6 @@
 package com.indrif.vms.ui.activities
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
@@ -10,6 +11,8 @@ import com.indrif.vms.data.prefs.PreferenceHandler
 import kotlinx.android.synthetic.main.activity_selected_site.*
 import android.view.MenuItem
 import android.widget.PopupMenu
+import com.indrif.vms.utils.CommonUtils
+import com.indrif.vms.utils.dialog.CustomAlertDialogListener
 
 
 
@@ -34,6 +37,7 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
     private fun inItData(){
         tv_site_name.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
     }
+<<<<<<< HEAD
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return if (item != null) {
             when (item.getItemId()) {
@@ -49,19 +53,35 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         } else {
             return true
         }
+=======
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_change_pswd -> {
+                startActivity(Intent(this, IdProofSelectionActivity::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+            }
+            R.id.menu_logout -> {
+
+                CommonUtils.showMessagePopup(context, resources.getString(R.string.logout_alert), resources.getString(R.string.logout_alert_msg), R.mipmap.success, clickListner,View.GONE)
+
+            }
+        }
+        return  true
+>>>>>>> 48ad5fc499e9e664104da2f6b526e9a3f4018378
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_selected_site_back -> {
-                finish();
+                finish()
             }
             R.id.iv_selected_site_setting -> {
-                showMenu(v);
+                showMenu(v)
             }
             R.id.btn_check_in -> {
                 startActivity(Intent(this, IdProofSelectionActivity::class.java))
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out) }
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+            }
 
             R.id.btn_check_out -> {
                 startActivity(Intent(this, CheckOutActivity::class.java))
@@ -70,7 +90,24 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
             R.id.btn_history -> {
                 startActivity(Intent(this, HistoryActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-        }
+            }
         }
     }
+
+        private var clickListner: CustomAlertDialogListener = object :
+            CustomAlertDialogListener {
+            override fun OnClick(dialog: Dialog) {
+            }
+            override fun OnCallBackClick() {
+                PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_LOGGED_IN, false)
+                PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_SITE_SELECTED, false)
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                intent.putExtra("EXIT", true)
+                startActivity(intent)
+                finish()
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
+        }
+
 }

@@ -5,7 +5,7 @@
           android:title="Change Password"
           android:orderInCategory="100"
           app:showAsAction="never" />
-    <item android:id="@+id/logout"
+    <item android:id="@+id/menu_logout"
           android:title="Logout"
           android:orderInCategory="100"
           app:showAsAction="never" />
