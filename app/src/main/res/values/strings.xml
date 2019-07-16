@@ -98,6 +98,7 @@
     <string name="str_uploading">Uploading...</string>
     <string name="choose">CHOOSE ACTION</string>
     <string name="submit">SUBMIT</string>
+    <string name="select_site_message">Please select site before proceed.</string>
 
 
 </resources>

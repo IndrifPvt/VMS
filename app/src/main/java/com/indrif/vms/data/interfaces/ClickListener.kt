@@ -4,6 +4,5 @@ import android.view.View
 
 
 interface ClickListener {
-    fun onItemClicked(position: Int, view: View)
-    fun onLongItemClicked(position: Int,view: View)
+    fun onItemClicked(position: Int)
 }
