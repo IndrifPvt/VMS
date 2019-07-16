@@ -52,20 +52,8 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         } else {
             return true
         }
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_change_pswd -> {
-                startActivity(Intent(this, IdProofSelectionActivity::class.java))
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-            }
-            R.id.menu_logout -> {
-
-                CommonUtils.showMessagePopup(context, resources.getString(R.string.logout_alert), resources.getString(R.string.logout_alert_msg), R.mipmap.success, clickListner,View.GONE)
-
-            }
-        }
-        return  true
     }
+
 
     override fun onClick(v: View) {
         when (v.id) {
