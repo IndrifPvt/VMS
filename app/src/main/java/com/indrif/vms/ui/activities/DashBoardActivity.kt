@@ -1,18 +1,13 @@
 package com.indrif.vms.ui.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
 import com.indrif.vms.data.prefs.PreferenceHandler
-import com.indrif.vms.utils.CommonUtils
-import com.indrif.vms.utils.Validations
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_selected_site.*
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.PopupMenu
 
@@ -31,7 +26,7 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         popup.setOnMenuItemClickListener(this@DashBoardActivity)// to implement on click event on items of menu
         val inflater = popup.getMenuInflater()
         inflater.inflate(R.menu.selectedsitemenu, popup.getMenu())
-//        popup.gravity=Gravity.END
+        popup.gravity=Gravity.END
         popup.show()
     }
     private fun inItData(){
@@ -50,7 +45,7 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
                 showMenu(v);
             }
             R.id.btn_check_in -> {
-                startActivity(Intent(this, CheckInActivity::class.java))
+                startActivity(Intent(this, IdProofSelectionActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out) }
 
             R.id.btn_check_out -> {

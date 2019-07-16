@@ -115,7 +115,7 @@
         android:id="@+id/btn_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/button_white_background"
         android:text="SUBMIT"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/colorWhite"

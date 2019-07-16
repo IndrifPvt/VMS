@@ -25,7 +25,6 @@ class SiteSelectionActivity : BaseActivty() {
         getSiteList()
     }
 
-
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_submit_site -> {
