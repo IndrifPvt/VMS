@@ -15,6 +15,8 @@ import com.indrif.vms.utils.CommonUtils
 import com.indrif.vms.utils.dialog.CustomAlertDialogListener
 
 
+
+
 class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
 
@@ -35,20 +37,23 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
     private fun inItData(){
         tv_site_name.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
     }
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_change_pswd -> {
-                startActivity(Intent(this, IdProofSelectionActivity::class.java))
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-            }
-            R.id.menu_logout -> {
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return if (item != null) {
+            when (item.getItemId()) {
+                R.id.changepassword -> {
+                    startActivity(Intent(this, ChangePasswordActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    return true
+                }
 
-                CommonUtils.showMessagePopup(context, resources.getString(R.string.logout_alert), resources.getString(R.string.logout_alert_msg), R.mipmap.success, clickListner,View.GONE)
 
+                else -> return true
             }
+        } else {
+            return true
         }
-        return  true
     }
+
 
     override fun onClick(v: View) {
         when (v.id) {
