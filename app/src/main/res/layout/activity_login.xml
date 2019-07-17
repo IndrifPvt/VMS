@@ -30,8 +30,7 @@
                     android:fontFamily="@font/ralewayregular"
                     android:layout_marginTop="@dimen/_26sdp"
                     app:layout_constraintTop_toBottomOf="@id/iv_app_logo"
-                    app:layout_constraintStart_toStartOf="parent"
-            />
+                    app:layout_constraintStart_toStartOf="parent"/>
     <TextView
             android:id="@+id/tv_login"
             android:layout_width="wrap_content"
