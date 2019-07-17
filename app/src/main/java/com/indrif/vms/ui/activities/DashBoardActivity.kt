@@ -2,7 +2,9 @@ package com.indrif.vms.ui.activities
 
 import android.app.Dialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.view.Gravity
 import android.view.View
 import com.indrif.vms.R
@@ -12,9 +14,9 @@ import kotlinx.android.synthetic.main.activity_selected_site.*
 import android.view.MenuItem
 import android.widget.PopupMenu
 import com.indrif.vms.utils.CommonUtils
+import com.indrif.vms.utils.Validations
 import com.indrif.vms.utils.dialog.CustomAlertDialogListener
-
-
+import kotlinx.android.synthetic.main.activity_login.*
 
 
 class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuItemClickListener {
@@ -25,7 +27,9 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         setContentView(R.layout.activity_selected_site)
         iv_selected_site_setting.setOnClickListener(this@DashBoardActivity);
         inItData()
+
     }
+    @RequiresApi(Build.VERSION_CODES.M)
     fun showMenu(v: View) {
         val popup = PopupMenu(this, v)
         popup.setOnMenuItemClickListener(this@DashBoardActivity)// to implement on click event on items of menu
@@ -34,7 +38,7 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         popup.gravity=Gravity.END
         popup.show()
     }
-    private fun inItData(){
+    private fun inItData() {
         tv_site_name.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
     }
     override fun onMenuItemClick(item: MenuItem): Boolean {
