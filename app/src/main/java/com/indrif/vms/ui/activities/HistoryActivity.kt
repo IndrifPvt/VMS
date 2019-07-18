@@ -87,6 +87,7 @@ class HistoryActivity : BaseActivty() {
                     var dateFormat = SimpleDateFormat("yyyy-MM-dd")
                     var d = dateFormat.parse("${tocal!!.get(Calendar.YEAR)}-${tocal!!.get(Calendar.MONTH)}-${tocal!!.get(Calendar.DAY_OF_MONTH)}" )
                   //  fromdialog!!.getDatePicker().setMinDate(tocal!!.timeInMillis);
+
                     fromdialog!!.getDatePicker().setMaxDate(tocal!!.timeInMillis);
                 }
 
@@ -116,7 +117,7 @@ class HistoryActivity : BaseActivty() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history)
+        setContentView(R.layout.activity_history)         
         var c = Calendar.getInstance();
         hr = c.get(Calendar.HOUR_OF_DAY);
         min = c.get(Calendar.MINUTE);
