@@ -36,6 +36,25 @@ class HistoryActivity : BaseActivty() {
     private var fromcal:Calendar?=null
     private var tocal:Calendar?=null
     private var fromtocal:Calendar?=null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_history)
+        var c = Calendar.getInstance();
+        hr = c.get(Calendar.HOUR_OF_DAY);
+        min = c.get(Calendar.MINUTE);
+        updateTime(hr, min,"initialize");
+        calendar = Calendar.getInstance();
+        year = calendar!!.get(Calendar.YEAR);
+        month = calendar!!.get(Calendar.MONTH);
+        day = calendar!!.get(Calendar.DAY_OF_MONTH);
+        var monthnames = calendar!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        var monname = monthnames.subSequence(0,3)
+        showDate(year, month+1, day,monname.toString(),"a");
+    }
+    private fun utilTime(value: Int): String {
+        return if (value < 10) "0$value" else value.toString()
+    }
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_history_back -> {
@@ -114,24 +133,6 @@ class HistoryActivity : BaseActivty() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history)
-        var c = Calendar.getInstance();
-        hr = c.get(Calendar.HOUR_OF_DAY);
-        min = c.get(Calendar.MINUTE);
-        updateTime(hr, min,"initialize");
-        calendar = Calendar.getInstance();
-        year = calendar!!.get(Calendar.YEAR);
-        month = calendar!!.get(Calendar.MONTH);
-        day = calendar!!.get(Calendar.DAY_OF_MONTH);
-        var monthnames = calendar!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-        var monname = monthnames.subSequence(0,3)
-        showDate(year, month+1, day,monname.toString(),"a");
-    }
-    private fun utilTime(value: Int): String {
-        return if (value < 10) "0$value" else value.toString()
-    }
 
     private fun updateTime(hours: Int, mins: Int,coming:String) {
         var hours = hours
