@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
 import com.indrif.vms.data.prefs.PreferenceHandler
@@ -54,6 +55,7 @@ class SiteSelectionActivity : BaseActivty() {
                       try {
                           hideProgressDialog()
                           if (result.code == ApiConstants.SUCCESS_CODE) {
+                              Toast.makeText(context,"Length is"+result.data.sites.size,Toast.LENGTH_LONG).show()
                                  setAdapter(result.data.sites)
                           } else
                               CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)

@@ -17,9 +17,25 @@ import android.databinding.adapters.TextViewBindingAdapter.setText
 import android.widget.TimePicker
 import android.app.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_history.*
-
+import android.widget.TextView
+import android.databinding.adapters.TextViewBindingAdapter.setText
+import android.databinding.adapters.TextViewBindingAdapter.setText
+import java.text.SimpleDateFormat
 
 class HistoryActivity : BaseActivty() {
+    private var hr: Int = 0
+    private var min: Int = 0
+    private var datePicker: DatePicker? = null
+    private var calendar: Calendar? = null
+    private var year: Int = 0
+    private var month: Int = 0
+    private var day: Int = 0
+    private  var count =0;
+    var fromdialog:DatePickerDialog?=null
+    var todialog:DatePickerDialog?=null
+    private var fromcal:Calendar?=null
+    private var tocal:Calendar?=null
+    private var fromtocal:Calendar?=null
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_history_back -> {
@@ -31,28 +47,158 @@ class HistoryActivity : BaseActivty() {
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
             R.id.tv_history_from_time_value -> {
-               /* val mcurrentTime = Calendar.getInstance()
-                val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
-                val minute = mcurrentTime.get(Calendar.MINUTE)
-                val mTimePicker: TimePickerDialog
-                mTimePicker = TimePickerDialog(this@HistoryActivity,
-                    TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                        tv_history_from_time_value.setText(
-                            "$selectedHour:$selectedMinute"
-                        )
-                    }, hour, minute, true
-                )//Yes 24 hour time
-                mTimePicker.setTitle("Select Time")
-                mTimePicker.show()
-*/
+                var mTimePicker = TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+                    hr = selectedHour;
+                    min = selectedMinute;
+                    updateTime(hr, min,"from");
+                    }
+                TimePickerDialog(this, mTimePicker, hr, min, false).show();
             }
+            R.id.tv_history_to_time_value -> {
+                var mTimePicker = TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+                    hr = selectedHour;
+                    min = selectedMinute;
+                    updateTime(hr, min,"to");
+                }
+                TimePickerDialog(this, mTimePicker, hr, min, false).show();
+            }
+            R.id.tv_history_from_date_value -> {
+                var cal = Calendar.getInstance()
+                cal.add(Calendar.DATE,-30)
+                var myDateListener = DatePickerDialog.OnDateSetListener { arg0, arg1, arg2, arg3 ->
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    fromcal = Calendar.getInstance();
+                    fromcal!!.set(arg1,arg2,arg3)
+                    var monthname = fromcal!!.getDisplayName( Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+                    showDate(arg1, arg2 + 1, arg3,monthname,"from")
+                }
+                fromdialog = DatePickerDialog(this,
+                    myDateListener, year, month, day)
 
+                if (count ==0)
+                {
+                    fromdialog!!.getDatePicker().setMinDate(cal.timeInMillis);
+                    fromdialog!!.getDatePicker().setMaxDate(System.currentTimeMillis());
+                }
+                else{
+                    var dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                    var d = dateFormat.parse("${tocal!!.get(Calendar.YEAR)}-${tocal!!.get(Calendar.MONTH)}-${tocal!!.get(Calendar.DAY_OF_MONTH)}" )
+                  //  fromdialog!!.getDatePicker().setMinDate(tocal!!.timeInMillis);
+                    fromdialog!!.getDatePicker().setMaxDate(tocal!!.timeInMillis);
+                }
+
+                fromdialog!!.show()
+
+            }
+            R.id.tv_history_to_date_value -> {
+                var myDateListener = DatePickerDialog.OnDateSetListener { arg0, arg1, arg2, arg3 ->
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    tocal = Calendar.getInstance();
+                    tocal!!.set(arg1,arg2,arg3)
+                    fromcal!!.set(arg1,arg2,arg3)
+                    var monthname = tocal!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+                    count =1;
+                    showDate(arg1, arg2 + 1, arg3,monthname,"to")
+                }
+                todialog = DatePickerDialog(this,
+                    myDateListener, year, month, day)
+                todialog!!.getDatePicker().setMaxDate(System.currentTimeMillis());
+                todialog!!.show()
+            }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
+        var c = Calendar.getInstance();
+        hr = c.get(Calendar.HOUR_OF_DAY);
+        min = c.get(Calendar.MINUTE);
+        updateTime(hr, min,"initialize");
+        calendar = Calendar.getInstance();
+        year = calendar!!.get(Calendar.YEAR);
+        month = calendar!!.get(Calendar.MONTH);
+        day = calendar!!.get(Calendar.DAY_OF_MONTH);
+        var monthnames = calendar!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        var monname = monthnames.subSequence(0,3)
+        showDate(year, month+1, day,monname.toString(),"a");
+    }
+    private fun utilTime(value: Int): String {
+        return if (value < 10) "0$value" else value.toString()
+    }
 
+    private fun updateTime(hours: Int, mins: Int,coming:String) {
+        var hours = hours
+        var timeSet = ""
+        if (hours > 12) {
+            hours -= 12
+            timeSet = "PM"
+        } else if (hours == 0) {
+            hours += 12
+            timeSet = "AM"
+        } else if (hours == 12)
+            timeSet = "PM"
+        else
+            timeSet = "AM"
+        var minutes = ""
+        if (mins < 10)
+            minutes = "0$mins"
+        else
+            minutes = mins.toString()
+        val aTime = StringBuilder().append(hours).append(':').append(minutes).append(" ").append(timeSet).toString()
+        if(coming=="from") {
+            tv_history_from_time_value.setText(aTime)
+        }
+        else if(coming == "to")
+        {
+            tv_history_to_time_value.setText(aTime)
+        }
+        else
+        {
+            tv_history_from_time_value.setText(aTime)
+            tv_history_to_time_value.setText(aTime)
+        }
+
+    }
+    private fun showDate(year: Int, month: Int, day: Int,monthname:String,come:String) {
+         fromcal = Calendar.getInstance()
+        fromcal!!.add(Calendar.DATE,-30)
+        if(come=="from") {
+            var mname = monthname.subSequence(0,3)
+            tv_history_from_date_value.setText(
+                StringBuilder().append(day).append(" ")
+                    .append(mname).append(", ").append(year)
+            )
+        }
+        else if(come == "to")
+        {
+            var mname = monthname.subSequence(0,3)
+            tv_history_to_date_value.setText(
+                StringBuilder().append(day).append(" ")
+                    .append(mname).append(", ").append(year)
+            )
+        }
+        else
+        {
+            var y = fromcal!!.get(Calendar.YEAR)
+            var m = fromcal!!.get(Calendar.MONTH+1)
+            var d =fromcal!!.get(Calendar.DAY_OF_MONTH)
+            var monthnames = fromcal!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            var monname = monthnames.subSequence(0,3)
+            var mname = monthname.subSequence(0,3)
+            tv_history_to_date_value.setText(
+                StringBuilder().append(day).append(" ")
+                    .append(mname).append(", ").append(year))
+            tv_history_from_date_value.setText(
+                StringBuilder().append(d).append(" ")
+                    .append(monname).append(", ").append(y))
+
+        }
     }
 }
