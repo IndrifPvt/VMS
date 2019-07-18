@@ -25,6 +25,10 @@
             android:roundIcon="@mipmap/app_icon_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.activities.CheckInActivity">
+        </activity>
+        <activity android:name=".ui.activities.ChangePasswordActivity">
+        </activity>
         <activity
                 android:name=".ui.activities.DashBoardTestActivity"
                 android:label="@string/title_activity_dash_board_test"
