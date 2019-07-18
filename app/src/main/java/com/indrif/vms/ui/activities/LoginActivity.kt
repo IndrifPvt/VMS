@@ -31,7 +31,7 @@ class LoginActivity : BaseActivty() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tv_forgot_password -> {
-                startActivity(Intent(this, SiteSelectionActivity::class.java))
+                startActivity(Intent(this, ForgotPaaswordActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out) }
 
             R.id.btn_sign_in -> {

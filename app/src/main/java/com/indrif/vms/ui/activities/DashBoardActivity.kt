@@ -2,7 +2,9 @@ package com.indrif.vms.ui.activities
 
 import android.app.Dialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.view.Gravity
 import android.view.View
 import com.indrif.vms.R
@@ -15,6 +17,7 @@ import com.indrif.vms.utils.CommonUtils
 import com.indrif.vms.utils.dialog.CustomAlertDialogListener
 
 
+
 class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
 
@@ -23,7 +26,9 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         setContentView(R.layout.activity_selected_site)
         iv_selected_site_setting.setOnClickListener(this@DashBoardActivity);
         inItData()
+
     }
+    @RequiresApi(Build.VERSION_CODES.M)
     fun showMenu(v: View) {
         val popup = PopupMenu(this, v)
         popup.setOnMenuItemClickListener(this@DashBoardActivity)// to implement on click event on items of menu
@@ -32,7 +37,7 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
         popup.gravity=Gravity.END
         popup.show()
     }
-    private fun inItData(){
+    private fun inItData() {
         tv_site_name.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
     }
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -44,24 +49,27 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
             R.id.menu_logout -> {
                 CommonUtils.showMessagePopup(context, resources.getString(R.string.logout_alert), resources.getString(R.string.logout_alert_msg), R.mipmap.success, clickListner,View.GONE)
 
-
             }
 
         }
         return true
+
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_selected_site_back -> {
-                finish();
+                finish()
             }
             R.id.iv_selected_site_setting -> {
-                showMenu(v);
+                showMenu(v)
             }
             R.id.btn_check_in -> {
                 startActivity(Intent(this, IdProofSelectionActivity::class.java))
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out) }
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+            }
 
             R.id.btn_check_out -> {
                 startActivity(Intent(this, CheckOutActivity::class.java))
@@ -70,19 +78,24 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
             R.id.btn_history -> {
                 startActivity(Intent(this, HistoryActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-        }
+            }
         }
     }
 
-    private var clickListner: CustomAlertDialogListener = object : CustomAlertDialogListener {
-        override fun OnClick(dialog: Dialog) {
+        private var clickListner: CustomAlertDialogListener = object :
+            CustomAlertDialogListener {
+            override fun OnClick(dialog: Dialog) {
+            }
+            override fun OnCallBackClick() {
+                PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_LOGGED_IN, false)
+                PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_SITE_SELECTED, false)
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                intent.putExtra("EXIT", true)
+                startActivity(intent)
+                finish()
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
         }
-        override fun OnCallBackClick() {
-            val i = Intent(context, LoginActivity::class.java)
-            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(i)
-            overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
-        }
-    }
 
 }
