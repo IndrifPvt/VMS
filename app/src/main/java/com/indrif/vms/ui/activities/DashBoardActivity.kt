@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.support.v4.content.ContextCompat.startActivity
 import android.view.Gravity
 import android.view.View
 import com.indrif.vms.R
@@ -46,10 +47,8 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
                 startActivity(Intent(this, ChangePasswordActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
-            R.id.menu_logout -> {
-                CommonUtils.showMessagePopup(context, resources.getString(R.string.logout_alert), resources.getString(R.string.logout_alert_msg), R.mipmap.success, clickListner,View.GONE)
-
-            }
+            R.id.menu_logout ->
+                CommonUtils.showMessagePopup(context, resources.getString(R.string.logout_alert), resources.getString(R.string.logout_alert_msg), R.mipmap.info, clickListner,View.VISIBLE)
 
         }
         return true
