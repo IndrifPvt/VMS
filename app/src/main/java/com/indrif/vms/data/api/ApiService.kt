@@ -47,6 +47,10 @@ interface ApiService {
     @POST("forgotPassword")
     fun resetPassword(@Body map: Map<String, String>): Observable<ResponseModel>
 
+    @POST("forgotPassword")
+    fun changePassword(@Body map: Map<String, String>): Observable<ResponseModel>
+
+
     @POST("getdriverjobs")
     fun getJobByDate(@Body map: Map<String, String>): Observable<ResponseModel>
 

@@ -2,7 +2,6 @@ package com.indrif.vms.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,7 +10,6 @@ import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
 import com.indrif.vms.data.prefs.PreferenceHandler
 import com.indrif.vms.models.SiteData
-import com.indrif.vms.ui.adapter.SiteListAdapter
 import com.indrif.vms.utils.ApiConstants
 import com.indrif.vms.utils.CommonUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,7 +27,7 @@ class SiteSelectionActivity : BaseActivty() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_submit_site -> {
-                if(selectedSite.equals("Select Site"))
+                if(selectedSite.equals("SELECT SITE"))
                     CommonUtils.showSnackbarMessage(context, resources.getString(R.string.select_site_message), R.color.colorPrimary)
 
                 else {
@@ -76,7 +74,7 @@ class SiteSelectionActivity : BaseActivty() {
 
     private fun setAdapter(siteList:List<SiteData>) {
         var siteArray: ArrayList<String> = ArrayList()
-        siteArray.add("Select Site")
+        siteArray.add("SELECT SITE")
         for (item in 0 until siteList.size){
             siteArray.add(siteList.get(item).name)
         }
