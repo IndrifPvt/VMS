@@ -106,6 +106,7 @@ class HistoryActivity : BaseActivty() {
                     var dateFormat = SimpleDateFormat("yyyy-MM-dd")
                     var d = dateFormat.parse("${tocal!!.get(Calendar.YEAR)}-${tocal!!.get(Calendar.MONTH)}-${tocal!!.get(Calendar.DAY_OF_MONTH)}" )
                   //  fromdialog!!.getDatePicker().setMinDate(tocal!!.timeInMillis);
+
                     fromdialog!!.getDatePicker().setMaxDate(tocal!!.timeInMillis);
                 }
 
@@ -132,7 +133,6 @@ class HistoryActivity : BaseActivty() {
             }
         }
     }
-
 
     private fun updateTime(hours: Int, mins: Int,coming:String) {
         var hours = hours
