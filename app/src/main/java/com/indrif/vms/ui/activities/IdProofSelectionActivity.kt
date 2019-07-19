@@ -7,9 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
-import com.indrif.vms.models.SiteData
 import kotlinx.android.synthetic.main.activity_id_proof_selection.*
-
 
 class IdProofSelectionActivity : BaseActivty() {
     var selectedIdProof  = ""
@@ -17,6 +15,7 @@ class IdProofSelectionActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_id_proof_selection)
+        setAdapter()
     }
 
     override fun onClick(v: View) {
@@ -29,9 +28,6 @@ class IdProofSelectionActivity : BaseActivty() {
                     intent.putExtra("BUNDLE", args)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-
-
-
                 }
                 else {
                     var intent = Intent(this, MainActivity::class.java)
@@ -42,7 +38,7 @@ class IdProofSelectionActivity : BaseActivty() {
         }
     }
 
-    private fun setAdapter(siteList:List<SiteData>) {
+    private fun setAdapter() {
         val idProofArray =resources.getStringArray(R.array.id_array)
         val adapter = ArrayAdapter(this, R.layout.spinner_item, idProofArray)
         adapter.setDropDownViewResource(R.layout.spinner_item)
