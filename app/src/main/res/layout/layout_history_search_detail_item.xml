@@ -81,4 +81,5 @@
             app:layout_constraintBottom_toBottomOf="@id/profile_image"
             android:layout_marginStart="@dimen/_20sdp"
     />
+
 </android.support.constraint.ConstraintLayout>

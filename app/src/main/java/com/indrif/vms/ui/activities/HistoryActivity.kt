@@ -9,18 +9,17 @@ import com.indrif.vms.core.BaseActivty
 import com.indrif.vms.utils.CommonUtils
 import com.indrif.vms.utils.Validations
 import kotlinx.android.synthetic.main.activity_login.*
-import android.widget.DatePicker
 import android.app.DatePickerDialog
-import android.widget.EditText
 import java.util.*
 import android.databinding.adapters.TextViewBindingAdapter.setText
-import android.widget.TimePicker
 import android.app.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_history.*
-import android.widget.TextView
 import android.databinding.adapters.TextViewBindingAdapter.setText
 import android.databinding.adapters.TextViewBindingAdapter.setText
+import android.widget.*
 import java.text.SimpleDateFormat
+import java.util.concurrent.TimeUnit
+
 
 class HistoryActivity : BaseActivty() {
     private var hr: Int = 0
@@ -31,6 +30,7 @@ class HistoryActivity : BaseActivty() {
     private var month: Int = 0
     private var day: Int = 0
     private  var count =0;
+    private var diff:Long?=null
     var fromdialog:DatePickerDialog?=null
     var todialog:DatePickerDialog?=null
     private var fromcal:Calendar?=null
@@ -40,6 +40,9 @@ class HistoryActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
+        fromcal = Calendar.getInstance();
+        tocal = Calendar.getInstance();
+        tocal!!.add(Calendar.DATE,0)
         var c = Calendar.getInstance();
         hr = c.get(Calendar.HOUR_OF_DAY);
         min = c.get(Calendar.MINUTE);
@@ -89,8 +92,8 @@ class HistoryActivity : BaseActivty() {
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    fromcal = Calendar.getInstance();
                     fromcal!!.set(arg1,arg2,arg3)
+                    diff = fromcal!!.timeInMillis
                     var monthname = fromcal!!.getDisplayName( Calendar.MONTH, Calendar.LONG, Locale.getDefault());
                     showDate(arg1, arg2 + 1, arg3,monthname,"from")
                 }
@@ -104,6 +107,7 @@ class HistoryActivity : BaseActivty() {
                 }
                 else{
                     var dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                  // fromdialog!!.getDatePicker().setMinDate(tocal!!.timeInMillis);
                     var d = dateFormat.parse("${tocal!!.get(Calendar.YEAR)}-${tocal!!.get(Calendar.MONTH)}-${tocal!!.get(Calendar.DAY_OF_MONTH)}" )
                   //  fromdialog!!.getDatePicker().setMinDate(tocal!!.timeInMillis);
 
@@ -119,7 +123,7 @@ class HistoryActivity : BaseActivty() {
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    tocal = Calendar.getInstance();
+
                     tocal!!.set(arg1,arg2,arg3)
                     fromcal!!.set(arg1,arg2,arg3)
                     var monthname = tocal!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
@@ -131,9 +135,23 @@ class HistoryActivity : BaseActivty() {
                 todialog!!.getDatePicker().setMaxDate(System.currentTimeMillis());
                 todialog!!.show()
             }
+            R.id.btn_history_sign_in -> {
+                    val msDiff = tocal!!.timeInMillis - diff!!
+                    val daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff)
+                    if(daysDiff>29)
+                    {
+                        Toast.makeText(context, "From Date and To date do not have gap more than 30 days" , Toast.LENGTH_LONG).show()
+                    }
+
+                else
+                    {
+                        Toast.makeText(context, "Test" + daysDiff, Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this, CheckInOutDetailActivity::class.java))
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    }
+            }
         }
     }
-
     private fun updateTime(hours: Int, mins: Int,coming:String) {
         var hours = hours
         var timeSet = ""
@@ -168,8 +186,7 @@ class HistoryActivity : BaseActivty() {
 
     }
     private fun showDate(year: Int, month: Int, day: Int,monthname:String,come:String) {
-         fromcal = Calendar.getInstance()
-        fromcal!!.add(Calendar.DATE,-30)
+
         if(come=="from") {
             var mname = monthname.subSequence(0,3)
             tv_history_from_date_value.setText(
@@ -187,6 +204,9 @@ class HistoryActivity : BaseActivty() {
         }
         else
         {
+            fromcal = Calendar.getInstance()
+            fromcal!!.add(Calendar.DATE,-30)
+            diff = fromcal!!.timeInMillis
             var y = fromcal!!.get(Calendar.YEAR)
             var m = fromcal!!.get(Calendar.MONTH+1)
             var d =fromcal!!.get(Calendar.DAY_OF_MONTH)
