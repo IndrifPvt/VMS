@@ -47,33 +47,22 @@ interface ApiService {
     @POST("forgotPassword")
     fun resetPassword(@Body map: Map<String, String>): Observable<ResponseModel>
 
-    @POST("forgotPassword")
+    @POST("changePassword")
     fun changePassword(@Body map: Map<String, String>): Observable<ResponseModel>
-
-
-    @POST("getdriverjobs")
-    fun getJobByDate(@Body map: Map<String, String>): Observable<ResponseModel>
-
-    @POST("getvehiclechecklist")
-    fun getchecklist(@Body map: Map<String, String>): Observable<ResponseModel>
-
-    @POST("getpodandsignature")
-    fun getpod(@Body map: Map<String, String>): Observable<ResponseModel>
-
-    @Multipart
-    @POST("managevehiclechecklist")
-    fun uploadVehicleCheckList( @PartMap map: HashMap<String,RequestBody>, @Part surveyImage: ArrayList<MultipartBody.Part>, @Part("vehicle_check_list") vehicleCheckList: JSONObject): Observable<ResponseModel>
-
-    @Multipart
-    @POST("updatepodsignature")
-    fun uploadPodSign( @PartMap map: HashMap<String,RequestBody>, @Part podImage: ArrayList<MultipartBody.Part>,  @Part signImage: ArrayList<MultipartBody.Part>): Observable<ResponseModel>
-
-    @POST("deleteimage")
-    fun deleteImageFromServer(@Body map: Map<String, String>): Observable<ResponseModel>
 
     @POST("logOut")
     fun logOutUser(@Body map: Map<String, String>): Observable<ResponseModel>
 
     @GET("getSites")
     fun getSiteList(): Observable<ResponseModel>
+
+    @POST("userHistory")
+    fun userHistory(@Body map: Map<String, String>): Observable<ResponseModel>
+
+    @Multipart
+    @POST("managevehiclechecklist")
+    fun uploadVehicleCheckList( @PartMap map: HashMap<String,RequestBody>, @Part surveyImage: ArrayList<MultipartBody.Part>, @Part("vehicle_check_list") vehicleCheckList: JSONObject): Observable<ResponseModel>
+
+
+
 }

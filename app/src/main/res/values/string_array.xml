@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="site_array">
-        <item>The Minton</item>
-        <item>YMCA</item>
-        <item>Site C</item>
-        <item>Site D</item>
+    <string-array name="id_array">
+        <item>SELECT ID TYPE</item>
+        <item>S-PASS</item>
+        <item>WORK PERMIT</item>
+        <item>DRIVING LICENSE</item>
+        <item>OTHER</item>
     </string-array>
 </resources>

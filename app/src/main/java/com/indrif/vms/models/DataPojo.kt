@@ -11,6 +11,7 @@ class DataPojo :Serializable{
     var message:String = ""
     var admin_id:String = ""
     var sites:List<SiteData> = ArrayList()
+    var users:ArrayList<User> = ArrayList()
 }
 
 
