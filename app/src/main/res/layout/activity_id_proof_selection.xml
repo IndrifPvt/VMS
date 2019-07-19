@@ -61,7 +61,6 @@
                 android:id="@+id/tv_site"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check In"
                 android:textSize="@dimen/_17sdp"
                 android:textColor="@color/colorBlack"
                 android:fontFamily="@font/ralewaybold"
@@ -70,7 +69,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <Spinner
-                android:id="@+id/sp_address"
+                android:id="@+id/sp_id_proof"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/spinner_backgrounds"

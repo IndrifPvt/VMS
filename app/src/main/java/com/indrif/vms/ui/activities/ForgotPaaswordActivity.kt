@@ -50,7 +50,7 @@ class ForgotPaaswordActivity : BaseActivty() {
 
     private fun resetPassword() {
         val mountMap = HashMap<String, String>()
-        mountMap.put("user_email", et_forgot_email.text.toString().trim())
+        mountMap.put("email", et_forgot_email.text.toString().trim())
         try {
             showProgressDialog()
             compositeDrawable.add(

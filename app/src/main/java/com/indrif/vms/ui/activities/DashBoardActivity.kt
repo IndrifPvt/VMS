@@ -66,12 +66,16 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
                 showMenu(v)
             }
             R.id.btn_check_in -> {
-                startActivity(Intent(this, IdProofSelectionActivity::class.java))
+                val intent = Intent(this, IdProofSelectionActivity::class.java)
+                intent.putExtra("userComingBy", "checkIn")
+                startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
 
             R.id.btn_check_out -> {
-                startActivity(Intent(this, CheckOutActivity::class.java))
+                val intent = Intent(this, IdProofSelectionActivity::class.java)
+                intent.putExtra("userComingBy", "checkOut")
+                startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
             R.id.btn_history -> {

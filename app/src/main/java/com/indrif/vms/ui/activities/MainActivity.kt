@@ -352,6 +352,7 @@ class MainActivity : BaseActivty() {
         var byteArray = stream!!.toByteArray();
         val intent = Intent(applicationContext, UserDetailActivity::class.java)
         val args = Bundle()
+        args.putString("userComingFrom", "MainActivity")
         args.putStringArrayList("Dob",id)
         args.putStringArrayList("Name",name)
         intent.putExtra("BUNDLE", args)

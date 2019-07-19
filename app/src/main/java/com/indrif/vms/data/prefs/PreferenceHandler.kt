@@ -9,7 +9,7 @@ object PreferenceHandler {
     val PREF_NAME = "ARROW_PREFERENCES"
     val MODE = Context.MODE_PRIVATE
     val IS_LOGGED_IN = "IS_LOGGED_IN"
-    val USER_ID = "USER_ID"
+    val ADMIN_ID = "ADMIN_ID"
     val PREF_KEY_LAT = "PREF_KEY_LAT"
     val PREF_KEY_LNG = "PREF_KEY_LNG"
     val PREF_KEY_ADDRESS = "PREF_KEY_ADDRESS"

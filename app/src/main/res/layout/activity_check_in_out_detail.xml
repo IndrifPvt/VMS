@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_5sdp"
+        android:background="@mipmap/background"
+        tools:context=".ui.activities.DashBoardActivity">
+
+    <ImageView
+            android:id="@+id/iv_history_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_3sdp"
+            android:onClick="onClick"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_arrow_back"/>
+    <ImageView
+            android:id="@+id/iv_history_detail_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_3sdp"
+            android:onClick="onClick"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_home_black_24dp"/>
+    <ImageView
+            android:id="@+id/iv_history_detail_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_3sdp"
+            android:onClick="onClick"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintEnd_toStartOf="@id/iv_history_detail_home"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_search_black_24dp"/>
+<EditText
+        android:id="@+id/et_history_serach_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_16sdp"
+        android:padding="@dimen/_5sdp"
+        android:hint="Search By Name"
+        android:drawableTint="@color/colorDarkGray"
+        android:drawableEnd="@drawable/ic_arrow_forward_white_24dp"
+        android:paddingStart="@dimen/_10sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@color/colorLightGray"
+        app:layout_constraintTop_toBottomOf="@id/iv_history_detail_home"
+
+/>
+    <TextView
+            android:id="@+id/tv_history_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            android:textColor="@color/colorGray"
+            android:fontFamily="@font/ralewaymedium"
+            android:onClick="onClick"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="@id/et_history_serach_name"
+            app:layout_constraintTop_toBottomOf="@+id/et_history_serach_name" />
+
+
+</android.support.constraint.ConstraintLayout>

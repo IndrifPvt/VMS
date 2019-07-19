@@ -14,6 +14,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
+import android.widget.TextView
+import android.widget.DatePicker
+
+
 
 class LoginActivity : BaseActivty() {
 
@@ -62,7 +66,7 @@ class LoginActivity : BaseActivty() {
                                     if (result.code == ApiConstants.SUCCESS_CODE) {
                                         CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
                                         PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_LOGGED_IN, true)
-                                        PreferenceHandler.writeString(applicationContext, PreferenceHandler.USER_ID, result.data.admin_id)
+                                        PreferenceHandler.writeString(applicationContext, PreferenceHandler.ADMIN_ID, result.data.admin_id)
                                         startActivity(Intent(this, SiteSelectionActivity::class.java))
                                         finish()
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
