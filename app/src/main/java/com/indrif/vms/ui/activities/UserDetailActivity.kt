@@ -18,29 +18,30 @@ class UserDetailActivity : BaseActivty() {
         setContentView(R.layout.activity_user_detail)
         val intent = intent
         var args = intent.getBundleExtra("BUNDLE")
-        dob=args.getStringArrayList("Dob")
-        nam=args.getStringArrayList("Name")
-        val byteArray = getIntent().getByteArrayExtra("image")
-        val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        for (index in dob.indices)
-        {
-            d = dob.get(index)
-            d= d+" "
-        }
-        for (index in nam.indices)
-        {
-            name = name+""+nam.get(index)
+        if(args.getString("userComingFrom").equals("IdProofSelectionActivity")){
 
-        }
-        val separated = d!!.split(".")
-        separated[0]
-        separated[1]
-        var nam= separated[1]
+        }else {
+            dob = args.getStringArrayList("Dob")
+            nam = args.getStringArrayList("Name")
+            val byteArray = getIntent().getByteArrayExtra("image")
+            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            for (index in dob.indices) {
+                d = dob.get(index)
+                d = d + " "
+            }
+            for (index in nam.indices) {
+                name = name + "" + nam.get(index)
 
-//          name.replace(0,(stringLength?.minus(4)))
-        tv_dob_value.setText(maskString(nam!!,0,6,'*'))
-        tv_name_value.setText(name)
-        iv_profile.setImageBitmap(bmp)
+            }
+            val separated = d!!.split(".")
+            separated[0]
+            separated[1]
+            var nam = separated[1]
+           //  name.replace(0,(stringLength?.minus(4)))
+            tv_dob_value.setText(maskString(nam!!, 0, 6, '*'))
+            tv_name_value.setText(name)
+            iv_profile.setImageBitmap(bmp)
+        }
 
     }
 

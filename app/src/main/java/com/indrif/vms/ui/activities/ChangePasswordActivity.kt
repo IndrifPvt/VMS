@@ -47,7 +47,10 @@ class ChangePasswordActivity : BaseActivty() {
 
     private fun resetPassword() {
         val mountMap = HashMap<String, String>()
-        mountMap.put("user_email", et_forgot_email.text.toString().trim())
+        mountMap.put("admin_id",PreferenceHandler.readString(applicationContext, PreferenceHandler.ADMIN_ID, "")
+        )
+        mountMap.put("old_password", et_old_password.text.toString().trim())
+        mountMap.put("password", et_new_password.text.toString().trim())
         try {
             showProgressDialog()
             compositeDrawable.add(
