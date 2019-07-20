@@ -17,8 +17,19 @@ import kotlinx.android.synthetic.main.activity_history.*
 import android.databinding.adapters.TextViewBindingAdapter.setText
 import android.databinding.adapters.TextViewBindingAdapter.setText
 import android.widget.*
+import com.indrif.vms.data.prefs.PreferenceHandler
+import com.indrif.vms.models.User
+import com.indrif.vms.utils.ApiConstants
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.lang.reflect.Array
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
+
+
+
+
 
 
 class HistoryActivity : BaseActivty() {
@@ -36,6 +47,10 @@ class HistoryActivity : BaseActivty() {
     private var fromcal:Calendar?=null
     private var tocal:Calendar?=null
     private var fromtocal:Calendar?=null
+    private var mname:CharSequence =""
+    private var fdate:String=""
+    private var todate:String=""
+    private var Userlist:ArrayList<User> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,12 +158,14 @@ class HistoryActivity : BaseActivty() {
                         Toast.makeText(context, "From Date and To date do not have gap more than 30 days" , Toast.LENGTH_LONG).show()
                     }
 
-                else
+                else if(daysDiff<0)
                     {
-                        Toast.makeText(context, "Test" + daysDiff, Toast.LENGTH_LONG).show()
-                        startActivity(Intent(this, CheckInOutDetailActivity::class.java))
-                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                        Toast.makeText(context, "From Date cant be aftrer To Date" , Toast.LENGTH_LONG).show()
                     }
+                else
+                {
+                    userhistory()
+                }
             }
         }
     }
@@ -188,7 +205,9 @@ class HistoryActivity : BaseActivty() {
     private fun showDate(year: Int, month: Int, day: Int,monthname:String,come:String) {
 
         if(come=="from") {
-            var mname = monthname.subSequence(0,3)
+             mname = monthname.subSequence(0,3)
+            fdate =StringBuilder().append(mname).append(" ")
+                .append(day).append(", ").append(year).toString()
             tv_history_from_date_value.setText(
                 StringBuilder().append(day).append(" ")
                     .append(mname).append(", ").append(year)
@@ -196,7 +215,9 @@ class HistoryActivity : BaseActivty() {
         }
         else if(come == "to")
         {
-            var mname = monthname.subSequence(0,3)
+            mname = monthname.subSequence(0,3)
+            todate =StringBuilder().append(mname).append(" ")
+                .append(day).append(", ").append(year).toString()
             tv_history_to_date_value.setText(
                 StringBuilder().append(day).append(" ")
                     .append(mname).append(", ").append(year)
@@ -212,7 +233,11 @@ class HistoryActivity : BaseActivty() {
             var d =fromcal!!.get(Calendar.DAY_OF_MONTH)
             var monthnames = fromcal!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
             var monname = monthnames.subSequence(0,3)
-            var mname = monthname.subSequence(0,3)
+            mname = monthname.subSequence(0,3)
+            fdate =StringBuilder().append(monname).append(" ")
+                .append(d).append(", ").append(y).toString()
+            todate =StringBuilder().append(monname).append(" ")
+                .append(day).append(", ").append(year).toString()
             tv_history_to_date_value.setText(
                 StringBuilder().append(day).append(" ")
                     .append(mname).append(", ").append(year))
@@ -220,6 +245,42 @@ class HistoryActivity : BaseActivty() {
                 StringBuilder().append(d).append(" ")
                     .append(monname).append(", ").append(y))
 
+        }
+    }
+    private fun userhistory() {
+        val mountMap = HashMap<String, String>()
+        mountMap.put("fromDate", fdate)
+        mountMap.put("toDate",todate)
+        mountMap.put("type", "0")
+        try {
+            showProgressDialog()
+            compositeDrawable.add(
+                repository.userHistory(mountMap)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({ result ->
+                        try {
+                            hideProgressDialog()
+                            if (result.code == ApiConstants.SUCCESS_CODE) {
+                                Userlist = result.data.users
+                                val intent = Intent(this@HistoryActivity, CheckInOutDetailActivity::class.java)
+                                intent.putExtra("FILES_TO_SEND", Userlist)
+                                startActivity(intent)
+                              overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                            } else
+                                CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
+
+                        } catch (e: Exception) {
+                            hideProgressDialog()
+                            e.printStackTrace()
+                        }
+                    }, { error ->
+                        hideProgressDialog()
+                        error.printStackTrace()
+                    })
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }
