@@ -71,7 +71,7 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
                     android:fontFamily="@font/ralewaymedium"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     app:layout_constraintTop_toBottomOf="@id/tv_from"
                     app:layout_constraintStart_toStartOf="parent"
             />
@@ -150,7 +150,7 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     android:textColor="@color/colorBlack"
                     android:fontFamily="@font/ralewaymedium"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     app:layout_constraintTop_toBottomOf="@id/tv_to"
                     app:layout_constraintStart_toStartOf="parent"
             />

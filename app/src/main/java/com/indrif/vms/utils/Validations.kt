@@ -148,19 +148,7 @@ class Validations {
             return true
         }
 
-        private fun validateBio(applicationContext: Context, mEdBio: EditText, errMessage: String): Boolean {
-            if (isNullOrEmpty(mEdBio)) {
-                CommonUtils.showSnackbarMessage(
-                    applicationContext,
-                    errMessage,
-                    R.color.colorAccent
-                )
-                mEdBio.requestFocus()
-                return false
 
-            }
-            return true
-        }
 
         private fun validateLocation(applicationContext: Context, mEdLocation: EditText, errMessage: String): Boolean {
             if (isNullOrEmpty(mEdLocation)) {
@@ -175,18 +163,7 @@ class Validations {
             return true
         }
 
-        private fun validatePhoneNumber(applicationContext: Context, mEdPhoneNumber: EditText, errMessage: String): Boolean {
-            if (isNullOrEmpty(mEdPhoneNumber)) {
-                CommonUtils.showSnackbarMessage(
-                    applicationContext,
-                    errMessage,
-                    R.color.colorAccent
-                )
-                mEdPhoneNumber.requestFocus()
-                return false
-            }
-            return true
-        }
+
 
 
         /**
@@ -309,67 +286,6 @@ class Validations {
             return true
         }
 
-        fun isValidateJoinAsMerchant(applicationContext: Context, mEtBusinessName: EditText, mEtRegNo: EditText, mEtnature: EditText,mEtEmail: EditText, mEtContactNo: EditText,mEtPostalCode: EditText): Boolean {
-            if (!validateEmailAddress(
-                    applicationContext,
-                    mEtEmail,
-                    applicationContext.resources.getString(R.string.err_msg_email_address)
-                )
-            ) {
-                return false
-            }
-            if (!validateLocation(
-                    applicationContext,
-                    mEtBusinessName,
-                    applicationContext.resources.getString(R.string.err_msg_buisness_name)
-                )
-            ) {
-                return false
-            }
-            if (!validateLocation(
-                    applicationContext,
-                    mEtRegNo,
-                    applicationContext.resources.getString(R.string.err_msg_buisness_reg_no)
-                )
-            ) {
-                return false
-            }
-            if (!validateLocation(
-                    applicationContext,
-                    mEtnature,
-                    applicationContext.resources.getString(R.string.err_msg_buisness_nature)
-                )
-            ) {
-                return false
-            }
-            if (!validateLocation(
-                    applicationContext,
-                    mEtContactNo,
-                    applicationContext.resources.getString(R.string.err_msg_contact_no)
-                )
-            ) {
-                return false
-            }
-            if (!validateLocation(
-                    applicationContext,
-                    mEtPostalCode,
-                    applicationContext.resources.getString(R.string.err_msg_postal_code)
-                )
-            ) {
-                return false
-            }
-
-
-            if (!CommonUtils.isInternetConnection(applicationContext)) {
-                CommonUtils.showSnackbarMessage(
-                    applicationContext,
-                    applicationContext.resources.getString(R.string.err_msg_internet),
-                    R.color.colorAccent
-                )
-                return false
-            }
-            return true
-        }
 
 
 
@@ -382,22 +298,10 @@ class Validations {
             ) {
                 return false
             }
-            if (!validatePasswordLength(
-                    applicationContext,
-                    mEtNewPassword,
-                    applicationContext.resources.getString(R.string.err_msg_password_length)
-                )
-            ) {
+            if (!validatePasswordLength(applicationContext, mEtNewPassword, applicationContext.resources.getString(R.string.err_msg_password_length))) {
                 return false
             }
-            if (!validatePasswordContainSpecialCharacter(
-                    applicationContext,
-                    mEtNewPassword,
-                    applicationContext.resources.getString(R.string.err_msg_password_length)
-                )
-            ) {
-                return false
-            }
+
             if (!validateConfirmPassword(
                     applicationContext,
                     mEtNewPassword,
@@ -405,14 +309,6 @@ class Validations {
                     applicationContext.resources.getString(R.string.err_msg_same_confirm_password)
                 )
             ) {
-                return false
-            }
-            if (!CommonUtils.isInternetConnection(applicationContext)) {
-                CommonUtils.showSnackbarMessage(
-                    applicationContext,
-                    applicationContext.resources.getString(R.string.err_msg_internet),
-                    R.color.colorAccent
-                )
                 return false
             }
             return true

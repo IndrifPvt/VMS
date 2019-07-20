@@ -54,9 +54,7 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:background="@color/colorLightGray"
-        app:layout_constraintTop_toBottomOf="@id/iv_history_detail_home"
-
-/>
+        app:layout_constraintTop_toBottomOf="@id/iv_history_detail_home"/>
     <TextView
             android:id="@+id/tv_history_filter"
             android:layout_width="wrap_content"

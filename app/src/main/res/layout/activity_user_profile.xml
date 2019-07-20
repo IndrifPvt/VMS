@@ -15,7 +15,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:paddingStart="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_5sdp"
             android:background="@color/colorLightGray_">
     <ImageView
             android:id="@+id/iv_strip_top"
@@ -42,6 +41,8 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_3sdp"
                 android:onClick="onClick"
+                android:layout_marginEnd="@dimen/_10sdp"
+
                 android:layout_marginTop="@dimen/_15sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +55,7 @@
                 android:padding="@dimen/_9sdp"
                 android:onClick="onClick"
                 android:textSize="@dimen/_18sdp"
+                android:gravity="bottom"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:textColor="@color/colorBlack"
@@ -65,12 +67,13 @@
                 android:id="@+id/tv_profile_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From"
+                android:text="Profile"
                 android:textSize="@dimen/_20sdp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:textColor="@color/colorBlack"
                 android:fontFamily="@font/ralewaybold"
+                android:paddingBottom="@dimen/_20sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -81,7 +84,7 @@
                 android:id="@+id/sc_history"
                 android:layout_marginTop="@dimen/_7sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                app:layout_constraintTop_toBottomOf="@id/cl_top"
+                app:layout_constraintTop_toBottomOf="@id/profile_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -90,27 +93,130 @@
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     tools:context=".ui.activities.DashBoardActivity">
 
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:hint="@string/user_name"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_login">
 
+                <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorBlack"
+                        android:gravity="start"
+                        android:drawableEnd="@drawable/ic_edit"
+                        android:fontFamily="@font/ralewayregular"
+                        android:textColorHint="@color/colorBlack"
+                        android:textColor="@color/colorBlack"
+                        android:imeOptions="flagNoExtractUi"
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_id_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:hint="@string/id_type_strg"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_name">
+
+                <EditText
+                        android:id="@+id/et_id_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorBlack"
+                        android:gravity="start"
+                        android:focusable="false"
+                        android:enabled="false"
+                        android:fontFamily="@font/ralewayregular"
+                        android:textColorHint="@color/colorBlack"
+                        android:textColor="@color/colorBlack"
+                        android:imeOptions="flagNoExtractUi"
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_id_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:hint="@string/id_no_str"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_id_type">
+
+                    <EditText
+                            android:id="@+id/et_id_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorBlack"
+                            android:gravity="start"
+                            android:drawableEnd="@drawable/ic_edit"
+                            android:fontFamily="@font/ralewayregular"
+                            android:textColorHint="@color/colorBlack"
+                            android:textColor="@color/colorBlack"
+                            android:imeOptions="flagNoExtractUi"
+                            android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:hint="@string/dob_str"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_id_no">
+
+                    <EditText
+                            android:id="@+id/et_id_dob"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorBlack"
+                            android:gravity="start"
+                            android:drawableEnd="@drawable/ic_edit"
+                            android:fontFamily="@font/ralewayregular"
+                            android:textColorHint="@color/colorBlack"
+                            android:textColor="@color/colorBlack"
+                            android:imeOptions="flagNoExtractUi"
+                            android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
                 <Button
                         android:id="@+id/btn_sign_in"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_white_background"
-                        android:text="SUBMIT"
+                        android:background="@mipmap/selectsite"
+                        android:text="NEXT"
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="@color/colorWhite"
-                        android:layout_marginTop="@dimen/_110sdp"
+                        android:layout_marginTop="@dimen/_80sdp"
                         android:onClick="onClick"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_history_to_date_value" />
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_dob" />
 
 
             </android.support.constraint.ConstraintLayout>
+
         </ScrollView>
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:src="@drawable/dummy_user"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorLightGray"
+            android:layout_marginTop="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
     </android.support.constraint.ConstraintLayout>

@@ -105,6 +105,11 @@
     <string name="cnf_pwd">Confirm Password</string>
 
     <string name="select_site_message">Please select site before proceed.</string>
+    <string name="user_name">Name</string>
+    <string name="id_type_strg">ID Type</string>
+    <string name="id_no_str">ID No</string>
+    <string name="dob_str">DOB</string>
+    <string name="contact_no">Contact Number</string>
 
 
 </resources>

@@ -65,9 +65,10 @@ class MainActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        permissionCheck(0,0)
     }
     override fun onClick(v: View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun permissionCheck(check: Int, intentfor: Int) {
