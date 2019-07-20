@@ -63,8 +63,6 @@ class ForgotPaaswordActivity : BaseActivty() {
                                     if (result.code == ApiConstants.SUCCESS_CODE) {
                                         PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_LOGGED_IN, false)
                                         CommonUtils.showMessagePopup(context, resources.getString(R.string.success_msg), resources.getString(R.string.password_reset_msg), R.mipmap.success, clickListner,View.GONE)
-                                        finish()
-                                        overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
                                     } else
                                         CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
 

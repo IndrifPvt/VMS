@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="@mipmap/background"
-                                             android:padding="@dimen/_15sdp">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/background"
+        android:padding="@dimen/_15sdp">
     <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
@@ -35,8 +35,7 @@
             android:fontFamily="@font/ralewayregular"
             android:layout_marginTop="@dimen/_26sdp"
             app:layout_constraintTop_toBottomOf="@id/iv_fgt_pwd"
-            app:layout_constraintStart_toStartOf="parent"
-    />
+            app:layout_constraintStart_toStartOf="parent"/>
     <TextView
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
@@ -47,9 +46,7 @@
             android:fontFamily="@font/ralewaybold"
             android:layout_marginTop="@dimen/_1sdp"
             app:layout_constraintTop_toBottomOf="@id/tv_forgot"
-            app:layout_constraintStart_toStartOf="parent"
-    />
-
+            app:layout_constraintStart_toStartOf="parent"/>
     <TextView
             android:id="@+id/tv_enter_email"
             android:layout_width="0dp"
@@ -81,12 +78,11 @@
                 android:backgroundTint="@color/colorBlack"
                 android:gravity="start"
                 android:hint="Email"
-                android:fontFamily="@font/roboto_regular"
+                android:fontFamily="@font/ralewayregular"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorBlack"/>
     </android.support.design.widget.TextInputLayout>
-
 
     <Button
             android:id="@+id/btn_submit"

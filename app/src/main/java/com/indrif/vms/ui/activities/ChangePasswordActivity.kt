@@ -30,7 +30,6 @@ class ChangePasswordActivity : BaseActivty() {
                 finish()
             R.id.btn_submit ->
                 changePassword()
-
         }
     }
 
@@ -40,9 +39,7 @@ class ChangePasswordActivity : BaseActivty() {
                 resetPassword()
             else
                 CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_internet), R.color.colorPrimary)
-        } else
-            CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_email_address), R.color.colorPrimary)
-
+        }
     }
 
     private fun resetPassword() {

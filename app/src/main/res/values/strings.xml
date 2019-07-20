@@ -25,7 +25,7 @@
     <string name="err_msg_pod_sign">Please upload POD and Signature</string>
     <string name="logout_alert">LogOut</string>
     <string name="logout_alert_msg">Do you really want to LogOut?</string>
-    <string name="password_reset_msg">New Password has been sent on your Email.</string>
+    <string name="password_reset_msg">Your Password has been changed.</string>
     <string name="pwd_email_sent">New Password Email has been sent.</string>
 
     <!--Login Screen-->

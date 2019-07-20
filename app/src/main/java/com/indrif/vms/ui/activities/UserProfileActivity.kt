@@ -1,6 +1,5 @@
 package com.indrif.vms.ui.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.indrif.vms.R
@@ -14,5 +13,11 @@ class UserProfileActivity : BaseActivty() {
     }
 
     override fun onClick(v: View) {
+        when (v.id) {
+            R.id.iv_history_back -> {
+                finish()
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
+        }
     }
 }
