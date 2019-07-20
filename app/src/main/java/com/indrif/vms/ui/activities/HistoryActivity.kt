@@ -28,10 +28,6 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 
-
-
-
-
 class HistoryActivity : BaseActivty() {
     private var hr: Int = 0
     private var min: Int = 0
@@ -77,11 +73,14 @@ class HistoryActivity : BaseActivty() {
         when (v.id) {
             R.id.iv_history_back -> {
                 finish()
-                }
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
 
             R.id.iv_history_home -> {
-                startActivity(Intent(this, DashBoardActivity::class.java))
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                val i = Intent(applicationContext, DashBoardActivity::class.java)
+                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(i)
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
             }
             R.id.tv_history_from_time_value -> {
                 var mTimePicker = TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->

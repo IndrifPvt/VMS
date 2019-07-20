@@ -138,8 +138,7 @@
                     android:fontFamily="@font/ralewaybold"
                     android:layout_marginTop="@dimen/_20sdp"
                     app:layout_constraintTop_toBottomOf="@id/tv_history_from_date_value"
-                    app:layout_constraintStart_toStartOf="parent"
-            />
+                    app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                     android:id="@+id/tv_history_to_date"

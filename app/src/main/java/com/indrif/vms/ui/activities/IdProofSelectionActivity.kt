@@ -73,12 +73,12 @@ class IdProofSelectionActivity : BaseActivty() {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.iv_selected_site_back -> {
+            R.id.iv_check_in_back -> {
                 finish()
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
             }
             R.id.iv_check_in_home -> {
-                val i = Intent(applicationContext, SiteSelectionActivity::class.java)
+                val i = Intent(applicationContext, DashBoardActivity::class.java)
                 i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(i)
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)

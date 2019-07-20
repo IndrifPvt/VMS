@@ -73,7 +73,7 @@ class DashBoardActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuI
             }
 
             R.id.btn_check_out -> {
-                val intent = Intent(this, IdProofSelectionActivity::class.java)
+                val intent = Intent(this, UnderDevelopment::class.java)
                 intent.putExtra("userComingBy", "checkOut")
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)

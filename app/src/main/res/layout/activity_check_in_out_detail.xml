@@ -58,14 +58,22 @@
     <TextView
             android:id="@+id/tv_history_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="19dp"
             android:text="Filter"
             android:textColor="@color/colorGray"
             android:fontFamily="@font/ralewaymedium"
             android:onClick="onClick"
-            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="@id/et_history_serach_name"
-            app:layout_constraintTop_toBottomOf="@+id/et_history_serach_name" />
+            app:layout_constraintTop_toTopOf="@+id/iv_filter"/>
+    <ImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/filter"
+            app:layout_constraintTop_toBottomOf="@+id/et_history_serach_name"
+            app:layout_constraintEnd_toStartOf="@+id/tv_history_filter" android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toStartOf="@+id/tv_history_filter"/>
     <TextView
             android:id="@+id/tv_block"
             android:layout_width="wrap_content"
@@ -110,8 +118,7 @@
             android:layout_marginTop="@dimen/_18sdp"
             app:layout_constraintStart_toEndOf="@id/tv_unit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_history_filter"
-    />
+            app:layout_constraintTop_toBottomOf="@id/tv_history_filter"/>
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_checkinhistory"
             android:layout_width="match_parent"
@@ -119,6 +126,20 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_76sdp"
             app:layout_constraintTop_toBottomOf="@id/tv_block"
-            app:layout_constraintBottom_toBottomOf="parent"
-    />
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+            android:id="@+id/tv_no_data_found"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="No Data Found"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/ralewaybold"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_76sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv_block"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>

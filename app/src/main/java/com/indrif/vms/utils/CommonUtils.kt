@@ -52,7 +52,6 @@ class CommonUtils {
             return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID)
         }
 
-
         fun showSnackbarMessage(context: Context, message: String, color: Int) {
             val snackbar = Snackbar.make((context as Activity).findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
             snackbar.view.setBackgroundColor(ContextCompat.getColor(context, color))

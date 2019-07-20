@@ -41,7 +41,7 @@
                 android:id="@+id/iv_app_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:src="@mipmap/company_logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -53,7 +53,6 @@
                 android:textSize="@dimen/_20sdp"
                 android:textColor="@color/colorBlack"
                 android:fontFamily="@font/ralewayregular"
-                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_28sdp"
                 app:layout_constraintTop_toBottomOf="@id/iv_app_logo"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -66,7 +65,6 @@
                 android:textColor="@color/colorBlack"
                 android:fontFamily="@font/ralewaybold"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:layout_marginStart="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@id/tv_selected_site"
                 app:layout_constraintStart_toStartOf="parent"/>
 

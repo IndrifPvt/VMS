@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import com.indrif.vms.R
 import com.indrif.vms.data.api.ApiService
 import com.indrif.vms.utils.CallProgressWheel
 import com.indrif.vms.utils.CommonUtils
@@ -32,7 +33,7 @@ abstract class BaseActivty : AppCompatActivity() {
 //        getFbKeyHash()
     }
 
-    abstract fun onClick(v: View);
+    abstract fun onClick(v: View)
 
     fun isNetworkConnected(): Boolean {
         return CommonUtils.isInternetConnection(context)
@@ -77,5 +78,11 @@ abstract class BaseActivty : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("exception", e.toString())
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
     }
 }
