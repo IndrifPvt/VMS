@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : BaseActivty() {
     private var dob=ArrayList<String>()
+    private var Dob=ArrayList<String>()
     private var nam=ArrayList<String>()
     var name:String?=""
     var d:String?=null
@@ -25,8 +26,10 @@ class UserProfileActivity : BaseActivty() {
         //     }else {
         dob = args.getStringArrayList("Dob")
         nam = args.getStringArrayList("Name")
+        Dob = args.getStringArrayList("DOB")
         val byteArray = getIntent().getByteArrayExtra("image")
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        var dateofbirth = Dob.get(0)
         for (index in dob.indices) {
             d = dob.get(index)
             d = d + " "
@@ -42,6 +45,7 @@ class UserProfileActivity : BaseActivty() {
         //  name.replace(0,(stringLength?.minus(4)))
         et_id_no.setText(maskString(nam!!, 0, 6, '*'))
         et_name.setText(name)
+        et_id_dob.setText(dateofbirth)
         profile_image.setImageBitmap(bmp)
 
     }
