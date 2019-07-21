@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.support.constraint.ConstraintLayout
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -68,6 +69,7 @@ class IdProofSelectionActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_id_proof_selection)
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setAdapter()
     }
 
@@ -347,7 +349,6 @@ class IdProofSelectionActivity : BaseActivty() {
             {
                 btm=linetext.get(index).zzbat.bottom
                 top=linetext.get(index).zzbat.top
-
             }
         }
 
@@ -403,8 +404,8 @@ class IdProofSelectionActivity : BaseActivty() {
         var c=0;
         var stream =  ByteArrayOutputStream();
         cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        var byteArray = stream!!.toByteArray();
-        val intent = Intent(applicationContext, UserDetailActivity::class.java)
+              var byteArray = stream!!.toByteArray();
+        val intent = Intent(applicationContext, UserProfileActivity::class.java)
         val args = Bundle()
         args.putString("userComingFrom", "MainActivity")
         args.putStringArrayList("Dob",id)
