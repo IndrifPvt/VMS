@@ -64,6 +64,8 @@
         </activity>
         <activity android:name=".ui.activities.ForgotPaaswordActivity">
         </activity>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+                  android:theme="@style/Base.Theme.AppCompat"/>
     </application>
 
 </manifest>

@@ -18,9 +18,7 @@ class UserDetailActivity : BaseActivty() {
         setContentView(R.layout.activity_user_detail)
         val intent = intent
         var args = intent.getBundleExtra("BUNDLE")
-        if(args.getString("userComingFrom").equals("IdProofSelectionActivity")){
 
-        }else {
             dob = args.getStringArrayList("Dob")
             nam = args.getStringArrayList("Name")
             val byteArray = getIntent().getByteArrayExtra("image")
@@ -43,7 +41,6 @@ class UserDetailActivity : BaseActivty() {
             iv_profile.setImageBitmap(bmp)
         }
 
-    }
 
     private fun maskString( strText:String, start:Int, end:Int, maskChar:Char):String
     {

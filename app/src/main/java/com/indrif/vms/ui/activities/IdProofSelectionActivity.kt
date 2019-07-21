@@ -382,7 +382,6 @@ class IdProofSelectionActivity : BaseActivty() {
             if(linetext.get(index).text=="Sex")
             {
                 sleft=linetext.get(index).zzbat.left
-
             }
         }
         for ( index in linetext.indices)
@@ -412,7 +411,6 @@ class IdProofSelectionActivity : BaseActivty() {
         args.putStringArrayList("Name",name)
         intent.putExtra("BUNDLE", args)
         intent.putExtra("image",byteArray);
-        pd!!.hide()
         startActivity(intent)
 
     }
@@ -424,7 +422,7 @@ class IdProofSelectionActivity : BaseActivty() {
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
-        pd!!.show()
+//        pd!!.show()
         faceDetectionModels.clear()
 
         val firebaseVisionImage = FirebaseVisionImage.fromBitmap(image)
