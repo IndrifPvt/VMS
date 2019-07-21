@@ -35,9 +35,11 @@
         </activity>
         <activity android:name=".ui.activities.CheckInActivity">
         </activity>
-        <activity android:name=".ui.activities.ChangePasswordActivity">
+        <activity android:name=".ui.activities.ChangePasswordActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name=".ui.activities.HistoryActivity">
+        <activity android:name=".ui.activities.HistoryActivity"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".ui.activities.CheckOutActivity">
         </activity>
@@ -47,7 +49,8 @@
         </activity>
         <activity android:name=".ui.activities.SiteSelectionActivity">
         </activity>
-        <activity android:name=".ui.activities.UserDetailActivity">
+        <activity android:name=".ui.activities.UserDetailActivity"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".ui.activities.MainActivity">
         </activity>
@@ -60,9 +63,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.LoginActivity">
+        <activity android:name=".ui.activities.LoginActivity"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".ui.activities.ForgotPaaswordActivity">
+        <activity android:name=".ui.activities.ForgotPaaswordActivity"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
                   android:theme="@style/Base.Theme.AppCompat"/>
