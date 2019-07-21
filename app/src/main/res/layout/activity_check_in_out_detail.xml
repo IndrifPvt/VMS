@@ -55,7 +55,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:background="@color/colorLightGray"
         app:layout_constraintTop_toBottomOf="@id/iv_history_detail_home"/>
-    <TextView
+    <!--<TextView
             android:id="@+id/tv_history_filter"
             android:layout_width="wrap_content"
             android:layout_height="19dp"
@@ -65,15 +65,17 @@
             android:onClick="onClick"
             app:layout_constraintEnd_toEndOf="@id/et_history_serach_name"
             app:layout_constraintTop_toTopOf="@+id/iv_filter"
-    app:layout_constraintBottom_toBottomOf="@+id/iv_filter"/>
+    app:layout_constraintBottom_toBottomOf="@+id/iv_filter"/>-->
     <ImageView
             android:id="@+id/iv_filter"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:padding="@dimen/_5sdp"
-            android:src="@drawable/filter"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:src="@mipmap/img_filter"
             app:layout_constraintTop_toBottomOf="@+id/et_history_serach_name"
-            app:layout_constraintEnd_toStartOf="@+id/tv_history_filter" android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"/>
     <TextView
             android:id="@+id/tv_block"
             android:layout_width="wrap_content"
@@ -86,8 +88,7 @@
             android:layout_marginTop="@dimen/_18sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_unit"
-            app:layout_constraintTop_toBottomOf="@id/tv_history_filter"
-    />
+            app:layout_constraintTop_toBottomOf="@id/iv_filter"/>
 
     <TextView
             android:id="@+id/tv_unit"
@@ -102,7 +103,7 @@
             android:layout_marginTop="@dimen/_18sdp"
             app:layout_constraintStart_toEndOf="@id/tv_block"
             app:layout_constraintEnd_toStartOf="@id/tv_level"
-            app:layout_constraintTop_toBottomOf="@id/tv_history_filter"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_filter"/>
 
 
    <!-- <de.hdodenhof.circleimageview.CircleImageView
@@ -194,7 +195,7 @@
             android:layout_marginTop="@dimen/_18sdp"
             app:layout_constraintStart_toEndOf="@id/tv_unit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_history_filter"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_filter"/>
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_checkinhistory"
             android:layout_width="match_parent"
