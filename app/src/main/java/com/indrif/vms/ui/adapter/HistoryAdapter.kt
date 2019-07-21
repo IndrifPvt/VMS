@@ -9,10 +9,12 @@ import com.indrif.vms.R
 import com.indrif.vms.data.interfaces.ClickListener
 import com.indrif.vms.models.SiteData
 import com.indrif.vms.models.User
+import com.indrif.vms.utils.AppConstants
+import com.indrif.vms.utils.CommonUtils
 import kotlinx.android.synthetic.main.layout_history_search_detail_item.view.*
 import kotlinx.android.synthetic.main.spinner_item.view.*
 
-class HistoryAdapter(private val context: Context, private val siteList: ArrayList<User>/* var clickListener: ClickListener*/) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>(){
+class HistoryAdapter(private val context: Context, private val siteList: ArrayList<User>, var clickListener: ClickListener) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>(){
     override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder?.bindItems(position)      }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,14 +31,13 @@ class HistoryAdapter(private val context: Context, private val siteList: ArrayLi
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(position: Int) {
             val siteListObj = siteList[position]
-
+                CommonUtils.setImage(context, itemView.profile_image, AppConstants.IMAGE_PREFIX+siteListObj.image, R.drawable.dummy_user)
             itemView.tv_block_value.text = siteList.get(position).block
             itemView.tv_level_value.text = siteList.get(position).level
             itemView.tv_unit_value.text = siteList.get(position).unit
-           /* itemView.setOnClickListener(View.OnClickListener {
+            itemView.setOnClickListener(View.OnClickListener {
                 clickListener.onItemClicked(adapterPosition)
             })
-*/
         }
     }
 

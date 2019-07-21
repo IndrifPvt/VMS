@@ -51,20 +51,20 @@ class HistoryActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
-        fromcal = Calendar.getInstance();
-        tocal = Calendar.getInstance();
+        fromcal = Calendar.getInstance()
+        tocal = Calendar.getInstance()
         tocal!!.add(Calendar.DATE,0)
-        var c = Calendar.getInstance();
-        hr = c.get(Calendar.HOUR_OF_DAY);
-        min = c.get(Calendar.MINUTE);
-        updateTime(hr, min,"initialize");
-        calendar = Calendar.getInstance();
-        year = calendar!!.get(Calendar.YEAR);
-        month = calendar!!.get(Calendar.MONTH);
-        day = calendar!!.get(Calendar.DAY_OF_MONTH);
-        var monthnames = calendar!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        var c = Calendar.getInstance()
+        hr = c.get(Calendar.HOUR_OF_DAY)
+        min = c.get(Calendar.MINUTE)
+        updateTime(hr, min,"initialize")
+        calendar = Calendar.getInstance()
+        year = calendar!!.get(Calendar.YEAR)
+        month = calendar!!.get(Calendar.MONTH)
+        day = calendar!!.get(Calendar.DAY_OF_MONTH)
+        var monthnames = calendar!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
         var monname = monthnames.subSequence(0,3)
-        showDate(year, month+1, day,monname.toString(),"a");
+        showDate(year, month+1, day,monname.toString(),"a")
     }
     private fun utilTime(value: Int): String {
         return if (value < 10) "0$value" else value.toString()
@@ -86,7 +86,7 @@ class HistoryActivity : BaseActivty() {
                 var mTimePicker = TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
                     hr = selectedHour;
                     min = selectedMinute;
-                    updateTime(hr, min,"from");
+                    updateTime(hr, min,"from")
                     }
                 TimePickerDialog(this, mTimePicker, hr, min, false).show();
             }
@@ -94,7 +94,7 @@ class HistoryActivity : BaseActivty() {
                 var mTimePicker = TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
                     hr = selectedHour;
                     min = selectedMinute;
-                    updateTime(hr, min,"to");
+                    updateTime(hr, min,"to")
                 }
                 TimePickerDialog(this, mTimePicker, hr, min, false).show();
             }
@@ -141,12 +141,12 @@ class HistoryActivity : BaseActivty() {
                     tocal!!.set(arg1,arg2,arg3)
                     fromcal!!.set(arg1,arg2,arg3)
                     var monthname = tocal!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-                    count =1;
+                    count =1
                     showDate(arg1, arg2 + 1, arg3,monthname,"to")
                 }
                 todialog = DatePickerDialog(this,
                     myDateListener, year, month, day)
-                todialog!!.getDatePicker().setMaxDate(System.currentTimeMillis());
+                todialog!!.getDatePicker().setMaxDate(System.currentTimeMillis())
                 todialog!!.show()
             }
             R.id.btn_history_sign_in -> {
@@ -206,7 +206,7 @@ class HistoryActivity : BaseActivty() {
         if(come=="from") {
              mname = monthname.subSequence(0,3)
             fdate =StringBuilder().append(mname).append(" ")
-                .append(day).append(", ").append(year).toString()
+                .append(day).append(",").append(year).toString()
             tv_history_from_date_value.setText(
                 StringBuilder().append(day).append(" ")
                     .append(mname).append(", ").append(year)
@@ -216,7 +216,7 @@ class HistoryActivity : BaseActivty() {
         {
             mname = monthname.subSequence(0,3)
             todate =StringBuilder().append(mname).append(" ")
-                .append(day).append(", ").append(year).toString()
+                .append(day).append(",").append(year).toString()
             tv_history_to_date_value.setText(
                 StringBuilder().append(day).append(" ")
                     .append(mname).append(", ").append(year)
@@ -228,15 +228,14 @@ class HistoryActivity : BaseActivty() {
             fromcal!!.add(Calendar.DATE,-30)
             diff = fromcal!!.timeInMillis
             var y = fromcal!!.get(Calendar.YEAR)
-            var m = fromcal!!.get(Calendar.MONTH+1)
             var d =fromcal!!.get(Calendar.DAY_OF_MONTH)
-            var monthnames = fromcal!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            var monthnames = fromcal!!.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
             var monname = monthnames.subSequence(0,3)
             mname = monthname.subSequence(0,3)
             fdate =StringBuilder().append(monname).append(" ")
-                .append(d).append(", ").append(y).toString()
-            todate =StringBuilder().append(monname).append(" ")
-                .append(day).append(", ").append(year).toString()
+                .append(d).append(",").append(y).toString()
+            todate =StringBuilder().append(mname).append(" ")
+                .append(day).append(",").append(year).toString()
             tv_history_to_date_value.setText(
                 StringBuilder().append(day).append(" ")
                     .append(mname).append(", ").append(year))

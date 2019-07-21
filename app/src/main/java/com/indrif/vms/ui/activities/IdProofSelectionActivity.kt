@@ -25,6 +25,7 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark
 import com.google.firebase.ml.vision.text.FirebaseVisionText
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
+import com.indrif.vms.data.prefs.PreferenceHandler
 import com.indrif.vms.models.FaceDetectionModel
 import com.indrif.vms.models.Model
 import com.indrif.vms.models.TextRecognitionModel
@@ -109,6 +110,8 @@ class IdProofSelectionActivity : BaseActivty() {
     }
 
     private fun setAdapter() {
+        tv_selected_site.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
+
         val idProofArray =resources.getStringArray(R.array.id_array)
         val adapter = ArrayAdapter(this, R.layout.spinner_item, idProofArray)
         adapter.setDropDownViewResource(R.layout.spinner_item)

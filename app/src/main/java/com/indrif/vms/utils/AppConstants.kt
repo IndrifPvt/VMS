@@ -19,5 +19,6 @@ class AppConstants {
         val DELETE_SIGN = "sign"
         val DELETE_POD = "pod"
         val DELETE_DOC = "document"
+        val IMAGE_PREFIX ="http://3.220.217.201/user/"
     }
 }

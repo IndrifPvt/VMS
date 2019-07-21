@@ -64,7 +64,8 @@
             android:fontFamily="@font/ralewaymedium"
             android:onClick="onClick"
             app:layout_constraintEnd_toEndOf="@id/et_history_serach_name"
-            app:layout_constraintTop_toTopOf="@+id/iv_filter"/>
+            app:layout_constraintTop_toTopOf="@+id/iv_filter"
+    app:layout_constraintBottom_toBottomOf="@+id/iv_filter"/>
     <ImageView
             android:id="@+id/iv_filter"
             android:layout_width="@dimen/_30sdp"
@@ -73,7 +74,6 @@
             android:src="@drawable/filter"
             app:layout_constraintTop_toBottomOf="@+id/et_history_serach_name"
             app:layout_constraintEnd_toStartOf="@+id/tv_history_filter" android:layout_marginEnd="8dp"/>
-            app:layout_constraintEnd_toStartOf="@+id/tv_history_filter"/>
     <TextView
             android:id="@+id/tv_block"
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:textColor="@color/colorBlack"
             android:fontFamily="@font/ralewaybold"
             android:textSize="@dimen/_16sdp"
-            android:layout_marginStart="@dimen/_42sdp"
+            android:layout_marginStart="@dimen/_43sdp"
             android:layout_marginTop="@dimen/_18sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_unit"
@@ -102,8 +102,84 @@
             android:layout_marginTop="@dimen/_18sdp"
             app:layout_constraintStart_toEndOf="@id/tv_block"
             app:layout_constraintEnd_toStartOf="@id/tv_level"
-            app:layout_constraintTop_toBottomOf="@id/tv_history_filter"
+            app:layout_constraintTop_toBottomOf="@id/tv_history_filter"/>
+
+
+   <!-- <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="wrap_content"
+            app:civ_border_width="2dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:civ_border_color="#FF000000"/>
+
+
+    <TextView
+            android:id="@+id/tv_block_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Block"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:paddingStart="@dimen/_23sdp"
+            android:paddingEnd="@dimen/_23sdp"
+            android:background="@color/colorLightGray"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@font/ralewaymedium"
+            android:textColor="@color/colorGray"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintEnd_toStartOf="@id/tv_unit_value"
+            app:layout_constraintTop_toTopOf="@id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
     />
+
+    <TextView
+            android:id="@+id/tv_unit_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unit"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:paddingStart="@dimen/_23sdp"
+            android:paddingEnd="@dimen/_23sdp"
+            android:background="@color/colorLightGray"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@font/ralewaymedium"
+            android:textColor="@color/colorGray"
+            app:layout_constraintStart_toEndOf="@id/tv_block_value"
+            app:layout_constraintEnd_toStartOf="@id/tv_level_value"
+            app:layout_constraintTop_toTopOf="@id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            android:layout_marginStart="@dimen/_20sdp"
+    />
+    <TextView
+            android:id="@+id/tv_level_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:paddingStart="@dimen/_23sdp"
+            android:paddingEnd="@dimen/_23sdp"
+            android:background="@color/colorLightGray"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@font/ralewaymedium"
+            android:textColor="@color/colorGray"
+            app:layout_constraintStart_toEndOf="@id/tv_unit_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            android:layout_marginStart="@dimen/_20sdp"
+    />
+
+    -->
 
     <TextView
             android:id="@+id/tv_level"

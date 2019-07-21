@@ -1,7 +1,6 @@
 package com.indrif.vms.ui.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
@@ -9,14 +8,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
+import com.indrif.vms.data.interfaces.ClickListener
 import com.indrif.vms.models.User
 import com.indrif.vms.ui.adapter.HistoryAdapter
-import com.indrif.vms.utils.CommonUtils
 import kotlinx.android.synthetic.main.activity_check_in_out_detail.*
 
 class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuItemClickListener {
@@ -41,7 +38,6 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
             popup.show()
         }
     }
-
         }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -77,12 +73,22 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
         else {
             tv_no_data_found.visibility = GONE
             rv_checkinhistory.visibility = VISIBLE
-            val adapter = HistoryAdapter(this, userlist)
+            val adapter = HistoryAdapter(this, userlist, clickListener)
             rv_checkinhistory.layoutManager = LinearLayoutManager(this)
             rv_checkinhistory.setAdapter(adapter)
         }
     }
 
+    private var clickListener: ClickListener = object : ClickListener {
+        override fun onItemClicked(position: Int) {
+            try {
+                startActivity(Intent(applicationContext, UnderDevelopment::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
 
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }
 
