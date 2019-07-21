@@ -3,9 +3,9 @@ package com.indrif.vms.ui.activities
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
-import kotlinx.android.synthetic.main.activity_user_detail.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : BaseActivty() {
@@ -17,7 +17,8 @@ class UserProfileActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
-        val intent = intent
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        var intent = intent
         var args = intent.getBundleExtra("BUNDLE")
         //    if(args.getString("userComingFrom").equals("IdProofSelectionActivity")){
 
