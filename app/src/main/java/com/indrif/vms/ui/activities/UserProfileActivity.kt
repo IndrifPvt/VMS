@@ -13,6 +13,7 @@ class UserProfileActivity : BaseActivty() {
     private var nam=ArrayList<String>()
     var name:String?=""
     var d:String?=null
+    var selectedIdProof= ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,7 @@ class UserProfileActivity : BaseActivty() {
         //     }else {
         dob = args.getStringArrayList("Dob")
         nam = args.getStringArrayList("Name")
+        selectedIdProof = args.getString("selectedIdProof")
         val byteArray = getIntent().getByteArrayExtra("image")
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
         for (index in dob.indices) {
@@ -40,8 +42,10 @@ class UserProfileActivity : BaseActivty() {
         var nam = separated[1]
         //  name.replace(0,(stringLength?.minus(4)))
         et_id_no.setText(maskString(nam!!, 0, 6, '*'))
+        tv_user_name.setText((name!!.split(" "))[0])
         et_name.setText(name)
         profile_image.setImageBitmap(bmp)
+        et_id_type.setText(selectedIdProof)
 
     }
 

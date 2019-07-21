@@ -206,6 +206,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == RESULT_OK ) {
                     resultUri = result.uri
+                    showProgressDialog()
                     analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -297,6 +298,7 @@ class IdProofSelectionActivity : BaseActivty() {
              newParams.topMargin = top
              layout.removeView(customicon)
              layout.addView(customicon,newParams)*/
+            hideProgressDialog()
             blocktext.add(
                 Model(blockText,
                     Points(blockFrame!!.bottom,blockFrame!!.left,blockFrame!!.right,blockFrame!!.top)
@@ -405,12 +407,13 @@ class IdProofSelectionActivity : BaseActivty() {
         }
 
         var c=0;
-        var stream =  ByteArrayOutputStream();
+        var stream =  ByteArrayOutputStream()
         cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
-              var byteArray = stream!!.toByteArray();
+              var byteArray = stream!!.toByteArray()
         val intent = Intent(applicationContext, UserProfileActivity::class.java)
         val args = Bundle()
         args.putString("userComingFrom", "MainActivity")
+        args.putString("selectedIdProof",selectedIdProof)
         args.putStringArrayList("Dob",id)
         args.putStringArrayList("Name",name)
         intent.putExtra("BUNDLE", args)
@@ -466,52 +469,87 @@ class IdProofSelectionActivity : BaseActivty() {
         landmarkPaint.color = Color.RED
         landmarkPaint.style = Paint.Style.FILL
         landmarkPaint.strokeWidth = 8F
-        ftop=faces.get(0).boundingBox.top-30
-        fbottom=(faces.get(0).boundingBox.bottom)-50
-        var startx= faces.get(0).boundingBox.left-45
-        var starty= faces.get(0).boundingBox.top-140
-        var width = (faces.get(0).boundingBox.right+40- faces.get(0).boundingBox.left)+60
-        var height = ((faces.get(0).boundingBox.bottom+50)-(faces.get(0).boundingBox.top-100))+50
-        cropped = Bitmap.createBitmap(image,startx,starty,width,height)
-        for ((index, face) in faces.withIndex()) {
+       try {
+           ftop = faces.get(0).boundingBox.top - 30
+           fbottom = (faces.get(0).boundingBox.bottom) - 50
+           var startx = faces.get(0).boundingBox.left - 45
+           var starty = faces.get(0).boundingBox.top - 140
+           var width = (faces.get(0).boundingBox.right + 40 - faces.get(0).boundingBox.left) + 60
+           var height = ((faces.get(0).boundingBox.bottom + 50) - (faces.get(0).boundingBox.top - 100)) + 50
+           cropped = Bitmap.createBitmap(image, startx, starty, width, height)
+           for ((index, face) in faces.withIndex()) {
 
-            canvas.drawRect(face.boundingBox, facePaint)
+               canvas.drawRect(face.boundingBox, facePaint)
 
-            canvas.drawText("Face$index", (face.boundingBox.centerX() - face.boundingBox.width() / 2) + 8F, (face.boundingBox.centerY() + face.boundingBox.height() / 2) - 8F, faceTextPaint)
+               canvas.drawText(
+                   "Face$index",
+                   (face.boundingBox.centerX() - face.boundingBox.width() / 2) + 8F,
+                   (face.boundingBox.centerY() + face.boundingBox.height() / 2) - 8F,
+                   faceTextPaint
+               )
 
-            if (face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE) != null) {
-                val leftEye = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE)!!
-                canvas.drawCircle(leftEye.position.x, leftEye.position.y, 8F, landmarkPaint)
-            }
-            if (face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EYE) != null) {
-                val rightEye = face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EYE)!!
-                canvas.drawCircle(rightEye.position.x, rightEye.position.y, 8F, landmarkPaint)
-            }
-            if (face.getLandmark(FirebaseVisionFaceLandmark.NOSE_BASE) != null) {
-                val nose = face.getLandmark(FirebaseVisionFaceLandmark.NOSE_BASE)!!
-                canvas.drawCircle(nose.position.x, nose.position.y, 8F, landmarkPaint)
-            }
-            if (face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EAR) != null) {
-                val leftEar = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EAR)!!
-                canvas.drawCircle(leftEar.position.x, leftEar.position.y, 8F, landmarkPaint)
-            }
-            if (face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EAR) != null) {
-                val rightEar = face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EAR)!!
-                canvas.drawCircle(rightEar.position.x, rightEar.position.y, 8F, landmarkPaint)
-            }
-            if (face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_LEFT) != null && face.getLandmark(
-                    FirebaseVisionFaceLandmark.MOUTH_BOTTOM) != null && face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_RIGHT) != null) {
-                val leftMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_LEFT)!!
-                val bottomMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_BOTTOM)!!
-                val rightMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_RIGHT)!!
-                canvas.drawLine(leftMouth.position.x, leftMouth.position.y, bottomMouth.position.x, bottomMouth.position.y, landmarkPaint)
-                canvas.drawLine(bottomMouth.position.x, bottomMouth.position.y, rightMouth.position.x, rightMouth.position.y, landmarkPaint)
-            }
+               if (face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE) != null) {
+                   val leftEye = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE)!!
+                   canvas.drawCircle(leftEye.position.x, leftEye.position.y, 8F, landmarkPaint)
+               }
+               if (face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EYE) != null) {
+                   val rightEye = face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EYE)!!
+                   canvas.drawCircle(rightEye.position.x, rightEye.position.y, 8F, landmarkPaint)
+               }
+               if (face.getLandmark(FirebaseVisionFaceLandmark.NOSE_BASE) != null) {
+                   val nose = face.getLandmark(FirebaseVisionFaceLandmark.NOSE_BASE)!!
+                   canvas.drawCircle(nose.position.x, nose.position.y, 8F, landmarkPaint)
+               }
+               if (face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EAR) != null) {
+                   val leftEar = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EAR)!!
+                   canvas.drawCircle(leftEar.position.x, leftEar.position.y, 8F, landmarkPaint)
+               }
+               if (face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EAR) != null) {
+                   val rightEar = face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EAR)!!
+                   canvas.drawCircle(rightEar.position.x, rightEar.position.y, 8F, landmarkPaint)
+               }
+               if (face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_LEFT) != null && face.getLandmark(
+                       FirebaseVisionFaceLandmark.MOUTH_BOTTOM
+                   ) != null && face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_RIGHT) != null
+               ) {
+                   val leftMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_LEFT)!!
+                   val bottomMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_BOTTOM)!!
+                   val rightMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_RIGHT)!!
+                   canvas.drawLine(
+                       leftMouth.position.x,
+                       leftMouth.position.y,
+                       bottomMouth.position.x,
+                       bottomMouth.position.y,
+                       landmarkPaint
+                   )
+                   canvas.drawLine(
+                       bottomMouth.position.x,
+                       bottomMouth.position.y,
+                       rightMouth.position.x,
+                       rightMouth.position.y,
+                       landmarkPaint
+                   )
+               }
 
-            faceDetectionModels.add(FaceDetectionModel(index, "Smiling Probability  ${face.smilingProbability}"))
-            faceDetectionModels.add(FaceDetectionModel(index, "Left Eye Open Probability  ${face.leftEyeOpenProbability}"))
-            faceDetectionModels.add(FaceDetectionModel(index, "Right Eye Open Probability  ${face.rightEyeOpenProbability}"))
-        }
-        analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
+               faceDetectionModels.add(FaceDetectionModel(index, "Smiling Probability  ${face.smilingProbability}"))
+               faceDetectionModels.add(
+                   FaceDetectionModel(
+                       index,
+                       "Left Eye Open Probability  ${face.leftEyeOpenProbability}"
+                   )
+               )
+               faceDetectionModels.add(
+                   FaceDetectionModel(
+                       index,
+                       "Right Eye Open Probability  ${face.rightEyeOpenProbability}"
+                   )
+               )
+           }
+           analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
+       }
+       catch (e:Exception){
+           hideProgressDialog()
+           CommonUtils.showToastMessage(this,"Please Try Again.")
+       }
     }
 }
