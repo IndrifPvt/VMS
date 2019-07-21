@@ -23,15 +23,15 @@
             android:scaleType="fitXY"
             android:src="@mipmap/background" />
 
-        <CheckBox
-            android:id="@+id/cb_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_gallery_image"
-            android:layout_alignEnd="@+id/iv_gallery_image"
-            android:layout_alignRight="@+id/iv_gallery_image"
-            android:layout_margin="10dp"
-            android:button="@drawable/custom_check_box" />
+               <CheckBox
+                android:id="@+id/cb_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_gallery_image"
+                android:layout_alignEnd="@+id/iv_gallery_image"
+                android:layout_alignRight="@+id/iv_gallery_image"
+                android:layout_margin="10dp"
+                android:button="@drawable/custom_check_box" />
 
     </RelativeLayout>
 

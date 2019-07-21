@@ -7,7 +7,7 @@
 >
     <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
+            android:id="@+id/profile_image_view"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:src="@mipmap/background"
@@ -33,10 +33,10 @@
             android:textSize="@dimen/_15sdp"
             android:fontFamily="@font/ralewaymedium"
             android:textColor="@color/colorGray"
-            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintStart_toEndOf="@id/profile_image_view"
             app:layout_constraintEnd_toStartOf="@id/tv_unit_value"
-            app:layout_constraintTop_toTopOf="@id/profile_image"
-            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image_view"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
     />
 
     <TextView
@@ -55,8 +55,8 @@
             android:textColor="@color/colorGray"
             app:layout_constraintStart_toEndOf="@id/tv_block_value"
             app:layout_constraintEnd_toStartOf="@id/tv_level_value"
-            app:layout_constraintTop_toTopOf="@id/profile_image"
-            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image_view"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             android:layout_marginStart="@dimen/_20sdp"
     />
     <TextView
@@ -75,8 +75,8 @@
             android:textColor="@color/colorGray"
             app:layout_constraintStart_toEndOf="@id/tv_unit_value"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/profile_image"
-            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image_view"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             android:layout_marginStart="@dimen/_20sdp"
     />
 
