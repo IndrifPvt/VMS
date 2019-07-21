@@ -430,7 +430,6 @@ class IdProofSelectionActivity : BaseActivty() {
     }
 
     // for face
-
     private fun analyzeImageforface(image: Bitmap?) {
         if (image == null) {
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
