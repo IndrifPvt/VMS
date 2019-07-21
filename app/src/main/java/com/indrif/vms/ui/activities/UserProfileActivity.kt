@@ -1,15 +1,17 @@
 package com.indrif.vms.ui.activities
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
-import kotlinx.android.synthetic.main.activity_user_detail.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : BaseActivty() {
     private var dob=ArrayList<String>()
+    private var Dob=ArrayList<String>()
     private var nam=ArrayList<String>()
     var name:String?=""
     var d:String?=null
@@ -18,7 +20,8 @@ class UserProfileActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
-        val intent = intent
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        var intent = intent
         var args = intent.getBundleExtra("BUNDLE")
         //    if(args.getString("userComingFrom").equals("IdProofSelectionActivity")){
 
@@ -26,8 +29,10 @@ class UserProfileActivity : BaseActivty() {
         dob = args.getStringArrayList("Dob")
         nam = args.getStringArrayList("Name")
         selectedIdProof = args.getString("selectedIdProof")
+        Dob = args.getStringArrayList("DOB")
         val byteArray = getIntent().getByteArrayExtra("image")
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        var dateofbirth = Dob.get(0)
         for (index in dob.indices) {
             d = dob.get(index)
             d = d + " "
@@ -44,6 +49,7 @@ class UserProfileActivity : BaseActivty() {
         et_id_no.setText(maskString(nam!!, 0, 6, '*'))
         tv_user_name.setText((name!!.split(" "))[0])
         et_name.setText(name)
+        et_id_dob.setText(dateofbirth)
         profile_image.setImageBitmap(bmp)
         et_id_type.setText(selectedIdProof)
 
@@ -54,6 +60,10 @@ class UserProfileActivity : BaseActivty() {
             R.id.iv_history_back -> {
                 finish()
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
+            R.id.btn_next_purpose -> {
+                startActivity(Intent(applicationContext, UnderDevelopment::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
         }
     }

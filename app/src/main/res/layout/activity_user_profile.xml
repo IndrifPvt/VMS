@@ -28,7 +28,7 @@
         <ImageView
                 android:id="@+id/iv_history_back"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="23dp"
                 android:padding="@dimen/_3sdp"
                 android:onClick="onClick"
                 android:layout_marginTop="@dimen/_18sdp"
@@ -188,7 +188,7 @@
                             android:inputType="text"/>
                 </android.support.design.widget.TextInputLayout>
                 <Button
-                        android:id="@+id/btn_sign_in"
+                        android:id="@+id/btn_next_purpose"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/selectsite"

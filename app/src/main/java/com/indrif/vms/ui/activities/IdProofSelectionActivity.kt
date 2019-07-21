@@ -70,7 +70,6 @@ class IdProofSelectionActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_id_proof_selection)
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setAdapter()
     }
 
@@ -398,24 +397,32 @@ class IdProofSelectionActivity : BaseActivty() {
             }
 
         }
-        for (index in linetext.indices)
+      /*  for (index in linetext.indices)
         {
             if (linetext.get(index).zzbat.top>dobbtm && linetext.get(index).zzbat.bottom<ctop)
             {
                 dob.add(linetext.get(index).text!!)
             }
+        }*/
+        for (index in linetext.indices)
+        {
+            if (linetext.get(index).text!!.contains("-"))
+            {
+                dob.add(linetext.get(index).text!!)
+            }
         }
-
         var c=0;
         var stream =  ByteArrayOutputStream()
         cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
               var byteArray = stream!!.toByteArray()
         val intent = Intent(applicationContext, UserProfileActivity::class.java)
         val args = Bundle()
+
         args.putString("userComingFrom", "MainActivity")
         args.putString("selectedIdProof",selectedIdProof)
         args.putStringArrayList("Dob",id)
         args.putStringArrayList("Name",name)
+        args.putStringArrayList("DOB",dob)
         intent.putExtra("BUNDLE", args)
         intent.putExtra("image",byteArray);
         startActivity(intent)
