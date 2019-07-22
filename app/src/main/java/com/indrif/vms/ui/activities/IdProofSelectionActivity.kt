@@ -49,6 +49,7 @@ class IdProofSelectionActivity : BaseActivty() {
     private var uri: Uri?=null
     private var fulltext=ArrayList<String>()
     private var name=ArrayList<String>()
+    private var employer=ArrayList<String>()
     private var dob=ArrayList<String>()
     private var blocktext = ArrayList<Model>()
     private var linetext = ArrayList<Model>()
@@ -337,95 +338,131 @@ class IdProofSelectionActivity : BaseActivty() {
 
               }
           }*/
+          if(selectedIdProof =="ID CARD") {
+              for (index in linetext.indices) {
+                  if (linetext.get(index).text!!.contains("IDENTITY")) {
+                      id.add(linetext.get(index).text!!)
+                  }
+              }
+              var sleft = 0
+              var ctop = 0
+              for (index in linetext.indices) {
+                  if (linetext.get(index).text == "Name") {
+                      btm = linetext.get(index).zzbat.bottom
+                      top = linetext.get(index).zzbat.top
+                  }
+              }
 
-        for(index in linetext.indices)
-        {
-            if(linetext.get(index).text!!.contains("IDENTITY"))
-            {
-                id.add(linetext.get(index).text!!)
-            }
-        }
-        var sleft=0
-        var ctop=0
-        for ( index in linetext.indices)
-        {
-            if(linetext.get(index).text=="Name")
-            {
-                btm=linetext.get(index).zzbat.bottom
-                top=linetext.get(index).zzbat.top
-            }
-        }
+              for (index in linetext.indices) {
+                  if (linetext.get(index).text == "Race") {
+                      btm1 = linetext.get(index).zzbat.bottom
+                      top1 = linetext.get(index).zzbat.top
 
-        for ( index in linetext.indices)
-        {
-            if(linetext.get(index).text=="Race")
-            {
-                btm1=linetext.get(index).zzbat.bottom
-                top1=linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices) {
+                  if (linetext.get(index).text == "Date of birth") {
+                      dobbtm = linetext.get(index).zzbat.bottom
+                      dobtop = linetext.get(index).zzbat.top
 
-            }
-        }
-        for ( index in linetext.indices)
-        {
-            if(linetext.get(index).text=="Date of birth")
-            {
-                dobbtm=linetext.get(index).zzbat.bottom
-                dobtop=linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices) {
+                  if (linetext.get(index).text == "Country of birth") {
+                      ctop = linetext.get(index).zzbat.top
 
-            }
-        }
-        for ( index in linetext.indices)
-        {
-            if(linetext.get(index).text=="Country of birth")
-            {
-                ctop=linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices) {
+                  if (linetext.get(index).text == "Sex") {
+                      sleft = linetext.get(index).zzbat.left
+                  }
+              }
+              for (index in linetext.indices) {
+                  if (linetext.get(index).zzbat.top > ftop && linetext.get(index).zzbat.bottom < fbottom) {
+                      name.add(linetext.get(index).text!!)
+                  }
 
-            }
-        }
-        for ( index in linetext.indices)
-        {
-            if(linetext.get(index).text=="Sex")
-            {
-                sleft=linetext.get(index).zzbat.left
-            }
-        }
-        for ( index in linetext.indices)
-        {
-            if(linetext.get(index).zzbat.top>ftop && linetext.get(index).zzbat.bottom<fbottom )
-            {
-                name.add(linetext.get(index).text!!)
-            }
-
-        }
-      /*  for (index in linetext.indices)
+              }
+              /*  for (index in linetext.indices)
         {
             if (linetext.get(index).zzbat.top>dobbtm && linetext.get(index).zzbat.bottom<ctop)
             {
                 dob.add(linetext.get(index).text!!)
             }
         }*/
-        for (index in linetext.indices)
-        {
-            if (linetext.get(index).text!!.contains("-"))
-            {
-                dob.add(linetext.get(index).text!!)
-            }
-        }
-        var c=0;
-        var stream =  ByteArrayOutputStream()
-        cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+              for (index in linetext.indices) {
+                  if (linetext.get(index).text!!.contains("-")) {
+                      dob.add(linetext.get(index).text!!)
+                  }
+              }
+              var c = 0;
+              var stream = ByteArrayOutputStream()
+              cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
               var byteArray = stream!!.toByteArray()
-        val intent = Intent(applicationContext, UserProfileActivity::class.java)
-        val args = Bundle()
-
-        args.putString("userComingFrom", "MainActivity")
-        args.putString("selectedIdProof",selectedIdProof)
-        args.putStringArrayList("Dob",id)
-        args.putStringArrayList("Name",name)
-        args.putStringArrayList("DOB",dob)
-        intent.putExtra("BUNDLE", args)
-        intent.putExtra("image",byteArray);
-        startActivity(intent)
+              val intent = Intent(applicationContext, UserProfileActivity::class.java)
+              val args = Bundle()
+              args.putString("userComingFrom", "MainActivity")
+              args.putString("selectedIdProof", selectedIdProof)
+              args.putStringArrayList("Dob", id)
+              args.putStringArrayList("Name", name)
+              args.putStringArrayList("DOB", dob)
+              intent.putExtra("BUNDLE", args)
+              intent.putExtra("image", byteArray);
+              startActivity(intent)
+          }
+        else if(selectedIdProof == "S-PASS")
+          {
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Employer")
+                  {
+                      btm = linetext.get(index).zzbat.bottom
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Name")
+                  {
+                      top = linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.top < top )
+                  {
+                      employer.add(linetext.get(index).text!!)
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text!!.contains("S Pass No"))
+                  {
+                      top1 = linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).zzbat.top > top && linetext.get(index).zzbat.top < top1 )
+                  {
+                      name.add(linetext.get(index).text!!)
+                  }
+              }
+              var c = 0;
+              var stream = ByteArrayOutputStream()
+              cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+              var byteArray = stream!!.toByteArray()
+              val intent = Intent(applicationContext, UserProfileActivity::class.java)
+              val args = Bundle()
+              args.putString("userComingFrom", "MainActivity")
+              args.putString("selectedIdProof", selectedIdProof)
+              args.putStringArrayList("Dob", id)
+              args.putStringArrayList("Name", name)
+              args.putStringArrayList("DOB", dob)
+              intent.putExtra("BUNDLE", args)
+              intent.putExtra("image", byteArray);
+              startActivity(intent)
+          }
 
     }
 
@@ -448,7 +485,6 @@ class IdProofSelectionActivity : BaseActivty() {
         faceDetector.detectInImage(firebaseVisionImage)
             .addOnSuccessListener {
                 val mutableImage = image.copy(Bitmap.Config.ARGB_8888, true)
-
                 detectFaces(it, mutableImage)
             }
             .addOnFailureListener {
