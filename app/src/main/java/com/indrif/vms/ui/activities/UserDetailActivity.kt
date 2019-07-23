@@ -5,76 +5,35 @@ import android.os.Bundle
 import android.view.View
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
+import com.indrif.vms.models.User
+import com.indrif.vms.utils.CommonUtils
 import kotlinx.android.synthetic.main.activity_user_detail.*
 
 class UserDetailActivity : BaseActivty() {
-    private var dob=ArrayList<String>()
-    private var nam=ArrayList<String>()
-    var name:String?=""
-    var d:String?=null
-
+    lateinit var  userDetailsObj: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
-        val intent = intent
-        var args = intent.getBundleExtra("BUNDLE")
-    //    if(args.getString("userComingFrom").equals("IdProofSelectionActivity")){
-
-   //     }else {
-            dob = args.getStringArrayList("Dob")
-            nam = args.getStringArrayList("Name")
-            val byteArray = getIntent().getByteArrayExtra("image")
-            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-            for (index in dob.indices) {
-                d = dob.get(index)
-                d = d + " "
-            }
-            for (index in nam.indices) {
-                name = name + "" + nam.get(index)
-            }
-            val separated = d!!.split(".")
-            separated[0]
-            separated[1]
-            var nam = separated[1]
-           //  name.replace(0,(stringLength?.minus(4)))
-            tv_dob_value.setText(maskString(nam!!, 0, 6, '*'))
-            tv_name_value.setText(name)
-            iv_profile.setImageBitmap(bmp)
-     //   }
-
+        setInitdata()
     }
 
-    private fun maskString( strText:String, start:Int, end:Int, maskChar:Char):String
-    {
-        var startIndex = start
-        var endIndex = end
-        if(strText == null || strText.equals(""))
-            return "";
-
-        if(startIndex < 0)
-            startIndex = 0
-
-        if( endIndex > strText.length )
-            endIndex = strText.length
-
-        if(startIndex > endIndex)
-            throw  Exception("End index cannot be greater than start index");
-
-        var maskLength = endIndex - start
-
-        if(maskLength == 0)
-            return strText;
-
-        var sbMaskString =  StringBuilder(maskLength)
-        for(i in 1..maskLength) {
-            sbMaskString.append(maskChar);
-        }
-
-        return strText.substring(0, start)+ sbMaskString.toString()+ strText.substring(start + maskLength);
+    private fun setInitdata() {
+        userDetailsObj= getIntent().getSerializableExtra("userDetails") as User
+        CommonUtils.setImage(context, profile_image_detail,userDetailsObj.image, R.drawable.dummy_user)
+        tv_mask_id.text = userDetailsObj.idNumber
+        tv_id_type.text = userDetailsObj.idType
+        tv_contact.text = userDetailsObj.phoneNumber
+        tv_purpose.text = userDetailsObj.purpose
+        tv_check_in.text = userDetailsObj.checkInTime
+        tv_check_out.text = userDetailsObj.checkOutTime
+        tv_block.text = userDetailsObj.block
+        tv_level.text = userDetailsObj.level
+        tv_unit.text = userDetailsObj.unit
+        tv_remarks.text = userDetailsObj.remarks
     }
 
 
     override fun onClick(v: View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
+

@@ -31,7 +31,7 @@ class HistoryAdapter(private val context: Context, private val siteList: ArrayLi
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(position: Int) {
             val siteListObj = siteList[position]
-                CommonUtils.setImage(context, itemView.profile_image_view, AppConstants.IMAGE_PREFIX+siteListObj.image, R.drawable.dummy_user)
+                CommonUtils.setImage(context, itemView.profile_image_view,siteListObj.image, R.drawable.dummy_user)
             itemView.tv_block_value.text = siteList.get(position).block
             itemView.tv_level_value.text = siteList.get(position).level
             itemView.tv_unit_value.text = siteList.get(position).unit

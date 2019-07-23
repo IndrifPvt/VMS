@@ -250,7 +250,7 @@ class HistoryActivity : BaseActivty() {
         mountMap.put("fromDate", fdate)
         mountMap.put("toDate",todate)
         mountMap.put("type", "0")
-        try {
+        /*try {
             showProgressDialog()
             compositeDrawable.add(
                 repository.userHistory(mountMap)
@@ -260,12 +260,12 @@ class HistoryActivity : BaseActivty() {
                         try {
                             hideProgressDialog()
                             if (result.code == ApiConstants.SUCCESS_CODE) {
-                                Userlist = result.data.users
+                                Userlist = result.data.users*/
                                 val intent = Intent(this@HistoryActivity, CheckInOutDetailActivity::class.java)
-                                intent.putExtra("FILES_TO_SEND", Userlist)
+                                intent.putExtra("mountMap", mountMap)
                                 startActivity(intent)
                               overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                            } else
+                           /* } else
                                 CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
 
                         } catch (e: Exception) {
@@ -279,6 +279,6 @@ class HistoryActivity : BaseActivty() {
             )
         } catch (e: Exception) {
             e.printStackTrace()
-        }
+        }*/
     }
 }

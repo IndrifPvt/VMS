@@ -53,7 +53,6 @@ class SiteSelectionActivity : BaseActivty() {
                       try {
                           hideProgressDialog()
                           if (result.code == ApiConstants.SUCCESS_CODE) {
-                              Toast.makeText(context,"Length is"+result.data.sites.size,Toast.LENGTH_LONG).show()
                                  setAdapter(result.data.sites)
                           } else
                               CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)

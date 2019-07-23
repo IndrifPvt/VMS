@@ -5,6 +5,17 @@
         <item>S-PASS</item>
         <item>WORK PERMIT</item>
         <item>DRIVING LICENSE</item>
+        <item>NRIC</item>
         <item>OTHER</item>
     </string-array>
+
+    <string-array name="purpose_array">
+        <item>VISITOR</item>
+        <item>CONTRACTOR</item>
+        <item>DELIVERY</item>
+        <item>DROP OFF</item>
+        <item>PICK UP</item>
+        <item>OTHER</item>
+    </string-array>
+
 </resources>
