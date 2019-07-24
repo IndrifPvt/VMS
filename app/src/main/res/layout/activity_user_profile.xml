@@ -187,6 +187,29 @@
                             android:imeOptions="flagNoExtractUi"
                             android:inputType="text"/>
                 </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_employer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:hint="Employer"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_dob">
+
+                    <EditText
+                            android:id="@+id/et_id_employer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorBlack"
+                            android:gravity="start"
+                            android:drawableEnd="@drawable/ic_edit"
+                            android:fontFamily="@font/ralewayregular"
+                            android:drawablePadding="@dimen/_3sdp"
+                            android:textColorHint="@color/colorBlack"
+                            android:textColor="@color/colorBlack"
+                            android:imeOptions="flagNoExtractUi"
+                            android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
                 <Button
                         android:id="@+id/btn_next_purpose"
                         android:layout_width="match_parent"
@@ -202,7 +225,7 @@
                         android:layout_marginEnd="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/input_layout_dob" />
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_employer" />
 
 
             </android.support.constraint.ConstraintLayout>
