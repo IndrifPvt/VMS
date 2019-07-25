@@ -261,7 +261,7 @@ class HistoryActivity : BaseActivty() {
                             hideProgressDialog()
                             if (result.code == ApiConstants.SUCCESS_CODE) {
                                 Userlist = result.data.users*/
-                                val intent = Intent(this@HistoryActivity, CheckInOutDetailActivity::class.java)
+                                val intent = Intent(this, CheckInOutDetailActivity::class.java)
                                 intent.putExtra("mountMap", mountMap)
                                 startActivity(intent)
                               overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
