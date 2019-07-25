@@ -26,6 +26,22 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
     lateinit var mountMap: HashMap<String, String>
     var fromDate = ""
     var toDate = ""
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_check_in_out_detail)
+        setInitData()
+    }
+
+    private fun setInitData() {
+        mountMap = getIntent().getSerializableExtra("mountMap") as HashMap<String, String>
+        fromDate = mountMap.get("fromDate")!!
+        toDate = mountMap.get("toDate")!!
+        userhistory()
+        iv_filter.setOnClickListener(this@CheckInOutDetailActivity);
+
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_history_detail_back -> {
@@ -37,16 +53,16 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
 
-        R.id.iv_filter -> {
-            val popup = PopupMenu(this, v)
-            popup.setOnMenuItemClickListener(this)// to implement on click event on items of menu
-            val inflater = popup.getMenuInflater()
-            inflater.inflate(R.menu.filter_menu, popup.getMenu())
-            popup.gravity= Gravity.END
-            popup.show()
+            R.id.iv_filter -> {
+                val popup = PopupMenu(this, v)
+                popup.setOnMenuItemClickListener(this)// to implement on click event on items of menu
+                val inflater = popup.getMenuInflater()
+                inflater.inflate(R.menu.filter_menu, popup.getMenu())
+                popup.gravity= Gravity.END
+                popup.show()
+            }
         }
     }
-        }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -74,21 +90,6 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
             }
         }
         return true
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_check_in_out_detail)
-        setInitData()
-    }
-
-    private fun setInitData() {
-        mountMap = getIntent().getSerializableExtra("mountMap") as HashMap<String, String>
-        fromDate = mountMap.get("fromDate")!!
-        toDate = mountMap.get("toDate")!!
-        userhistory()
-        iv_filter.setOnClickListener(this@CheckInOutDetailActivity);
 
     }
 

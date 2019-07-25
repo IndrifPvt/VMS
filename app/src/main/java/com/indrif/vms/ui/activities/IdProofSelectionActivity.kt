@@ -91,7 +91,7 @@ class IdProofSelectionActivity : BaseActivty() {
             R.id.btn_scan_id -> {
                 if(selectedIdProof.equals("SELECT ID TYPE") ||selectedIdProof.equals("OTHER")){
                     if(selectedIdProof.equals("OTHER")) {
-                        val intent = Intent(this, UserDetailActivity::class.java)
+                        val intent = Intent(this, UnderDevelopment::class.java)
                         val args = Bundle()
                         args.putString("userComingFrom", "IdProofSelectionActivity")
                         intent.putExtra("BUNDLE", args)
@@ -99,7 +99,7 @@ class IdProofSelectionActivity : BaseActivty() {
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     }
                     else
-                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.select_site_message), R.color.colorPrimary)
+                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.select_id_message), R.color.colorPrimary)
                 }
                 else {
                    /* var intent = Intent(this, MainActivity::class.java)
