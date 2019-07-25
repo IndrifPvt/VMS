@@ -15,7 +15,6 @@ import android.widget.PopupMenu
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
 import com.indrif.vms.models.User
-import com.indrif.vms.ui.adapter.CheckInCheckOutAdapter
 import com.indrif.vms.ui.adapter.FilterAdapter
 import com.indrif.vms.utils.ApiConstants
 import com.indrif.vms.utils.CommonUtils

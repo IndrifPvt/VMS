@@ -110,6 +110,7 @@
     <string name="id_no_str">ID No</string>
     <string name="dob_str">DOB</string>
     <string name="contact_no">Contact Number</string>
+    <string name="select_id_message">Please select id before proceed.</string>
 
 
 </resources>

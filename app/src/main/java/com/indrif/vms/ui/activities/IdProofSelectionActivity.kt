@@ -64,6 +64,7 @@ class IdProofSelectionActivity : BaseActivty() {
     var top1:Int=0
     var ftop=0
     var fbottom=0
+    var left=0
     private var cameraFacing: Facing = Facing.FRONT
 
     private val faceDetectionModels = ArrayList<FaceDetectionModel>()
@@ -90,7 +91,7 @@ class IdProofSelectionActivity : BaseActivty() {
             R.id.btn_scan_id -> {
                 if(selectedIdProof.equals("SELECT ID TYPE") ||selectedIdProof.equals("OTHER")){
                     if(selectedIdProof.equals("OTHER")) {
-                        val intent = Intent(this, UserDetailActivity::class.java)
+                        val intent = Intent(this, UnderDevelopment::class.java)
                         val args = Bundle()
                         args.putString("userComingFrom", "IdProofSelectionActivity")
                         intent.putExtra("BUNDLE", args)
@@ -98,7 +99,7 @@ class IdProofSelectionActivity : BaseActivty() {
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     }
                     else
-                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.select_site_message), R.color.colorPrimary)
+                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.select_id_message), R.color.colorPrimary)
                 }
                 else {
                    /* var intent = Intent(this, MainActivity::class.java)
@@ -338,7 +339,7 @@ class IdProofSelectionActivity : BaseActivty() {
 
               }
           }*/
-          if(selectedIdProof =="ID CARD") {
+          if(selectedIdProof =="NRIC") {
               for (index in linetext.indices) {
                   if (linetext.get(index).text!!.contains("IDENTITY")) {
                       id.add(linetext.get(index).text!!)
@@ -404,7 +405,7 @@ class IdProofSelectionActivity : BaseActivty() {
               val args = Bundle()
               args.putString("userComingFrom", "MainActivity")
               args.putString("selectedIdProof", selectedIdProof)
-              args.putStringArrayList("Dob", id)
+              args.putStringArrayList("ID", id)
               args.putStringArrayList("Name", name)
               args.putStringArrayList("DOB", dob)
               intent.putExtra("BUNDLE", args)
@@ -439,6 +440,7 @@ class IdProofSelectionActivity : BaseActivty() {
                   if(linetext.get(index).text!!.contains("S Pass No"))
                   {
                       top1 = linetext.get(index).zzbat.top
+                      fbottom = linetext.get(index).zzbat.bottom
                   }
               }
               for (index in linetext.indices)
@@ -448,6 +450,21 @@ class IdProofSelectionActivity : BaseActivty() {
                       name.add(linetext.get(index).text!!)
                   }
               }
+              for (index in linetext.indices)
+          {
+              if(linetext.get(index).text!!.contains("Sector"))
+              {
+                  left = linetext.get(index).zzbat.left
+              }
+          }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).zzbat.top > fbottom && linetext.get(index).zzbat.right < left  )
+                  {
+                      id.add(linetext.get(index).text!!)
+                  }
+              }
+
               var c = 0;
               var stream = ByteArrayOutputStream()
               cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -456,12 +473,16 @@ class IdProofSelectionActivity : BaseActivty() {
               val args = Bundle()
               args.putString("userComingFrom", "MainActivity")
               args.putString("selectedIdProof", selectedIdProof)
-              args.putStringArrayList("Dob", id)
+              args.putStringArrayList("Employer", employer)
               args.putStringArrayList("Name", name)
-              args.putStringArrayList("DOB", dob)
+              args.putStringArrayList("ID", id)
               intent.putExtra("BUNDLE", args)
               intent.putExtra("image", byteArray);
               startActivity(intent)
+          }
+          else if(selectedIdProof == "DRIVING LICENSE")
+          {
+
           }
 
     }
@@ -497,7 +518,6 @@ class IdProofSelectionActivity : BaseActivty() {
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
-
         val canvas = Canvas(image)
         val facePaint = Paint()
         facePaint.color = Color.GREEN
@@ -594,4 +614,6 @@ class IdProofSelectionActivity : BaseActivty() {
            CommonUtils.showToastMessage(this,"Please Try Again.")
        }
     }
+
+
 }

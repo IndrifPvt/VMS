@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : BaseActivty() {
     private var dob=ArrayList<String>()
-    private var Dob=ArrayList<String>()
+    private var id=ArrayList<String>()
+    private var employer=ArrayList<String>()
     private var nam=ArrayList<String>()
     var name:String?=""
     var d:String?=null
@@ -20,38 +21,58 @@ class UserProfileActivity : BaseActivty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
+        input_layout_dob.visibility = View.INVISIBLE
+        input_layout_employer.visibility = View.INVISIBLE
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         var intent = intent
         var args = intent.getBundleExtra("BUNDLE")
         //    if(args.getString("userComingFrom").equals("IdProofSelectionActivity")){
 
         //     }else {
-        dob = args.getStringArrayList("Dob")
-        nam = args.getStringArrayList("Name")
         selectedIdProof = args.getString("selectedIdProof")
-        Dob = args.getStringArrayList("DOB")
+        nam = args.getStringArrayList("Name")
+        id = args.getStringArrayList("ID")
         val byteArray = getIntent().getByteArrayExtra("image")
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        var dateofbirth = Dob.get(0)
-        for (index in dob.indices) {
-            d = dob.get(index)
-            d = d + " "
-        }
+        et_id_type.setText(selectedIdProof)
+        profile_image.setImageBitmap(bmp)
         for (index in nam.indices) {
             name = name + "" + nam.get(index)
 
         }
-        val separated = d!!.split(".")
-        separated[0]
-        separated[1]
-        var nam = separated[1]
-        //  name.replace(0,(stringLength?.minus(4)))
-        et_id_no.setText(maskString(nam!!, 0, 6, '*'))
         tv_user_name.setText((name!!.split(" "))[0])
         et_name.setText(name)
-        et_id_dob.setText(dateofbirth)
-        profile_image.setImageBitmap(bmp)
-        et_id_type.setText(selectedIdProof)
+            if(selectedIdProof == "NRIC")
+            {
+                for (index in id.indices) {
+                    d = id.get(index)
+                    d = d + " "
+                }
+                val separated = d!!.split(".")
+                separated[0]
+                separated[1]
+                var nam = separated[1]
+                //  name.replace(0,(stringLength?.minus(4)))
+                et_id_no.setText(maskString(nam!!, 0, 6, '*'))
+                dob = args.getStringArrayList("DOB")
+                var dateofbirth = dob.get(0)
+                input_layout_dob.visibility = View.VISIBLE
+                et_id_dob.setText(dateofbirth)
+            }
+            else if(selectedIdProof == "S-PASS")
+            {
+                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+                employer = args.getStringArrayList("Employer")
+                input_layout_employer.visibility = View.VISIBLE
+                et_id_employer.setText(employer.get(0))
+            }
+
+
+
+
+
+
+
 
     }
 

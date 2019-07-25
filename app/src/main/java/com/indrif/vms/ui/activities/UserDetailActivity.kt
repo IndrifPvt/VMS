@@ -18,18 +18,20 @@ class UserDetailActivity : BaseActivty() {
     }
 
     private fun setInitdata() {
-        userDetailsObj= getIntent().getSerializableExtra("userDetails") as User
-        CommonUtils.setImage(context, profile_image_detail,userDetailsObj.image, R.drawable.dummy_user)
-        tv_mask_id.text = userDetailsObj.idNumber
-        tv_id_type.text = userDetailsObj.idType
-        tv_contact.text = userDetailsObj.phoneNumber
-        tv_purpose.text = userDetailsObj.purpose
-        tv_check_in.text = userDetailsObj.checkInTime
-        tv_check_out.text = userDetailsObj.checkOutTime
-        tv_block.text = userDetailsObj.block
-        tv_level.text = userDetailsObj.level
-        tv_unit.text = userDetailsObj.unit
-        tv_remarks.text = userDetailsObj.remarks
+        if(getIntent().getSerializableExtra("userDetails") != null) {
+            userDetailsObj = getIntent().getSerializableExtra("userDetails") as User
+            CommonUtils.setImage(context, profile_image_detail, userDetailsObj.image, R.drawable.dummy_user)
+            tv_mask_id.text = userDetailsObj.idNumber
+            tv_id_type.text = userDetailsObj.idType
+            tv_contact.text = userDetailsObj.phoneNumber
+            tv_purpose.text = userDetailsObj.purpose
+            tv_check_in.text = userDetailsObj.checkInTime
+            tv_check_out.text = userDetailsObj.checkOutTime
+            tv_block.text = userDetailsObj.block
+            tv_level.text = userDetailsObj.level
+            tv_unit.text = userDetailsObj.unit
+            tv_remarks.text = userDetailsObj.remarks
+        }
     }
 
 
