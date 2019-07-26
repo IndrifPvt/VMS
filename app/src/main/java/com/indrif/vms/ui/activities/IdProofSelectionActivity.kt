@@ -100,7 +100,7 @@ class IdProofSelectionActivity : BaseActivty() {
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     }
                     else
-                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.select_id_message), R.color.colorPrimary)
+                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.id_type_strg), R.color.colorPrimary)
                 }
                 else {
                    /* var intent = Intent(this, MainActivity::class.java)
@@ -126,7 +126,6 @@ class IdProofSelectionActivity : BaseActivty() {
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedIdProof = idProofArray[position]
-
             }
 
         }
@@ -208,7 +207,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == RESULT_OK ) {
                     resultUri = result.uri
-                    showProgressDialog()
+                //   showProgressDialog()
                     analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -254,6 +253,8 @@ class IdProofSelectionActivity : BaseActivty() {
         linetext.clear()
         name.clear()
         dob.clear()
+        id.clear()
+        employer.clear()
         var canvasicon = Canvas(image)
         val rectPaint = Paint()
         rectPaint.color = Color.RED
@@ -300,7 +301,7 @@ class IdProofSelectionActivity : BaseActivty() {
              newParams.topMargin = top
              layout.removeView(customicon)
              layout.addView(customicon,newParams)*/
-            hideProgressDialog()
+        //    hideProgressDialog()
             blocktext.add(
                 Model(blockText,
                     Points(blockFrame!!.bottom,blockFrame!!.left,blockFrame!!.right,blockFrame!!.top)
@@ -484,8 +485,141 @@ class IdProofSelectionActivity : BaseActivty() {
           else if(selectedIdProof == "DRIVING LICENSE")
           {
 
-          }
+             for(ind in linetext.indices)
+             {
+                 if(linetext.get(ind).text!!.contains("Number"))
+                 {
+                     btm = linetext.get(ind).zzbat.bottom
+                     val separated = linetext.get(ind).text!!.split("Number")
+                     separated[0]
+                     separated[1]
+                     var lnumber =  separated[1]
+                     if(lnumber.contains(":"))
+                     {
+                         var licensenum  = linetext.get(ind).text!!.split(":")
+                         licensenum[0]
+                         licensenum[1]
+                         id.add(licensenum[1])
+                     }
+                     else
+                     {
+                         id.add(lnumber)
+                     }
 
+                 }
+             }
+              for(ind in linetext.indices) {
+                  if (linetext.get(ind).text!!.contains("Date")) {
+                        top = linetext.get(ind).zzbat.top
+                  }
+              }
+              for(ind in linetext.indices) {
+                  if (linetext.get(ind).zzbat.top > btm && linetext.get(ind).zzbat.bottom < top ) {
+                      name.add(linetext.get(ind).text!!)
+                  }
+              }
+             /* for(ind in name.indices) {
+                  if(name.get(ind).contains("Name") || name.get(ind).contains("Date") || name.get(ind).contains(":"))
+                      {
+                          name.remove(name.get(ind))
+                      }
+              }*/
+              for(ind in linetext.indices) {
+                  if (linetext.get(ind).text!!.contains("Birth")) {
+                      var d = linetext.get(ind).text!!
+                      var dobs = d.split("Date")
+                      dobs[0]
+                      dobs[1]
+                      var dateofbirth =  dobs[1]
+                      if(dateofbirth.contains(":"))
+                      {
+                          var datofbirth = dateofbirth.split(":")
+                          datofbirth[0]
+                          datofbirth[1]
+                          var db =  datofbirth[1]
+                          dob.add(db)
+                      }
+                      else
+                      {
+                          dob.add(dateofbirth)
+                      }
+                  }
+              }
+              var c = 0;
+              var stream = ByteArrayOutputStream()
+              cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+              var byteArray = stream!!.toByteArray()
+              val intent = Intent(applicationContext, UserProfileActivity::class.java)
+              val args = Bundle()
+              args.putString("userComingFrom", "MainActivity")
+              args.putString("selectedIdProof", selectedIdProof)
+              args.putStringArrayList("Employer", employer)
+              args.putStringArrayList("Name", name)
+              args.putStringArrayList("ID", id)
+              intent.putExtra("BUNDLE", args)
+              intent.putExtra("image", byteArray);
+              startActivity(intent)
+          }
+          else if(selectedIdProof == "WORK PERMIT")
+          {
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Name")
+                  {
+                      btm = linetext.get(index).zzbat.bottom
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Occupation")
+                  {
+                      top = linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Employer")
+                  {
+                      btm1 = linetext.get(index).zzbat.bottom
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text!!.contains("Sector"))
+                  {
+                      top1 = linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.bottom < top)
+                  {
+                      name.add(linetext.get(index).text!!)
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < top1)
+                  {
+                      employer.add(linetext.get(index).text!!)
+                  }
+              }
+              var c = 0;
+              var stream = ByteArrayOutputStream()
+              cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+              var byteArray = stream!!.toByteArray()
+              val intent = Intent(applicationContext, UserProfileActivity::class.java)
+              val args = Bundle()
+              args.putString("userComingFrom", "MainActivity")
+              args.putString("selectedIdProof", selectedIdProof)
+              args.putStringArrayList("DOB", dob)
+              args.putStringArrayList("Name", name)
+              args.putStringArrayList("ID", id)
+              intent.putExtra("BUNDLE", args)
+              intent.putExtra("image", byteArray);
+              startActivity(intent)
+
+          }
     }
 
     // for face
