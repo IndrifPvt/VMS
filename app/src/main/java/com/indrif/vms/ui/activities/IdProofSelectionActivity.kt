@@ -35,6 +35,7 @@ import com.indrif.vms.utils.CommonUtils
 import com.otaliastudios.cameraview.Facing
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_id_proof_selection.*
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -91,9 +92,9 @@ class IdProofSelectionActivity : BaseActivty() {
             R.id.btn_scan_id -> {
                 if(selectedIdProof.equals("SELECT ID TYPE") ||selectedIdProof.equals("OTHER")){
                     if(selectedIdProof.equals("OTHER")) {
-                        val intent = Intent(this, UnderDevelopment::class.java)
+                        val intent = Intent(this, UserProfileActivity::class.java)
                         val args = Bundle()
-                        args.putString("userComingFrom", "IdProofSelectionActivity")
+                        args.putString("userComingFrom", "IdProofOtherSelection")
                         intent.putExtra("BUNDLE", args)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
