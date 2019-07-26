@@ -86,12 +86,16 @@ class UserProfileActivity : BaseActivty() {
                 input_layout_dob.visibility = View.VISIBLE
                 et_id_dob.setText(dob.get(0))
             }
-        else
+        else if(selectedIdProof == "WORK PERMIT")
             {
                 for (index in nam.indices) {
                     name = name + " " + nam.get(index)
                 }
-                tv_user_name.setText((name!!.split(" "))[0])
+                et_name.setText(name)
+                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+                employer = args.getStringArrayList("Employer")
+                input_layout_employer.visibility = View.VISIBLE
+                et_id_employer.setText(employer.get(0))
             }
 
 

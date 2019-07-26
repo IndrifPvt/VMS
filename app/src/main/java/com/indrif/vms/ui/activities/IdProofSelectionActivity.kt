@@ -552,14 +552,73 @@ class IdProofSelectionActivity : BaseActivty() {
               val args = Bundle()
               args.putString("userComingFrom", "MainActivity")
               args.putString("selectedIdProof", selectedIdProof)
-              args.putStringArrayList("DOB", dob)
+              args.putStringArrayList("Employer", employer)
               args.putStringArrayList("Name", name)
               args.putStringArrayList("ID", id)
               intent.putExtra("BUNDLE", args)
               intent.putExtra("image", byteArray);
               startActivity(intent)
           }
+          else if(selectedIdProof == "WORK PERMIT")
+          {
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Name")
+                  {
+                      btm = linetext.get(index).zzbat.bottom
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Occupation")
+                  {
+                      top = linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text == "Employer")
+                  {
+                      btm1 = linetext.get(index).zzbat.bottom
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).text!!.contains("Sector"))
+                  {
+                      top1 = linetext.get(index).zzbat.top
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.bottom < top)
+                  {
+                      name.add(linetext.get(index).text!!)
+                  }
+              }
+              for (index in linetext.indices)
+              {
+                  if(linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < top1)
+                  {
+                      employer.add(linetext.get(index).text!!)
+                  }
+              }
+              var c = 0;
+              var stream = ByteArrayOutputStream()
+              cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+              var byteArray = stream!!.toByteArray()
+              val intent = Intent(applicationContext, UserProfileActivity::class.java)
+              val args = Bundle()
+              args.putString("userComingFrom", "MainActivity")
+              args.putString("selectedIdProof", selectedIdProof)
+              args.putStringArrayList("DOB", dob)
+              args.putStringArrayList("Name", name)
+              args.putStringArrayList("ID", id)
+              intent.putExtra("BUNDLE", args)
+              intent.putExtra("image", byteArray);
+              startActivity(intent)
 
+          }
     }
 
     // for face
