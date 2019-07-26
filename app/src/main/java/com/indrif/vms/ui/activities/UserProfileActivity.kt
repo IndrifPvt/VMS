@@ -36,14 +36,13 @@ class UserProfileActivity : BaseActivty() {
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
         et_id_type.setText(selectedIdProof)
         profile_image.setImageBitmap(bmp)
-        for (index in nam.indices) {
-            name = name + "" + nam.get(index)
-
-        }
         tv_user_name.setText((name!!.split(" "))[0])
-        et_name.setText(name)
             if(selectedIdProof == "NRIC")
             {
+                for (index in nam.indices) {
+                    name = name + " " + nam.get(index)
+                }
+                et_name.setText(name)
                 for (index in id.indices) {
                     d = id.get(index)
                     d = d + " "
@@ -61,17 +60,39 @@ class UserProfileActivity : BaseActivty() {
             }
             else if(selectedIdProof == "S-PASS")
             {
+                for (index in nam.indices) {
+                    name = name + " " + nam.get(index)
+                }
+                et_name.setText(name)
                 et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
                 employer = args.getStringArrayList("Employer")
                 input_layout_employer.visibility = View.VISIBLE
                 et_id_employer.setText(employer.get(0))
             }
-
-
-
-
-
-
+            else if(selectedIdProof == "DRIVING LICENSE")
+            {
+                for(ind in nam!!.indices) {
+                    if(nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":"))
+                    {
+                        nam.remove(nam!!.get(ind))
+                    }
+                }
+                for (index in nam.indices) {
+                    name = name + " " + nam.get(index)
+                }
+                et_name.setText(name)
+                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+                dob = args.getStringArrayList("DOB")
+                input_layout_dob.visibility = View.VISIBLE
+                et_id_dob.setText(dob.get(0))
+            }
+        else
+            {
+                for (index in nam.indices) {
+                    name = name + " " + nam.get(index)
+                }
+                tv_user_name.setText((name!!.split(" "))[0])
+            }
 
 
     }
