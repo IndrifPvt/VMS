@@ -483,6 +483,80 @@ class IdProofSelectionActivity : BaseActivty() {
           else if(selectedIdProof == "DRIVING LICENSE")
           {
 
+             for(index in linetext.indices)
+             {
+                 if(linetext.get(index).text!!.contains("Number"))
+                 {
+                     btm = linetext.get(index).zzbat.bottom
+                     val separated = linetext.get(index).text!!.split("Number")
+                     separated[0]
+                     separated[1]
+                     var lnumber =  separated[1]
+                     if(lnumber.contains(":"))
+                     {
+                         var licensenum  = linetext.get(index).text!!.split(":")
+                         licensenum[0]
+                         licensenum[1]
+                         id.add(licensenum[1])
+                     }
+                     else
+                     {
+                         id.add(lnumber)
+                     }
+
+                 }
+             }
+              for(index in linetext.indices) {
+                  if (linetext.get(index).text!!.contains("Date")) {
+                        top = linetext.get(index).zzbat.top
+                  }
+              }
+              for(index in linetext.indices) {
+                  if (linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.bottom < top ) {
+                      name.add(linetext.get(index).text!!)
+                  }
+              }
+              for(index in name.indices) {
+                  if(name.get(index).contains("Name") || name.get(index).contains("Date") || name.get(index).contains(":"))
+                      {
+                          name.remove(name.get(index))
+                      }
+              }
+              for(index in linetext.indices) {
+                  if (linetext.get(index).text!!.contains("Birth")) {
+                      var d = linetext.get(index).text!!
+                      var dobs = d.split("Date")
+                      dobs[0]
+                      dobs[1]
+                      var dateofbirth =  dobs[1]
+                      if(dateofbirth.contains(":"))
+                      {
+                          var datofbirth = dateofbirth.split(":")
+                          datofbirth[0]
+                          datofbirth[1]
+                          var db =  datofbirth[1]
+                          dob.add(db)
+                      }
+                      else
+                      {
+                          dob.add(dateofbirth)
+                      }
+                  }
+              }
+              var c = 0;
+              var stream = ByteArrayOutputStream()
+              cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+              var byteArray = stream!!.toByteArray()
+              val intent = Intent(applicationContext, UserProfileActivity::class.java)
+              val args = Bundle()
+              args.putString("userComingFrom", "MainActivity")
+              args.putString("selectedIdProof", selectedIdProof)
+              args.putStringArrayList("Dob", dob)
+              args.putStringArrayList("Name", name)
+              args.putStringArrayList("ID", id)
+              intent.putExtra("BUNDLE", args)
+              intent.putExtra("image", byteArray);
+              startActivity(intent)
           }
 
     }
