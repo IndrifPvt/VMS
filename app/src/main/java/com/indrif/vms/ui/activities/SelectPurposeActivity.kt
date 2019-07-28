@@ -57,7 +57,7 @@ class SelectPurposeActivity : BaseActivty() {
         if (imageUri != null) {
             val file = FileUtils.getFile(context, imageUri)
             val userImageBody = RequestBody.create(MediaType.parse("image/*"), file)
-            val userImagePart = MultipartBody.Part.createFormData("pod_images[]", file?.name, userImageBody)
+            val userImagePart = MultipartBody.Part.createFormData("image", file?.name, userImageBody)
 
             try {
                 showProgressDialog()
@@ -69,8 +69,7 @@ class SelectPurposeActivity : BaseActivty() {
                             try {
                                 if (result.code == ApiConstants.SUCCESS_CODE) {
                                     hideProgressDialog()
-                                    CommonUtils.showMessagePopup(context, result.status, resources.getString(R.string.password_reset_msg), R.mipmap.success, clickListner,View.GONE)
-
+                                    CommonUtils.showMessagePopup(context, result.message, result.data.status , R.mipmap.success, clickListner,View.GONE)
                                 }
                                 else{
                                     hideProgressDialog()

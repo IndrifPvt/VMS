@@ -37,15 +37,21 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     var name:String?=""
     var d:String?=null
     var selectedIdProof= ""
+    var idNumberForServer =""
     private var userChoosenTask: String? = null
     private var galleryImageList: MutableList<String> = ArrayList()
     private var mImageUri: Uri? = null
     private var profileImageUri: Uri? = null
-
+    private var newname = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
+        dob.clear()
+        id.clear()
+        employer.clear()
+        nam.clear()
+        newname.clear()
         input_layout_dob.visibility = View.INVISIBLE
         input_layout_employer.visibility = View.INVISIBLE
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -54,18 +60,24 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         if (args.getString("userComingFrom") == "IdProofOtherSelection") {
             et_id_type.setText(args.getString("IdType"))
         } else {
-            selectedIdProof = args.getString("selectedIdProof")
+            selectedIdProof = args.getString("selectedIdProof")?: ""
             nam = args.getStringArrayList("Name")
             id = args.getStringArrayList("ID")
             val byteArray = getIntent().getByteArrayExtra("image")
             val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
             et_id_type.setText(selectedIdProof)
             profile_image.setImageBitmap(bmp)
-            tv_user_name.setText((name!!.split(" "))[0])
+
+            var buf = byteArray
+            profileImageUri = Uri.parse(String(buf))
+
             if (selectedIdProof == "NRIC") {
                 for (index in nam.indices) {
                     name = name + " " + nam.get(index)
                 }
+                var firstname = name!!.split(" ")
+                var names = firstname[1]
+                tv_user_name.setText(names)
                 et_name.setText(name)
                 for (index in id.indices) {
                     d = id.get(index)
@@ -82,34 +94,63 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 input_layout_dob.visibility = View.VISIBLE
                 et_id_dob.setText(dateofbirth)
             } else if (selectedIdProof == "S-PASS") {
-                for (index in nam.indices) {
-                    name = name + " " + nam.get(index)
+                for (ind in nam!!.indices) {
+                    if (nam.get(ind).contains("Sector") || nam.get(ind).contains(":")) {
+
+                    } else {
+                        newname.add(nam!!.get(ind))
+                    }
                 }
+                for (index in newname.indices) {
+                    name = name + " " + newname.get(index)
+                }
+                var firstname = name!!.split(" ")
+                if(firstname.size>0) {
+                    var names = firstname[1]
+                    tv_user_name.setText(names)
+                }
+                else
+                tv_user_name.setText(firstname[0])
                 et_name.setText(name)
                 et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
                 employer = args.getStringArrayList("Employer")
                 input_layout_employer.visibility = View.VISIBLE
-                et_id_employer.setText(employer.get(0))
+                et_id_employer.setText(employer.get(0)?: "")
             } else if (selectedIdProof == "DRIVING LICENSE") {
                 for (ind in nam!!.indices) {
                     if (nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":")) {
-                        nam.remove(nam!!.get(ind))
+
+                    } else {
+                        newname.add(nam!!.get(ind))
                     }
                 }
-                for (index in nam.indices) {
-                    name = name + " " + nam.get(index)
+                for (index in newname.indices) {
+                    name = name + " " + newname.get(index)
                 }
-                et_name.setText(name)
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+                var firstname = name!!.split(" ")
+                var names = firstname[1]
+                tv_user_name.setText(names?: "")
+                et_name.setText(name?: "")
+                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*')?: "")
                 dob = args.getStringArrayList("DOB")
                 input_layout_dob.visibility = View.VISIBLE
-                et_id_dob.setText(dob.get(0))
+                et_id_dob.setText(dob.get(0)?: "")
             } else if (selectedIdProof == "WORK PERMIT") {
-                for (index in nam.indices) {
-                    name = name + " " + nam.get(index)
+                for (ind in nam!!.indices) {
+                    if (nam!!.get(ind).contains("Name") || nam.get(ind).contains("Sector") || nam.get(ind).contains(":")) {
+
+                    } else {
+                        newname.add(nam!!.get(ind))
+                    }
                 }
+                for (index in newname.indices) {
+                    name = name + " " + newname.get(index)
+                }
+                var firstname = name!!.split(" ")
+                var names = firstname[1]
+                tv_user_name.setText(names)
                 et_name.setText(name)
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+                //   et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
                 employer = args.getStringArrayList("Employer")
                 input_layout_employer.visibility = View.VISIBLE
                 et_id_employer.setText(employer.get(0))
@@ -129,6 +170,11 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_history_back -> {
+                dob.clear()
+                id.clear()
+                employer.clear()
+                nam.clear()
+                newname.clear()
                 finish()
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
             }
@@ -137,30 +183,28 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 selectImage()
             }
             R.id.btn_next_purpose -> {
-              /*  var buf = getIntent().getByteArrayExtra("image")
-                var uri = Uri.parse(String(buf))*/
                 if(profileImageUri != null){
                     val intent = Intent(this, SelectPurposeActivity::class.java)
                     val args = Bundle()
                     args.putString("idType", et_id_type.text.toString().trim())
                     args.putString("name",  et_name.text.toString().trim())
-                    args.putString("idNumber",  et_id_no.text.toString().trim())
+                    args.putString("idNumber",  idNumberForServer)
                     args.putString("dob", et_id_dob.text.toString().trim())
                     args.putString("employer", et_id_employer.text.toString().trim())
                     intent.putExtra("BUNDLE", args)
                     intent.putExtra("imageUri", profileImageUri.toString())
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-            } else{
+                } else{
                     CommonUtils.showSnackbarMessage(context, "Please select image", R.color.colorPrimary)
                 }
             }
         }
     }
 
-
     private fun maskString( strText:String, start:Int, end:Int, maskChar:Char):String
     {
+        idNumberForServer = strText
         var startIndex = start
         var endIndex = end
         if(strText == null || strText.equals(""))
@@ -178,7 +222,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         var maskLength = endIndex - start
 
         if(maskLength == 0)
-            return strText
+            return strText;
 
         var sbMaskString =  StringBuilder(maskLength)
         for(i in 1..maskLength) {
@@ -272,7 +316,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == RESULT_OK) {
                     val resultUri = result.uri
-                     profileImageUri =resultUri
+                    profileImageUri =resultUri
                     CommonUtils.setImage(context, profile_image,profileImageUri.toString(), R.drawable.dummy_user)
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -283,26 +327,26 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
             AppConstants.GALLERY_INTENT -> {
                 if (data != null) {
                     galleryImageList.clear()
-                  //  imagesList.clear()
+                    //  imagesList.clear()
                     galleryImageList = data.getStringArrayListExtra("list")
-                   /* if (galleryImageList.size > 1) {
-                        val intent = Intent(context, GalleryCropActivity::class.java)
-                        val bundle = Bundle()
-                        bundle.putSerializable("list", imagesList)
-                        bundle.putString("userComingFrom","vehicle_checklist")
-                        intent.putExtras(bundle)
-                        startActivityForResult(intent, AppConstants.GALLERY_CROP_INTENT)
-                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                        return
-                    } else if */(galleryImageList.size == 1)
-                        CropImage.activity(getImageContentUri(context, File(galleryImageList.get(0)))).start(this)
+                    /* if (galleryImageList.size > 1) {
+                         val intent = Intent(context, GalleryCropActivity::class.java)
+                         val bundle = Bundle()
+                         bundle.putSerializable("list", imagesList)
+                         bundle.putString("userComingFrom","vehicle_checklist")
+                         intent.putExtras(bundle)
+                         startActivityForResult(intent, AppConstants.GALLERY_CROP_INTENT)
+                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                         return
+                     } else if */(galleryImageList.size == 1)
+                    CropImage.activity(getImageContentUri(context, File(galleryImageList.get(0)))).start(this)
                     return
                 }
             }
 
             AppConstants.GALLERY_CROP_INTENT -> {
                 if (data != null) {
-                   var imagesList = data.getSerializableExtra("list") as ArrayList<Uri>
+                    var imagesList = data.getSerializableExtra("list") as ArrayList<Uri>
                     if (imagesList.size > 0) {
                         profileImageUri = imagesList[0]
                         CommonUtils.setImage(context, profile_image,profileImageUri.toString(), R.drawable.dummy_user)
