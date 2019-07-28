@@ -16,6 +16,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     private var id=ArrayList<String>()
     private var employer=ArrayList<String>()
     private var nam=ArrayList<String>()
+    private var newname = ArrayList<String>()
     var name:String?=""
     var d:String?=null
     var selectedIdProof= ""
@@ -23,6 +24,11 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
+        dob.clear()
+        id.clear()
+        employer.clear()
+        nam.clear()
+        newname.clear()
         input_layout_dob.visibility = View.INVISIBLE
         input_layout_employer.visibility = View.INVISIBLE
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -38,12 +44,14 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
         et_id_type.setText(selectedIdProof)
         profile_image.setImageBitmap(bmp)
-        tv_user_name.setText((name!!.split(" "))[0])
         if(selectedIdProof == "NRIC")
         {
             for (index in nam.indices) {
                 name = name + " " + nam.get(index)
             }
+            var firstname =name!!.split(" ")
+            var names = firstname[1]
+            tv_user_name.setText(names)
             et_name.setText(name)
             for (index in id.indices) {
                 d = id.get(index)
@@ -62,9 +70,22 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         }
         else if(selectedIdProof == "S-PASS")
         {
-            for (index in nam.indices) {
-                name = name + " " + nam.get(index)
+            for(ind in nam!!.indices) {
+                if(nam.get(ind).contains("Sector") || nam.get(ind).contains(":"))
+                {
+
+                }
+                else
+                {
+                    newname.add(nam!!.get(ind))
+                }
             }
+            for (index in newname.indices) {
+                name = name + " " + newname.get(index)
+            }
+            var firstname =name!!.split(" ")
+            var names = firstname[1]
+            tv_user_name.setText(names)
             et_name.setText(name)
             et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
             employer = args.getStringArrayList("Employer")
@@ -76,12 +97,19 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
             for(ind in nam!!.indices) {
                 if(nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":"))
                 {
-                    nam.remove(nam!!.get(ind))
+
+                }
+                else
+                {
+                    newname.add(nam!!.get(ind))
                 }
             }
-            for (index in nam.indices) {
-                name = name + " " + nam.get(index)
+            for (index in newname.indices) {
+                name = name + " " + newname.get(index)
             }
+            var firstname =name!!.split(" ")
+            var names = firstname[1]
+            tv_user_name.setText(names)
             et_name.setText(name)
             et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
             dob = args.getStringArrayList("DOB")
@@ -90,11 +118,24 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         }
         else if(selectedIdProof == "WORK PERMIT")
         {
-            for (index in nam.indices) {
-                name = name + " " + nam.get(index)
+            for(ind in nam!!.indices) {
+                if(nam!!.get(ind).contains("Name") || nam.get(ind).contains("Sector") || nam.get(ind).contains(":"))
+                {
+
+                }
+                else
+                {
+                    newname.add(nam!!.get(ind))
+                }
             }
+            for (index in newname.indices) {
+                name = name + " " + newname.get(index)
+            }
+            var firstname =name!!.split(" ")
+            var names = firstname[1]
+            tv_user_name.setText(names)
             et_name.setText(name)
-            et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+         //   et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
             employer = args.getStringArrayList("Employer")
             input_layout_employer.visibility = View.VISIBLE
             et_id_employer.setText(employer.get(0))
@@ -114,6 +155,11 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.iv_history_back -> {
+                dob.clear()
+                id.clear()
+                employer.clear()
+                nam.clear()
+                newname.clear()
                 finish()
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
             }

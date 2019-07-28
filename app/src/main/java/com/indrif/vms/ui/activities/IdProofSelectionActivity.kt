@@ -207,7 +207,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == RESULT_OK ) {
                     resultUri = result.uri
-                //   showProgressDialog()
+                   showProgressDialog()
                     analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -301,7 +301,7 @@ class IdProofSelectionActivity : BaseActivty() {
              newParams.topMargin = top
              layout.removeView(customicon)
              layout.addView(customicon,newParams)*/
-        //    hideProgressDialog()
+           hideProgressDialog()
             blocktext.add(
                 Model(blockText,
                     Points(blockFrame!!.bottom,blockFrame!!.left,blockFrame!!.right,blockFrame!!.top)
@@ -553,7 +553,7 @@ class IdProofSelectionActivity : BaseActivty() {
               val args = Bundle()
               args.putString("userComingFrom", "MainActivity")
               args.putString("selectedIdProof", selectedIdProof)
-              args.putStringArrayList("Employer", employer)
+              args.putStringArrayList("DOB", dob)
               args.putStringArrayList("Name", name)
               args.putStringArrayList("ID", id)
               intent.putExtra("BUNDLE", args)
@@ -566,7 +566,7 @@ class IdProofSelectionActivity : BaseActivty() {
               {
                   if(linetext.get(index).text == "Name")
                   {
-                      btm = linetext.get(index).zzbat.bottom
+                      btm = linetext.get(index).zzbat.top
                   }
               }
               for (index in linetext.indices)
@@ -580,7 +580,7 @@ class IdProofSelectionActivity : BaseActivty() {
               {
                   if(linetext.get(index).text == "Employer")
                   {
-                      btm1 = linetext.get(index).zzbat.bottom
+                      btm1 = linetext.get(index).zzbat.top
                   }
               }
               for (index in linetext.indices)
@@ -592,7 +592,7 @@ class IdProofSelectionActivity : BaseActivty() {
               }
               for (index in linetext.indices)
               {
-                  if(linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.bottom < top)
+                  if(linetext.get(index).zzbat.top > top1 && linetext.get(index).zzbat.bottom < top)
                   {
                       name.add(linetext.get(index).text!!)
                   }
