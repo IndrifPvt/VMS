@@ -15,7 +15,7 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 
 class SelectPurposeActivity : BaseActivty() {
-
+   var selectedPurpose =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_purpose)
@@ -32,12 +32,14 @@ class SelectPurposeActivity : BaseActivty() {
     }
 
     private fun checkInUser() {
-        val mountMap = HashMap<String, RequestBody>()
+        var checkInCheckOutHashMap = intent.getSerializableExtra("checkInCheckOutHashMap") as (HashMap<String, RequestBody>)
+        checkInCheckOutHashMap.put("purpose", RequestBody.create(MediaType.parse("text/plain"), selectedPurpose.trim()))
+        checkInCheckOutHashMap.put("phoneNumber", RequestBody.create(MediaType.parse("text/plain"), et_contact_no.text.toString().trim()))
+        checkInCheckOutHashMap.put("remarks", RequestBody.create(MediaType.parse("text/plain"), et_remarks.text.toString().trim()))
+        checkInCheckOutHashMap.put("unit", RequestBody.create(MediaType.parse("text/plain"), tv_select_unit_value.text.toString().trim()))
+        checkInCheckOutHashMap.put("level", RequestBody.create(MediaType.parse("text/plain"), tv_select_level_value.text.toString().trim()))
+        checkInCheckOutHashMap.put("block", RequestBody.create(MediaType.parse("text/plain"), tv_select_block_value.text.toString().trim()))
 
-       /* mountMap.put("User_id", RequestBody.create(MediaType.parse("text/plain"), PreferenceHandler.readString(applicationContext, PreferenceHandler.USER_ID, "")))
-        mountMap.put("job_id", RequestBody.create(MediaType.parse("text/plain"), jobId))
-        mountMap.put("remarks", RequestBody.create(MediaType.parse("text/plain"), et_remarks.getText().toString().trim()))
-        mountMap.put("isUpdated", RequestBody.create(MediaType.parse("text/plain"), "true"))  */
     }
 
     private fun inItData() {
@@ -54,7 +56,7 @@ class SelectPurposeActivity : BaseActivty() {
 
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+                  selectedPurpose = idProofArray[position]
             }
 
         }

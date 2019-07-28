@@ -15,8 +15,7 @@ object PreferenceHandler {
     val PREF_KEY_ADDRESS = "PREF_KEY_ADDRESS"
     val IS_SITE_SELECTED = "IS_SITE_SELECTED"
     val SELECTED_SITE = "SELECTED_SITE"
-
-
+    val CHECK_IN_HASH_MAP = "CHECK_IN_HASH_MAP"
 
 
     fun writeBoolean(context: Context, key: String, value: Boolean) {
@@ -78,7 +77,5 @@ object PreferenceHandler {
         )
 
         preferences.edit().clear().commit()
-
-
     }
 }

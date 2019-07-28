@@ -8,8 +8,10 @@ import android.view.WindowManager
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
 import kotlinx.android.synthetic.main.activity_user_profile.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 
-class UserProfileActivity : BaseActivty() {
+class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     private var dob=ArrayList<String>()
     private var id=ArrayList<String>()
     private var employer=ArrayList<String>()
@@ -37,68 +39,76 @@ class UserProfileActivity : BaseActivty() {
         et_id_type.setText(selectedIdProof)
         profile_image.setImageBitmap(bmp)
         tv_user_name.setText((name!!.split(" "))[0])
-            if(selectedIdProof == "NRIC")
-            {
-                for (index in nam.indices) {
-                    name = name + " " + nam.get(index)
-                }
-                et_name.setText(name)
-                for (index in id.indices) {
-                    d = id.get(index)
-                    d = d + " "
-                }
-                val separated = d!!.split(".")
-                separated[0]
-                separated[1]
-                var nam = separated[1]
-                //  name.replace(0,(stringLength?.minus(4)))
-                et_id_no.setText(maskString(nam!!, 0, 6, '*'))
-                dob = args.getStringArrayList("DOB")
-                var dateofbirth = dob.get(0)
-                input_layout_dob.visibility = View.VISIBLE
-                et_id_dob.setText(dateofbirth)
+        if(selectedIdProof == "NRIC")
+        {
+            for (index in nam.indices) {
+                name = name + " " + nam.get(index)
             }
-            else if(selectedIdProof == "S-PASS")
-            {
-                for (index in nam.indices) {
-                    name = name + " " + nam.get(index)
-                }
-                et_name.setText(name)
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
-                employer = args.getStringArrayList("Employer")
-                input_layout_employer.visibility = View.VISIBLE
-                et_id_employer.setText(employer.get(0))
+            et_name.setText(name)
+            for (index in id.indices) {
+                d = id.get(index)
+                d = d + " "
             }
-            else if(selectedIdProof == "DRIVING LICENSE")
-            {
-                for(ind in nam!!.indices) {
-                    if(nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":"))
-                    {
-                        nam.remove(nam!!.get(ind))
-                    }
-                }
-                for (index in nam.indices) {
-                    name = name + " " + nam.get(index)
-                }
-                et_name.setText(name)
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
-                dob = args.getStringArrayList("DOB")
-                input_layout_dob.visibility = View.VISIBLE
-                et_id_dob.setText(dob.get(0))
+            val separated = d!!.split(".")
+            separated[0]
+            separated[1]
+            var nam = separated[1]
+            //  name.replace(0,(stringLength?.minus(4)))
+            et_id_no.setText(maskString(nam!!, 0, 6, '*'))
+            dob = args.getStringArrayList("DOB")
+            var dateofbirth = dob.get(0)
+            input_layout_dob.visibility = View.VISIBLE
+            et_id_dob.setText(dateofbirth)
+        }
+        else if(selectedIdProof == "S-PASS")
+        {
+            for (index in nam.indices) {
+                name = name + " " + nam.get(index)
             }
+            et_name.setText(name)
+            et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+            employer = args.getStringArrayList("Employer")
+            input_layout_employer.visibility = View.VISIBLE
+            et_id_employer.setText(employer.get(0))
+        }
+        else if(selectedIdProof == "DRIVING LICENSE")
+        {
+            for(ind in nam!!.indices) {
+                if(nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":"))
+                {
+                    nam.remove(nam!!.get(ind))
+                }
+            }
+            for (index in nam.indices) {
+                name = name + " " + nam.get(index)
+            }
+            et_name.setText(name)
+            et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+            dob = args.getStringArrayList("DOB")
+            input_layout_dob.visibility = View.VISIBLE
+            et_id_dob.setText(dob.get(0))
+        }
         else if(selectedIdProof == "WORK PERMIT")
-            {
-                for (index in nam.indices) {
-                    name = name + " " + nam.get(index)
-                }
-                et_name.setText(name)
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
-                employer = args.getStringArrayList("Employer")
-                input_layout_employer.visibility = View.VISIBLE
-                et_id_employer.setText(employer.get(0))
+        {
+            for (index in nam.indices) {
+                name = name + " " + nam.get(index)
             }
+            et_name.setText(name)
+            et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+            employer = args.getStringArrayList("Employer")
+            input_layout_employer.visibility = View.VISIBLE
+            et_id_employer.setText(employer.get(0))
+        }
+        et_id_no.onFocusChangeListener = this
+    }
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        if (!hasFocus) {
+            if (et_id_no.text.toString().length > 4)
+                et_id_no.setText(maskString(et_id_no.text.toString(), 0, et_id_no.text.toString().length - 4, '*'))
+            else
+                et_id_no.setText(maskString(et_id_no.text.toString(), 0, et_id_no.text.toString().length - 1, '*'))
 
-
+        }
     }
 
     override fun onClick(v: View) {
@@ -108,7 +118,30 @@ class UserProfileActivity : BaseActivty() {
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
             }
             R.id.btn_next_purpose -> {
-                startActivity(Intent(applicationContext, UnderDevelopment::class.java))
+                var checkInCheckOutHashMap: HashMap<String, RequestBody> = HashMap()
+                checkInCheckOutHashMap.put(
+                    "idType",
+                    RequestBody.create(MediaType.parse("text/plain"), et_id_type.text.toString().trim())
+                )
+                checkInCheckOutHashMap.put(
+                    "name",
+                    RequestBody.create(MediaType.parse("text/plain"), et_name.text.toString().trim())
+                )
+                checkInCheckOutHashMap.put(
+                    "idNumber",
+                    RequestBody.create(MediaType.parse("text/plain"), et_id_no.text.toString().trim())
+                )
+                checkInCheckOutHashMap.put(
+                    "dob",
+                    RequestBody.create(MediaType.parse("text/plain"), et_id_dob.text.toString().trim())
+                )
+                checkInCheckOutHashMap.put(
+                    "employer",
+                    RequestBody.create(MediaType.parse("text/plain"), et_id_employer.text.toString().trim())
+                )
+                val intent = Intent(this, SelectPurposeActivity::class.java)
+                intent.putExtra("checkInCheckOutHashMap", checkInCheckOutHashMap)
+                startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
         }
