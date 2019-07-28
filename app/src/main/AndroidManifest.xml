@@ -39,6 +39,15 @@
         <activity android:name=".ui.activities.ChangePasswordActivity"
                   android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
+        <activity android:name=".ui.activities.GalleryActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
+        </activity>
+        <activity android:name=".ui.activities.GalleryCropActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
+        </activity>
+        <activity android:name=".ui.activities.GalleryFullScreenActivity"
+                  android:windowSoftInputMode="adjustPan|adjustResize">
+        </activity>
         <activity android:name=".ui.activities.HistoryActivity"
                   android:windowSoftInputMode="stateHidden">
         </activity>

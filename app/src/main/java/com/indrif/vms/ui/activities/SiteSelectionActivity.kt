@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_site_selection.*
 
 class SiteSelectionActivity : BaseActivty() {
     private var selectedSite = ""
+    private var selectedSiteId = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_selection)
@@ -33,6 +34,7 @@ class SiteSelectionActivity : BaseActivty() {
                 else {
                     PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_SITE_SELECTED, true)
                     PreferenceHandler.writeString(applicationContext, PreferenceHandler.SELECTED_SITE, selectedSite)
+                    PreferenceHandler.writeString(applicationContext, PreferenceHandler.SITE_ID, selectedSiteId)
                     startActivity(Intent(this, DashBoardActivity::class.java))
                     finish()
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
@@ -78,7 +80,7 @@ class SiteSelectionActivity : BaseActivty() {
             siteArray.add(siteList.get(item).name)
         }
         val adapter = ArrayAdapter(this, R.layout.spinner_item, siteArray)
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item)
         sp_address.setAdapter(adapter)
         sp_address?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -87,6 +89,8 @@ class SiteSelectionActivity : BaseActivty() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedSite = siteArray[position]
+                if(position >0)
+                selectedSiteId = siteList[position-1]._id
             }
 
         }

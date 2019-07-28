@@ -95,6 +95,7 @@ class IdProofSelectionActivity : BaseActivty() {
                         val intent = Intent(this, UserProfileActivity::class.java)
                         val args = Bundle()
                         args.putString("userComingFrom", "IdProofOtherSelection")
+                        args.putString("IdType","OTHER")
                         intent.putExtra("BUNDLE", args)
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
@@ -467,7 +468,6 @@ class IdProofSelectionActivity : BaseActivty() {
                   }
               }
 
-              var c = 0;
               var stream = ByteArrayOutputStream()
               cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
               var byteArray = stream!!.toByteArray()
@@ -616,7 +616,7 @@ class IdProofSelectionActivity : BaseActivty() {
               args.putStringArrayList("Name", name)
               args.putStringArrayList("ID", id)
               intent.putExtra("BUNDLE", args)
-              intent.putExtra("image", byteArray);
+              intent.putExtra("image", byteArray)
               startActivity(intent)
 
           }

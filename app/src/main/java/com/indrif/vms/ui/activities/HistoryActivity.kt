@@ -249,11 +249,12 @@ class HistoryActivity : BaseActivty() {
         val mountMap = HashMap<String, String>()
         mountMap.put("fromDate", fdate)
         mountMap.put("toDate",todate)
+        mountMap.put("siteId",PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID,""))
         mountMap.put("type", "0")
         /*try {
             showProgressDialog()
             compositeDrawable.add(
-                repository.userHistory(mountMap)
+                repository.userHistory(mountMap
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe({ result ->

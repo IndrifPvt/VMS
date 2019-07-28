@@ -74,7 +74,7 @@
     <string name="select_images">Select Images</string>
     <string name="hint_google_drive">GoogleDrive</string>
     <string name="permision_denied">"Permission Denied!!!\n You cannot use local drive."</string>
-    <string name="max_ten_images">"You can only select maximum ten images"</string>
+    <string name="max_ten_images">"You can only select one images"</string>
 
     <string-array name="Issues">
         <item>Upright Vehicle with No Visible fluid leak</item>

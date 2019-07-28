@@ -124,7 +124,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sp_purpose"
             />
-            <TextView
+            <EditText
                     android:id="@+id/tv_select_block_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                     android:layout_marginStart="@dimen/_30sdp"
                     app:layout_constraintStart_toEndOf="@id/tv_select_block_value"
                     app:layout_constraintTop_toBottomOf="@id/sp_purpose"/>
-            <TextView
+            <EditText
                     android:id="@+id/tv_select_unit_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,8 +170,7 @@
                     android:textColor="@color/colorGray"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="@id/tv_unit"
-                    app:layout_constraintTop_toBottomOf="@id/tv_unit"
-            />
+                    app:layout_constraintTop_toBottomOf="@id/tv_unit"/>
             <TextView
                     android:id="@+id/tv_level"
                     android:layout_width="wrap_content"
@@ -248,7 +247,7 @@
                         android:textColor="@color/colorBlack"/>
             </android.support.design.widget.TextInputLayout>
             <Button
-                    android:id="@+id/btn_sign_in"
+                    android:id="@+id/btn_check_in_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/selectsite"

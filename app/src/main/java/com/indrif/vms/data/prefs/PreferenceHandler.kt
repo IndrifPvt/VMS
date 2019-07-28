@@ -16,6 +16,7 @@ object PreferenceHandler {
     val IS_SITE_SELECTED = "IS_SITE_SELECTED"
     val SELECTED_SITE = "SELECTED_SITE"
     val CHECK_IN_HASH_MAP = "CHECK_IN_HASH_MAP"
+    val SITE_ID = "SITE_ID"
 
 
     fun writeBoolean(context: Context, key: String, value: Boolean) {
