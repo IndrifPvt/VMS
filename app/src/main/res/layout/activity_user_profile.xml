@@ -194,7 +194,7 @@
                         android:layout_marginTop="@dimen/_25sdp"
                         android:hint="Employer"
                         android:layout_marginStart="@dimen/_7sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/input_layout_dob">
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_id_no">
 
                     <EditText
                             android:id="@+id/et_id_employer"
@@ -218,15 +218,14 @@
                         android:text="NEXT"
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="@color/colorWhite"
-                        android:layout_marginTop="@dimen/_80sdp"
+                        android:layout_marginTop="@dimen/_50sdp"
                         android:onClick="onClick"
                         android:visibility="visible"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/input_layout_employer" />
-
+                        app:layout_constraintTop_toBottomOf="@+id/input_layout_dob" />
 
             </android.support.constraint.ConstraintLayout>
 
