@@ -115,7 +115,8 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
                 employer = args.getStringArrayList("Employer")
                 input_layout_employer.visibility = View.VISIBLE
-                et_id_employer.setText(employer.get(0)?: "")
+                if(employer[0] != null)
+                    et_id_employer.setText(employer[0].toString())
             } else if (selectedIdProof == "DRIVING LICENSE") {
                 for (ind in nam!!.indices) {
                     if (nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":")) {

@@ -413,6 +413,10 @@ class IdProofSelectionActivity : BaseActivty() {
               args.putStringArrayList("DOB", dob)
               intent.putExtra("BUNDLE", args)
               intent.putExtra("image", byteArray);
+              /*intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
+              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+              intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
               startActivity(intent)
           }
         else if(selectedIdProof == "S-PASS")
@@ -480,6 +484,10 @@ class IdProofSelectionActivity : BaseActivty() {
               args.putStringArrayList("ID", id)
               intent.putExtra("BUNDLE", args)
               intent.putExtra("image", byteArray);
+            /*  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
+              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+              intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
               startActivity(intent)
           }
           else if(selectedIdProof == "DRIVING LICENSE")
@@ -557,7 +565,11 @@ class IdProofSelectionActivity : BaseActivty() {
               args.putStringArrayList("Name", name)
               args.putStringArrayList("ID", id)
               intent.putExtra("BUNDLE", args)
-              intent.putExtra("image", byteArray);
+              intent.putExtra("image", byteArray)
+             /* intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
+              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+              intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
               startActivity(intent)
           }
           else if(selectedIdProof == "WORK PERMIT")
@@ -617,6 +629,10 @@ class IdProofSelectionActivity : BaseActivty() {
               args.putStringArrayList("ID", id)
               intent.putExtra("BUNDLE", args)
               intent.putExtra("image", byteArray)
+            /*  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
+              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+              intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
               startActivity(intent)
 
           }
