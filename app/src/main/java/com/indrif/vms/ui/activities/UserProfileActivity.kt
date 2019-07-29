@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -21,11 +22,13 @@ import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
 import com.indrif.vms.utils.AppConstants
 import com.indrif.vms.utils.CommonUtils
+import com.softuvo.utils.FileUtils.Companion.getUri
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.dialog_photo_select.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 
@@ -67,10 +70,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
             val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
             et_id_type.setText(selectedIdProof)
             profile_image.setImageBitmap(bmp)
-
-            var buf = byteArray
-            profileImageUri = Uri.parse(String(buf))
-
+            profileImageUri= getImageUri(this,bmp)
             if (selectedIdProof == "NRIC") {
                 for (index in nam.indices) {
                     name = name + " " + nam.get(index)
@@ -407,4 +407,10 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
             }
         }
     }
+   private fun getImageUri(context:Context, inImage:Bitmap):Uri {
+    var bytes =  ByteArrayOutputStream()
+    inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+    var path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+    return Uri.parse(path)
+}
 }

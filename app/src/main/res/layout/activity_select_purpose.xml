@@ -122,27 +122,27 @@
                     android:layout_marginTop="@dimen/_18sdp"
                     app:layout_constraintStart_toStartOf="@id/tv_select_block_value"
                     app:layout_constraintEnd_toEndOf="@id/tv_select_block_value"
-                    app:layout_constraintTop_toBottomOf="@id/sp_purpose"
-            />
+                    app:layout_constraintTop_toBottomOf="@id/sp_purpose"/>
             <EditText
                     android:id="@+id/tv_select_block_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_65sdp"
                     android:layout_height="wrap_content"
                     android:hint="01"
+                    android:singleLine="true"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingBottom="@dimen/_6sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:paddingStart="@dimen/_23sdp"
                     android:paddingEnd="@dimen/_23sdp"
+                    android:imeOptions="flagNoExtractUi"
                     android:background="@color/colorLightGray"
                     android:textSize="@dimen/_15sdp"
                     android:fontFamily="@font/ralewaymedium"
                     android:textColor="@color/colorGray"
                     app:layout_constraintTop_toBottomOf="@id/tv_block"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_select_unit_value"
-            />
+                    app:layout_constraintEnd_toStartOf="@id/tv_select_unit_value"/>
             <TextView
                     android:id="@+id/tv_unit"
                     android:layout_width="wrap_content"
@@ -157,13 +157,15 @@
                     app:layout_constraintTop_toBottomOf="@id/sp_purpose"/>
             <EditText
                     android:id="@+id/tv_select_unit_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_65sdp"
                     android:layout_height="wrap_content"
                     android:hint="05"
+                    android:singleLine="true"
                     android:textColorHint="@color/colorDarkGray"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingBottom="@dimen/_6sdp"
+                    android:imeOptions="flagNoExtractUi"
                     android:paddingStart="@dimen/_23sdp"
                     android:paddingEnd="@dimen/_23sdp"
                     android:background="@color/colorLightGray"
@@ -191,13 +193,15 @@
 
             <EditText
                     android:id="@+id/tv_select_level_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_65sdp"
                     android:layout_height="wrap_content"
                     android:hint="04"
+                    android:imeOptions="flagNoExtractUi"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingBottom="@dimen/_6sdp"
                     android:paddingStart="@dimen/_23sdp"
+                    android:singleLine="true"
                     android:paddingEnd="@dimen/_23sdp"
                     android:textColorHint="@color/colorDarkGray"
                     android:background="@color/colorLightGray"
@@ -212,7 +216,7 @@
                     android:id="@+id/input_contact_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_22sdp"
                     android:hint="@string/contact_no"
                     android:layout_marginStart="@dimen/_7sdp"
                     app:layout_constraintTop_toBottomOf="@+id/tv_select_level_value">
@@ -233,7 +237,7 @@
                     android:id="@+id/input_layout_remarks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:hint="Remarks"
                     android:layout_marginStart="@dimen/_7sdp"
                     app:layout_constraintTop_toBottomOf="@+id/input_contact_no">
