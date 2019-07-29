@@ -59,6 +59,9 @@ interface ApiService {
     @POST("userHistory")
     fun userHistory(@Body map: Map<String, String>): Observable<ResponseModel>
 
+    @POST("checkOutUser")
+    fun checkOutUser(@Body map: Map<String, String>): Observable<ResponseModel>
+
     @Multipart
     @POST("checkInUser")
     fun checkInUser( @PartMap map: HashMap<String,RequestBody>, @Part userImagePart: MultipartBody.Part): Observable<ResponseModel>

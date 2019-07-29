@@ -46,7 +46,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     private var mImageUri: Uri? = null
     private var profileImageUri: Uri? = null
     private var newname = ArrayList<String>()
-
+    private  var userComingBy = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -60,6 +60,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         var intent = intent
         var args = intent.getBundleExtra("BUNDLE")
+        userComingBy = args.getString("userComingBy")
         if (args.getString("userComingFrom") == "IdProofOtherSelection") {
             et_id_type.setText(args.getString("IdType"))
         } else {
@@ -187,6 +188,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 if(profileImageUri != null){
                     val intent = Intent(this, SelectPurposeActivity::class.java)
                     val args = Bundle()
+                    args.putString("userComingBy", userComingBy)
                     args.putString("idType", et_id_type.text.toString().trim())
                     args.putString("name",  et_name.text.toString().trim())
                     args.putString("idNumber",  idNumberForServer)
