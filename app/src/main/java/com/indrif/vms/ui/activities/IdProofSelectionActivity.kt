@@ -40,6 +40,7 @@ import kotlinx.android.synthetic.main.activity_id_proof_selection.*
 import okhttp3.RequestBody
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -226,16 +227,17 @@ class IdProofSelectionActivity : BaseActivty() {
                     resultUri = result.uri
                     showProgressDialog()
                     var image = MediaStore.Images.Media.getBitmap(contentResolver, resultUri)
-
+                    var  out =  ByteArrayOutputStream()
+                    image.compress(Bitmap.CompressFormat.PNG, 80, out)
+                    var decoded = BitmapFactory.decodeStream(ByteArrayInputStream(out.toByteArray()))
                     runOnUiThread(
                         object : Runnable {
                             override fun run() {
-                                analyzeImageforface(image)
+                                analyzeImageforface(decoded)
                             }
                         }
                     )
                     analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
-
 
                     // analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
                     /*object : AsyncTask<Void, Void, Void>() {
