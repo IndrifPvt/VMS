@@ -38,6 +38,8 @@ import com.otaliastudios.cameraview.Facing
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_id_proof_selection.*
 import okhttp3.RequestBody
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -224,7 +226,18 @@ class IdProofSelectionActivity : BaseActivty() {
                     resultUri = result.uri
                     showProgressDialog()
                     var image = MediaStore.Images.Media.getBitmap(contentResolver, resultUri)
-                    analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
+
+                    runOnUiThread(
+                        object : Runnable {
+                            override fun run() {
+                                analyzeImageforface(image)
+                            }
+                        }
+                    )
+                    analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
+
+
+                    // analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
                     /*object : AsyncTask<Void, Void, Void>() {
                         override fun doInBackground(vararg params: Void): Void {
                             if (image == null) {
@@ -765,12 +778,25 @@ class IdProofSelectionActivity : BaseActivty() {
                     )
                 )
             }*/
-            analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
+     //       analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
         } catch (e: Exception) {
             hideProgressDialog()
             CommonUtils.showToastMessage(this, "Please Try Again.")
         }
+
+
     }
+
+    val future = doAsync {
+        // do your background thread task
+       // result = someTask()
+
+        uiThread {
+            // use result here if you want to update ui
+         //   updateUI(result)
+        }
+    }
+
 
 }
 
