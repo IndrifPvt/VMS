@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.PopupMenu
 import com.indrif.vms.R
 import com.indrif.vms.core.BaseActivty
+import com.indrif.vms.data.prefs.PreferenceHandler
 import com.indrif.vms.models.User
 import com.indrif.vms.ui.adapter.FilterAdapter
 import com.indrif.vms.utils.ApiConstants
@@ -24,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_check_in_out_detail.*
 import java.util.HashMap
 
 class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.OnMenuItemClickListener,FilterAdapter.ItemClickListener {
-
 
     private var userlist: ArrayList<User> = ArrayList()
     lateinit var mountMap: HashMap<String, String>

@@ -33,20 +33,20 @@ import java.io.File
 import java.io.IOException
 
 class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
-    private var dob=ArrayList<String>()
-    private var id=ArrayList<String>()
-    private var employer=ArrayList<String>()
-    private var nam=ArrayList<String>()
-    var name:String?=""
-    var d:String?=null
-    var selectedIdProof= ""
-    var idNumberForServer =""
+    private var dob = ArrayList<String>()
+    private var id = ArrayList<String>()
+    private var employer = ArrayList<String>()
+    private var nam = ArrayList<String>()
+    var name: String? = ""
+    var d: String? = null
+    var selectedIdProof = ""
+    var idNumberForServer = ""
     private var userChoosenTask: String? = null
     private var galleryImageList: MutableList<String> = ArrayList()
     private var mImageUri: Uri? = null
     private var profileImageUri: Uri? = null
     private var newname = ArrayList<String>()
-    private  var userComingBy = ""
+    private var userComingBy = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -64,14 +64,14 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         if (args.getString("userComingFrom") == "IdProofOtherSelection") {
             et_id_type.setText(args.getString("IdType"))
         } else {
-            selectedIdProof = args.getString("selectedIdProof")?: ""
+            selectedIdProof = args.getString("selectedIdProof") ?: ""
             nam = args.getStringArrayList("Name")
             id = args.getStringArrayList("ID")
             val byteArray = getIntent().getByteArrayExtra("image")
             val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
             et_id_type.setText(selectedIdProof)
             profile_image.setImageBitmap(bmp)
-            profileImageUri= getImageUri(this,bmp)
+            profileImageUri = getImageUri(this, bmp)
             if (selectedIdProof == "NRIC") {
                 for (index in nam.indices) {
                     name = name + " " + nam.get(index)
@@ -106,18 +106,19 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                     name = name + " " + newname.get(index)
                 }
                 var firstname = name!!.split(" ")
-                if(firstname.size>0) {
+                if (firstname.size > 0) {
                     var names = firstname[1]
                     tv_user_name.setText(names)
-                }
-                else
-                tv_user_name.setText(firstname[0])
+                } else
+                    if (firstname.size > 0)
+                        tv_user_name.setText(firstname[0])
                 et_name.setText(name)
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+                if (id.size > 0)
+                    et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
                 employer = args.getStringArrayList("Employer")
                 input_layout_employer.visibility = View.VISIBLE
-                if(employer[0] != null)
-                    et_id_employer.setText(employer[0].toString())
+                if (employer.size > 0)
+                    et_id_employer.setText(employer.get(0))
             } else if (selectedIdProof == "DRIVING LICENSE") {
                 for (ind in nam!!.indices) {
                     if (nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":")) {
@@ -131,12 +132,12 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 }
                 var firstname = name!!.split(" ")
                 var names = firstname[1]
-                tv_user_name.setText(names?: "")
-                et_name.setText(name?: "")
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*')?: "")
+                tv_user_name.setText(names ?: "")
+                et_name.setText(name ?: "")
+                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*') ?: "")
                 dob = args.getStringArrayList("DOB")
                 input_layout_dob.visibility = View.VISIBLE
-                et_id_dob.setText(dob.get(0)?: "")
+                et_id_dob.setText(dob.get(0) ?: "")
             } else if (selectedIdProof == "WORK PERMIT") {
                 for (ind in nam!!.indices) {
                     if (nam!!.get(ind).contains("Name") || nam.get(ind).contains("Sector") || nam.get(ind).contains(":")) {
@@ -160,6 +161,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         }
         et_id_no.onFocusChangeListener = this
     }
+
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (!hasFocus) {
             if (et_id_no.text.toString().length > 4)
@@ -185,54 +187,53 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 selectImage()
             }
             R.id.btn_next_purpose -> {
-                if(profileImageUri != null){
+                if (profileImageUri != null) {
                     val intent = Intent(this, SelectPurposeActivity::class.java)
                     val args = Bundle()
                     args.putString("userComingBy", userComingBy)
                     args.putString("idType", et_id_type.text.toString().trim())
-                    args.putString("name",  et_name.text.toString().trim())
-                    args.putString("idNumber",  idNumberForServer)
+                    args.putString("name", et_name.text.toString().trim())
+                    args.putString("idNumber", idNumberForServer)
                     args.putString("dob", et_id_dob.text.toString().trim())
                     args.putString("employer", et_id_employer.text.toString().trim())
                     intent.putExtra("BUNDLE", args)
                     intent.putExtra("imageUri", profileImageUri.toString())
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                } else{
+                } else {
                     CommonUtils.showSnackbarMessage(context, "Please select image", R.color.colorPrimary)
                 }
             }
         }
     }
 
-    private fun maskString( strText:String, start:Int, end:Int, maskChar:Char):String
-    {
+    private fun maskString(strText: String, start: Int, end: Int, maskChar: Char): String {
         idNumberForServer = strText
         var startIndex = start
         var endIndex = end
-        if(strText == null || strText.equals(""))
+        if (strText == null || strText.equals(""))
             return "";
 
-        if(startIndex < 0)
+        if (startIndex < 0)
             startIndex = 0
 
-        if( endIndex > strText.length )
+        if (endIndex > strText.length)
             endIndex = strText.length
 
-        if(startIndex > endIndex)
+        if (startIndex > endIndex)
             throw  Exception("End index cannot be greater than start index");
 
         var maskLength = endIndex - start
 
-        if(maskLength == 0)
+        if (maskLength == 0)
             return strText;
 
-        var sbMaskString =  StringBuilder(maskLength)
-        for(i in 1..maskLength) {
+        var sbMaskString = StringBuilder(maskLength)
+        for (i in 1..maskLength) {
             sbMaskString.append(maskChar);
         }
 
-        return strText.substring(0, start)+ sbMaskString.toString()+ strText.substring(start + maskLength);
+        return strText.substring(0, start) + sbMaskString.toString() + strText.substring(start + maskLength);
     }
 
     private fun selectImage() {
@@ -284,21 +285,33 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     permissionCheck(0, 0)
                 } else
-                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.permision_denied), R.color.colorPrimary)
+                    CommonUtils.showSnackbarMessage(
+                        context,
+                        resources.getString(R.string.permision_denied),
+                        R.color.colorPrimary
+                    )
 
             AppConstants.REQUEST_CAMERA_PERMISSION_CODE ->
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (userChoosenTask == getString(R.string.take_photo))
                         selectionIntent(0)
                 } else
-                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.permision_denied), R.color.colorPrimary)
+                    CommonUtils.showSnackbarMessage(
+                        context,
+                        resources.getString(R.string.permision_denied),
+                        R.color.colorPrimary
+                    )
 
             AppConstants.REQUEST_READ_STORAGE_PERMISSION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (userChoosenTask.equals(getString(R.string.choose_photo), ignoreCase = true))
                         selectionIntent(1)
                 } else
-                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.permision_denied), R.color.colorPrimary)
+                    CommonUtils.showSnackbarMessage(
+                        context,
+                        resources.getString(R.string.permision_denied),
+                        R.color.colorPrimary
+                    )
             }
         }
     }
@@ -319,8 +332,8 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == RESULT_OK) {
                     val resultUri = result.uri
-                    profileImageUri =resultUri
-                    CommonUtils.setImage(context, profile_image,profileImageUri.toString(), R.drawable.dummy_user)
+                    profileImageUri = resultUri
+                    CommonUtils.setImage(context, profile_image, profileImageUri.toString(), R.drawable.dummy_user)
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     val error = result.error
@@ -352,7 +365,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                     var imagesList = data.getSerializableExtra("list") as ArrayList<Uri>
                     if (imagesList.size > 0) {
                         profileImageUri = imagesList[0]
-                        CommonUtils.setImage(context, profile_image,profileImageUri.toString(), R.drawable.dummy_user)
+                        CommonUtils.setImage(context, profile_image, profileImageUri.toString(), R.drawable.dummy_user)
 
                     }
                 }
@@ -393,7 +406,8 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             arrayOf(MediaStore.Images.Media._ID),
             MediaStore.Images.Media.DATA + "=? ",
-            arrayOf(filePath), null)
+            arrayOf(filePath), null
+        )
         if (cursor != null && cursor.moveToFirst()) {
             val id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID))
             cursor.close()
@@ -403,16 +417,18 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 val values = ContentValues()
                 values.put(MediaStore.Images.Media.DATA, filePath)
                 return context.contentResolver.insert(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values
+                )
             } else {
                 return null
             }
         }
     }
-   private fun getImageUri(context:Context, inImage:Bitmap):Uri {
-    var bytes =  ByteArrayOutputStream()
-    inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-    var path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-    return Uri.parse(path)
-}
+
+    private fun getImageUri(context: Context, inImage: Bitmap): Uri {
+        var bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        var path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path)
+    }
 }

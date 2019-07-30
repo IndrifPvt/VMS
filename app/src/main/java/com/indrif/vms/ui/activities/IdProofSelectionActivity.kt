@@ -7,10 +7,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -45,8 +47,8 @@ class IdProofSelectionActivity : BaseActivty() {
     private var userChoosenTask: String? = null
     private var mImageUri: Uri? = null
     private var textRecognitionModels = ArrayList<TextRecognitionModel>()
-    private var mutableImage: Bitmap? = null
-    private var mutableImageTest: Bitmap? = null
+    public var mutableImage: Bitmap? = null
+    public var mutableImageTest: Bitmap? = null
     private var uri: Uri? = null
     private var fulltext = ArrayList<String>()
     private var name = ArrayList<String>()
@@ -221,7 +223,31 @@ class IdProofSelectionActivity : BaseActivty() {
                 if (resultCode == RESULT_OK) {
                     resultUri = result.uri
                     showProgressDialog()
+                    var image = MediaStore.Images.Media.getBitmap(contentResolver, resultUri)
                     analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
+                    /*object : AsyncTask<Void, Void, Void>() {
+                        override fun doInBackground(vararg params: Void): Void {
+                            if (image == null) {
+                                // Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+                                return params.get(0)
+                            }
+
+                            return params[0]
+                        }
+
+                        override fun onPreExecute() {
+                            super.onPreExecute()
+
+                        }
+
+
+                        override fun onPostExecute(result: Void?) {
+                            super.onPostExecute(result)
+                            *//*  if (progressDialog != null && progressDialog.isShowing())
+                                  progressDialog.cancel()*//*
+                        }
+                    }.execute()*/
+
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     val error = result.error
@@ -243,8 +269,8 @@ class IdProofSelectionActivity : BaseActivty() {
         val textRecognizer = FirebaseVision.getInstance().onDeviceTextRecognizer
         textRecognizer.processImage(firebaseVisionImage)
             .addOnSuccessListener {
-                mutableImage = image.copy(Bitmap.Config.ARGB_8888, true)
-                recognizeText(it, mutableImage)
+                // mutableImage = image.copy(Bitmap.Config.ARGB_8888, true)
+                recognizeText(it)
 
                 // var layout = findViewById(R.id.cl_main) as ConstraintLayout
                 // var crop=CropView(applicationContext)
@@ -257,8 +283,8 @@ class IdProofSelectionActivity : BaseActivty() {
 
     }
 
-    private fun recognizeText(result: FirebaseVisionText?, image: Bitmap?) {
-        if (result == null || image == null) {
+    fun recognizeText(result: FirebaseVisionText?/*, image: Bitmap?*/) {
+        if (result == null) {
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
@@ -269,14 +295,14 @@ class IdProofSelectionActivity : BaseActivty() {
         dob.clear()
         id.clear()
         employer.clear()
-        var canvasicon = Canvas(image)
+        /*  var canvasicon = Canvas(image)
         val rectPaint = Paint()
         rectPaint.color = Color.RED
         rectPaint.style = Paint.Style.STROKE
         rectPaint.strokeWidth = 6F
         val textPaint = Paint()
         textPaint.color = Color.RED
-        textPaint.textSize = 40F
+        textPaint.textSize = 40F*/
 
         var index = 0
         for (block in result.textBlocks) {
@@ -290,19 +316,18 @@ class IdProofSelectionActivity : BaseActivty() {
             var top = blockFrame!!.top
             var bottom = blockFrame!!.bottom
 
-            val newParams = ConstraintLayout.LayoutParams(
+            /*   val newParams = ConstraintLayout.LayoutParams(
                 right - left, bottom - top
             )
             newParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
             newParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
             newParams.leftMargin = left
-            newParams.topMargin = top
+            newParams.topMargin = top*/
             /* anotherButton.layoutParams = newParams
              anotherButton.background = resources.getDrawable(R.drawable.textview_background)
              anotherButton.setPadding(3, 3, 3, 3)
              layout.addView(anotherButton, newParams)*/
-            canvasicon.drawRect(block.boundingBox, rectPaint)
-            Log.d("Text", blockText)
+            //  canvasicon.drawRect(block.boundingBox, rectPaint)
             //   canvasicon.drawText(index.toString(), block.cornerPoints!![2].x.toFloat(), block.cornerPoints!![2].y.toFloat(), textPaint)
             /* customicon=IconCropView(applicationContext)
              var layout = findViewById(R.id.cl_main) as ConstraintLayout
@@ -315,7 +340,6 @@ class IdProofSelectionActivity : BaseActivty() {
              newParams.topMargin = top
              layout.removeView(customicon)
              layout.addView(customicon,newParams)*/
-            hideProgressDialog()
             blocktext.add(
                 Model(
                     blockText,
@@ -421,7 +445,8 @@ class IdProofSelectionActivity : BaseActivty() {
             var stream = ByteArrayOutputStream()
             cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
             var byteArray = stream!!.toByteArray()
-            val intent = Intent(applicationContext, UserProfileActivity::class.java)
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
             val args = Bundle()
             args.putString("userComingFrom", "MainActivity")
             args.putString("userComingBy", userComingBy)
@@ -477,7 +502,8 @@ class IdProofSelectionActivity : BaseActivty() {
             var stream = ByteArrayOutputStream()
             cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
             var byteArray = stream!!.toByteArray()
-            val intent = Intent(applicationContext, UserProfileActivity::class.java)
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
             val args = Bundle()
             args.putString("userComingFrom", "MainActivity")
             args.putString("userComingBy", userComingBy)
@@ -550,7 +576,8 @@ class IdProofSelectionActivity : BaseActivty() {
             var stream = ByteArrayOutputStream()
             cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
             var byteArray = stream!!.toByteArray()
-            val intent = Intent(applicationContext, UserProfileActivity::class.java)
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
             val args = Bundle()
             args.putString("userComingFrom", "MainActivity")
             args.putString("userComingBy", userComingBy)
@@ -600,7 +627,8 @@ class IdProofSelectionActivity : BaseActivty() {
             var stream = ByteArrayOutputStream()
             cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
             var byteArray = stream!!.toByteArray()
-            val intent = Intent(applicationContext, UserProfileActivity::class.java)
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
             val args = Bundle()
             args.putString("userComingFrom", "MainActivity")
             args.putString("userComingBy", userComingBy)
@@ -625,9 +653,7 @@ class IdProofSelectionActivity : BaseActivty() {
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
-//        pd!!.show()
         faceDetectionModels.clear()
-
         val firebaseVisionImage = FirebaseVisionImage.fromBitmap(image)
         val options = FirebaseVisionFaceDetectorOptions.Builder()
             .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
@@ -650,7 +676,7 @@ class IdProofSelectionActivity : BaseActivty() {
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
-        val canvas = Canvas(image)
+      //  val canvas = Canvas(image)
         val facePaint = Paint()
         facePaint.color = Color.GREEN
         facePaint.style = Paint.Style.STROKE
@@ -671,7 +697,7 @@ class IdProofSelectionActivity : BaseActivty() {
             var width = (faces.get(0).boundingBox.right + 40 - faces.get(0).boundingBox.left) + 60
             var height = ((faces.get(0).boundingBox.bottom + 50) - (faces.get(0).boundingBox.top - 100)) + 50
             cropped = Bitmap.createBitmap(image, startx, starty, width, height)
-            for ((index, face) in faces.withIndex()) {
+            /* for ((index, face) in faces.withIndex()) {
 
                 canvas.drawRect(face.boundingBox, facePaint)
 
@@ -738,7 +764,7 @@ class IdProofSelectionActivity : BaseActivty() {
                         "Right Eye Open Probability  ${face.rightEyeOpenProbability}"
                     )
                 )
-            }
+            }*/
             analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
         } catch (e: Exception) {
             hideProgressDialog()
@@ -746,5 +772,5 @@ class IdProofSelectionActivity : BaseActivty() {
         }
     }
 
-
 }
+
