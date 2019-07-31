@@ -150,13 +150,18 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                     name = name + " " + newname.get(index)
                 }
                 var firstname = name!!.split(" ")
-                var names = firstname[1]
-                tv_user_name.setText(names)
+                if(firstname.size>1)
+                tv_user_name.setText(firstname[1])
+                else
+                    tv_user_name.setText(firstname[0])
+
                 et_name.setText(name)
                 //   et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
-                employer = args.getStringArrayList("Employer")
+                if(args.getStringArrayList("Employer") != null) {
+                    employer = args.getStringArrayList("Employer")
+                    et_id_employer.setText(employer.get(0))
+                }
                 input_layout_employer.visibility = View.VISIBLE
-                et_id_employer.setText(employer.get(0))
             }
         }
         et_id_no.onFocusChangeListener = this

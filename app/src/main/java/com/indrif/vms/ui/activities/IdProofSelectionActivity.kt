@@ -227,16 +227,8 @@ class IdProofSelectionActivity : BaseActivty() {
                     resultUri = result.uri
                     showProgressDialog()
                     var image = MediaStore.Images.Media.getBitmap(contentResolver, resultUri)
-                    var  out =  ByteArrayOutputStream()
-                    image.compress(Bitmap.CompressFormat.PNG, 80, out)
-                    var decoded = BitmapFactory.decodeStream(ByteArrayInputStream(out.toByteArray()))
-                    runOnUiThread(
-                        object : Runnable {
-                            override fun run() {
-                                analyzeImageforface(decoded)
-                            }
-                        }
-                    )
+
+                    analyzeImageforface(image)
                     analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
 
                     // analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
@@ -671,9 +663,9 @@ class IdProofSelectionActivity : BaseActivty() {
         faceDetectionModels.clear()
         val firebaseVisionImage = FirebaseVisionImage.fromBitmap(image)
         val options = FirebaseVisionFaceDetectorOptions.Builder()
-            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
-            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-            .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
+            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.NO_LANDMARKS)
+            .setClassificationMode(FirebaseVisionFaceDetectorOptions.NO_CLASSIFICATIONS)
             .build()
         val faceDetector = FirebaseVision.getInstance().getVisionFaceDetector(options)
         faceDetector.detectInImage(firebaseVisionImage)
@@ -789,7 +781,7 @@ class IdProofSelectionActivity : BaseActivty() {
 
     }
 
-    val future = doAsync {
+  /*  val future = doAsync {
         // do your background thread task
        // result = someTask()
 
@@ -797,7 +789,7 @@ class IdProofSelectionActivity : BaseActivty() {
             // use result here if you want to update ui
          //   updateUI(result)
         }
-    }
+    }*/
 
 
 }
