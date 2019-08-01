@@ -29,20 +29,20 @@ class CheckOutByIdActivity : BaseActivty() {
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)}
 
             R.id.btn_submit -> {
-                if (Validations.isNullOrEmpty(et_id_number)) {
+                if (!Validations.isNullOrEmpty(et_id_number)) {
                     if (isNetworkConnected())
                         checkOutUser(et_id_number.text.trim().toString())
                     else
                         CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_internet), R.color.colorPrimary)
                 } else
-                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_email_address), R.color.colorPrimary)
+                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_valid_id), R.color.colorPrimary)
             }
         }
     }
 
     private fun checkOutUser(idNumber:String) {
         val mountMap = HashMap<String, String>()
-        mountMap.put("userId", idNumber)
+        mountMap.put("idNumber", idNumber)
         mountMap.put("siteId", PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID, ""))
         try {
             showProgressDialog()
@@ -55,10 +55,10 @@ class CheckOutByIdActivity : BaseActivty() {
                             hideProgressDialog()
                             if (result.code == ApiConstants.SUCCESS_CODE) {
                                 hideProgressDialog()
-                                CommonUtils.showMessagePopup(context, result.message, result.data.status , R.mipmap.success, clickListner,View.GONE)
+                                CommonUtils.showMessagePopup(this, result.message, result.data.status , R.mipmap.success, clickListner,View.GONE)
                             } else{
                                 hideProgressDialog()
-                                CommonUtils.showSnackbarMessage(context, result.status, R.color.colorPrimary)
+                                CommonUtils.showSnackbarMessage(this, result.data.status, R.color.colorPrimary)
                             }
 
                         } catch (e: Exception) {

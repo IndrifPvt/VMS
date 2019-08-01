@@ -19,6 +19,7 @@ class CheckOutSelectionActivity : BaseActivty() {
         when (v.id) {
             R.id.iv_selected_check_out_back -> {
                 finish()
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
             }
 
             R.id.btn_check_out_id -> {

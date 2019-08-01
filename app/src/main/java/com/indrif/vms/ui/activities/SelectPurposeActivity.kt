@@ -68,17 +68,19 @@ class SelectPurposeActivity : BaseActivty() {
             val userImageBody = RequestBody.create(MediaType.parse("image/*"), file)
             val userImagePart = MultipartBody.Part.createFormData("image", file?.name, userImageBody)
             callCheckInCheckOut(checkInCheckOutHashMap, userImagePart)
-        }
-        else
-        {
+        } else {
             CommonUtils.showSnackbarMessage(context, "Please select image", R.color.colorPrimary)
         }
-
     }
-
 
     private fun inItData() {
         CommonUtils.setImage(context, profile_image, intent.extras.getString("imageUri"), R.drawable.dummy_user)
+        var intent = intent
+        var args = intent.getBundleExtra("BUNDLE")
+        if (args.getString("userComingBy").equals("checkIn", false))
+            btn_check_in_user.text = "CHECK IN"
+        else
+            btn_check_in_user.text = "CHECK OUT"
         setAdapter()
     }
 
@@ -115,82 +117,93 @@ class SelectPurposeActivity : BaseActivty() {
         }
     }
 
-    private fun callCheckInCheckOut(checkInCheckOutHashMap:HashMap<String, RequestBody>, userImagePart: MultipartBody.Part) {
+    private fun callCheckInCheckOut(
+        checkInCheckOutHashMap: HashMap<String, RequestBody>,
+        userImagePart: MultipartBody.Part
+    ) {
         var intent = intent
         var args = intent.getBundleExtra("BUNDLE")
 
-       if(args.getString("userComingBy").equals("checkIn",false)) {
-           try {
-               showProgressDialog()
-               compositeDrawable.add(
-                   repository.checkInUser(map = checkInCheckOutHashMap, userImagePart = userImagePart)
-                       .observeOn(AndroidSchedulers.mainThread())
-                       .subscribeOn(Schedulers.io())
-                       .subscribe({ result ->
-                           try {
-                               if (result.code == ApiConstants.SUCCESS_CODE) {
-                                   hideProgressDialog()
-                                   CommonUtils.showMessagePopup(
-                                       context,
-                                       result.message,
-                                       result.data.status,
-                                       R.mipmap.success,
-                                       clickListner,
-                                       View.GONE
-                                   )
-                               } else {
-                                   hideProgressDialog()
-                                   CommonUtils.showSnackbarMessage(context, result.status, R.color.colorPrimary)
-                               }
-                           } catch (e: Exception) {
-                               CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
-                               hideProgressDialog()
-                               e.printStackTrace()
-                           }
-                       }, { error ->
-                           hideProgressDialog()
-                           CommonUtils.showSnackbarMessage(context, error.message.toString(), R.color.colorPrimary)
-                           error.printStackTrace()
-                       })
-               )
-           } catch (e: Exception) {
-               hideProgressDialog()
-               e.printStackTrace()
-               CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
-           }
-       }
-     else if(args.getString("userComingBy").equals("checkOut",false)){
-           val mountMap = HashMap<String, String>()
-           mountMap.put("userId", args.getString("idNumber"))
-           mountMap.put("siteId", PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID, ""))
-           try {
-               showProgressDialog()
-               compositeDrawable.add(
-                   repository.checkOutUser(mountMap)
-                       .observeOn(AndroidSchedulers.mainThread())
-                       .subscribeOn(Schedulers.io())
-                       .subscribe({ result ->
-                           try {
-                               hideProgressDialog()
-                               if (result.code == ApiConstants.SUCCESS_CODE) {
-                                   hideProgressDialog()
-                                   CommonUtils.showMessagePopup(context, result.message, result.data.status , R.mipmap.success, clickListner,View.GONE)
-                               } else{
-                                   hideProgressDialog()
-                                   CommonUtils.showSnackbarMessage(context, result.status, R.color.colorPrimary)
-                               }
+        if (args.getString("userComingBy").equals("checkIn", false)) {
+            try {
+                showProgressDialog()
+                compositeDrawable.add(
+                    repository.checkInUser(map = checkInCheckOutHashMap, userImagePart = userImagePart)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe({ result ->
+                            try {
+                                if (result.code == ApiConstants.SUCCESS_CODE) {
+                                    hideProgressDialog()
+                                    CommonUtils.showMessagePopup(
+                                        context,
+                                        result.message,
+                                        result.data.status,
+                                        R.mipmap.success,
+                                        clickListner,
+                                        View.GONE
+                                    )
+                                } else {
+                                    hideProgressDialog()
+                                    CommonUtils.showSnackbarMessage(context, result.status, R.color.colorPrimary)
+                                }
+                            } catch (e: Exception) {
+                                CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
+                                hideProgressDialog()
+                                e.printStackTrace()
+                            }
+                        }, { error ->
+                            hideProgressDialog()
+                            CommonUtils.showSnackbarMessage(context, error.message.toString(), R.color.colorPrimary)
+                            error.printStackTrace()
+                        })
+                )
+            } catch (e: Exception) {
+                hideProgressDialog()
+                e.printStackTrace()
+                CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
+            }
+        } else if (args.getString("userComingBy").equals("checkOut", false)) {
+            val mountMap = HashMap<String, String>()
+            mountMap.put("idNumber", args.getString("idNumber"))
+            mountMap.put("siteId", PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID, ""))
+            try {
+                showProgressDialog()
+                compositeDrawable.add(
+                    repository.checkOutUser(mountMap)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe({ result ->
+                            try {
+                                hideProgressDialog()
+                                if (result.code == ApiConstants.SUCCESS_CODE) {
+                                    hideProgressDialog()
+                                    CommonUtils.showMessagePopup(
+                                        this,
+                                        result.message,
+                                        result.data.status,
+                                        R.mipmap.success,
+                                        clickListner,
+                                        View.GONE
+                                    )
+                                } else {
+                                    hideProgressDialog()
+                                    CommonUtils.showSnackbarMessage(this, result.status, R.color.colorPrimary)
+                                }
 
-                           } catch (e: Exception) {
-                               hideProgressDialog()
-                               e.printStackTrace() }
-                       }, { error ->
-                           hideProgressDialog()
-                           error.printStackTrace()
-                       })
-               )
-           } catch (e: Exception) {
-               e.printStackTrace() }
-           }
+                            } catch (e: Exception) {
+                                hideProgressDialog()
+                                e.printStackTrace()
+                            }
+                        }, { error ->
+                            hideProgressDialog()
+                            error.printStackTrace()
+                        })
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
-  }
+}
 

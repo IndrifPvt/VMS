@@ -106,12 +106,13 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                     name = name + " " + newname.get(index)
                 }
                 var firstname = name!!.split(" ")
-                if (firstname.size > 0) {
+                if (firstname.size > 1) {
                     var names = firstname[1]
                     tv_user_name.setText(names)
                 } else
                     if (firstname.size > 0)
                         tv_user_name.setText(firstname[0])
+
                 et_name.setText(name)
                 if (id.size > 0)
                     et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))

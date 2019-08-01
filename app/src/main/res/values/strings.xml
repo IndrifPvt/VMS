@@ -111,6 +111,7 @@
     <string name="dob_str">DOB</string>
     <string name="contact_no">Contact Number</string>
     <string name="select_id_message">Please select id before proceed.</string>
+    <string name="err_msg_valid_id">Please enter a valid Id number</string>
 
 
 </resources>
