@@ -62,9 +62,17 @@ interface ApiService {
     @POST("checkOutUser")
     fun checkOutUser(@Body map: Map<String, String>): Observable<ResponseModel>
 
+    @POST("getUserDataById")
+    fun getUserById(@Body map: Map<String, String>): Observable<ResponseModel>
+
     @Multipart
     @POST("checkInUser")
     fun checkInUser( @PartMap map: HashMap<String,RequestBody>, @Part userImagePart: MultipartBody.Part): Observable<ResponseModel>
+
+    @Multipart
+    @POST("checkInUser")
+    fun checkInUserWithoutImage( @PartMap map: HashMap<String,RequestBody>): Observable<ResponseModel>
+
 
 
 

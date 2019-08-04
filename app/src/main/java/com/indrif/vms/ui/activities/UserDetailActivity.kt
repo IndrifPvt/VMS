@@ -1,6 +1,6 @@
 package com.indrif.vms.ui.activities
 
-import android.graphics.BitmapFactory
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.indrif.vms.R
@@ -21,7 +21,12 @@ class UserDetailActivity : BaseActivty() {
         if(getIntent().getSerializableExtra("userDetails") != null) {
             userDetailsObj = getIntent().getSerializableExtra("userDetails") as User
             CommonUtils.setImage(context, profile_image_detail, userDetailsObj.image, R.drawable.dummy_user)
-            tv_mask_id.text = userDetailsObj.idNumber
+           val maskedId = if (userDetailsObj.idNumber.length > 4)
+                maskString(userDetailsObj.idNumber, 0,userDetailsObj.idNumber.length - 4 ,'*')
+            else
+                maskString(userDetailsObj.idNumber, 0,userDetailsObj.idNumber.length - 1 ,'*')
+            tv_user_name.text = userDetailsObj.name
+            tv_mask_id.text = maskedId
             tv_id_type.text = userDetailsObj.idType
             tv_contact.text = userDetailsObj.phoneNumber
             tv_purpose.text = userDetailsObj.purpose
@@ -34,8 +39,47 @@ class UserDetailActivity : BaseActivty() {
         }
     }
 
-
     override fun onClick(v: View) {
+        when (v.id) {
+            R.id.iv_user_det_back -> {
+                finish()
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
+            R.id.iv_user_det_home -> {
+                val i = Intent(applicationContext, DashBoardActivity::class.java)
+                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(i)
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
+        }
+
+    }
+    private fun maskString(strText: String, start: Int, end: Int, maskChar: Char): String {
+        var startIndex = start
+        var endIndex = end
+        if (strText.equals(""))
+            return "";
+
+        if (startIndex < 0)
+            startIndex = 0
+
+        if (endIndex > strText.length)
+            endIndex = strText.length
+
+        if (startIndex > endIndex)
+            throw  Exception("End index cannot be greater than start index");
+
+        val maskLength = endIndex - start
+
+        if (maskLength == 0)
+            return strText;
+
+        val sbMaskString = StringBuilder(maskLength)
+        for (i in 1..maskLength) {
+            sbMaskString.append(maskChar);
+        }
+
+        return strText.substring(0, start) + sbMaskString.toString() + strText.substring(start + maskLength);
     }
 }
 

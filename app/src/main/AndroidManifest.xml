@@ -26,17 +26,28 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activities.UserProfileTestActivity">
+        </activity>
+        <activity android:name=".ui.activities.IdProofSelectActivity">
+        </activity>
         <activity android:name=".ui.activities.CheckOutByIdActivity">
         </activity>
         <activity android:name=".ui.activities.CheckOutSelectionActivity">
         </activity>
+        <activity
+                android:name=".ui.custom_camera.CameraActivity"
+                android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".ui.activities.UnderDevelopment">
         </activity>
-        <activity android:name=".ui.activities.SelectPurposeActivity">
+        <activity android:name=".ui.activities.SelectPurposeActivity"
+                  android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
                 android:name=".ui.activities.UserProfileActivity"
-                android:windowSoftInputMode="stateHidden">
+                android:theme="@style/AppThemeActivity"
+                android:windowSoftInputMode="stateHidden|adjustResize"
+        >
         </activity>
         <activity android:name=".ui.activities.CheckInOutDetailActivity">
         </activity>

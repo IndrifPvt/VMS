@@ -107,22 +107,13 @@ class IdProofSelectionActivity : BaseActivty() {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     } else
-                        CommonUtils.showSnackbarMessage(
-                            context,
-                            resources.getString(R.string.id_type_strg),
-                            R.color.colorPrimary
-                        )
+                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.id_type_strg), R.color.colorPrimary)
                 } else {
-                    /* var intent = Intent(this, MainActivity::class.java)
-                     intent.putExtra("selectedId", selectedIdProof)
-                     startActivity(intent)
-                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)*/
                     permissionCheck(0, 0)
                 }
             }
         }
     }
-
     private fun setAdapter() {
         tv_selected_site.text = PreferenceHandler.readString(applicationContext, PreferenceHandler.SELECTED_SITE, "")
         userComingBy = intent.getStringExtra("userComingBy")
@@ -136,7 +127,6 @@ class IdProofSelectionActivity : BaseActivty() {
         sp_id_proof.setAdapter(adapter)
         sp_id_proof?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -146,7 +136,6 @@ class IdProofSelectionActivity : BaseActivty() {
 
 
     }
-
     private fun permissionCheck(check: Int, intentfor: Int) {
         when (check) {
             0 -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -187,14 +176,12 @@ class IdProofSelectionActivity : BaseActivty() {
             }
         }
     }
-
     private fun selectionIntent(selected: Int) {
         when (selected) {
             0 -> cameraIntent()
 
         }
     }
-
     private fun cameraIntent() {
         try {
             val values = ContentValues()
@@ -208,7 +195,6 @@ class IdProofSelectionActivity : BaseActivty() {
             e.printStackTrace()
         }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -227,433 +213,14 @@ class IdProofSelectionActivity : BaseActivty() {
                     resultUri = result.uri
                     showProgressDialog()
                     var image = MediaStore.Images.Media.getBitmap(contentResolver, resultUri)
-
                     analyzeImageforface(image)
-                    analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
-
-                    // analyzeImageforface(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
-                    /*object : AsyncTask<Void, Void, Void>() {
-                        override fun doInBackground(vararg params: Void): Void {
-                            if (image == null) {
-                                // Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
-                                return params.get(0)
-                            }
-
-                            return params[0]
-                        }
-
-                        override fun onPreExecute() {
-                            super.onPreExecute()
-
-                        }
-
-
-                        override fun onPostExecute(result: Void?) {
-                            super.onPostExecute(result)
-                            *//*  if (progressDialog != null && progressDialog.isShowing())
-                                  progressDialog.cancel()*//*
-                        }
-                    }.execute()*/
-
-
+                    analyzeImage(image)
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     val error = result.error
                 }
             }
         }
     }
-
-    private fun analyzeImage(image: Bitmap?) {
-
-        if (image == null) {
-            Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
-            return
-        }
-        mutableImageTest = image
-
-        textRecognitionModels.clear()
-        val firebaseVisionImage = FirebaseVisionImage.fromBitmap(image)
-        val textRecognizer = FirebaseVision.getInstance().onDeviceTextRecognizer
-        textRecognizer.processImage(firebaseVisionImage)
-            .addOnSuccessListener {
-                // mutableImage = image.copy(Bitmap.Config.ARGB_8888, true)
-                recognizeText(it)
-
-                // var layout = findViewById(R.id.cl_main) as ConstraintLayout
-                // var crop=CropView(applicationContext)
-                //   crop.setImageBitmap(mutableImage)
-                // layout.addView(crop,ConstraintLayout.LayoutParams(100,400))
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
-            }
-
-    }
-
-    fun recognizeText(result: FirebaseVisionText?/*, image: Bitmap?*/) {
-        if (result == null) {
-            Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        blocktext.clear()
-        linetext.clear()
-        name.clear()
-        dob.clear()
-        id.clear()
-        employer.clear()
-        /*  var canvasicon = Canvas(image)
-        val rectPaint = Paint()
-        rectPaint.color = Color.RED
-        rectPaint.style = Paint.Style.STROKE
-        rectPaint.strokeWidth = 6F
-        val textPaint = Paint()
-        textPaint.color = Color.RED
-        textPaint.textSize = 40F*/
-
-        var index = 0
-        for (block in result.textBlocks) {
-            val blockText = block.text
-            val blockConfidence = block.confidence
-            val blockLanguages = block.recognizedLanguages
-            val blockCornerPoints = block.cornerPoints
-            val blockFrame = block.boundingBox
-            var right = blockFrame!!.right
-            var left = blockFrame!!.left
-            var top = blockFrame!!.top
-            var bottom = blockFrame!!.bottom
-
-            /*   val newParams = ConstraintLayout.LayoutParams(
-                right - left, bottom - top
-            )
-            newParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
-            newParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
-            newParams.leftMargin = left
-            newParams.topMargin = top*/
-            /* anotherButton.layoutParams = newParams
-             anotherButton.background = resources.getDrawable(R.drawable.textview_background)
-             anotherButton.setPadding(3, 3, 3, 3)
-             layout.addView(anotherButton, newParams)*/
-            //  canvasicon.drawRect(block.boundingBox, rectPaint)
-            //   canvasicon.drawText(index.toString(), block.cornerPoints!![2].x.toFloat(), block.cornerPoints!![2].y.toFloat(), textPaint)
-            /* customicon=IconCropView(applicationContext)
-             var layout = findViewById(R.id.cl_main) as ConstraintLayout
-               val newParams = ConstraintLayout.LayoutParams(
-                 right-left, bottom-top
-             )
-             newParams.leftToLeft=ConstraintLayout.LayoutParams.PARENT_ID;
-             newParams.topToTop=ConstraintLayout.LayoutParams.PARENT_ID;
-             newParams.leftMargin = left
-             newParams.topMargin = top
-             layout.removeView(customicon)
-             layout.addView(customicon,newParams)*/
-            blocktext.add(
-                Model(
-                    blockText,
-                    Points(blockFrame!!.bottom, blockFrame!!.left, blockFrame!!.right, blockFrame!!.top)
-                )
-            )
-            for (line in block.lines) {
-                val lineText = line.text
-                val lineConfidence = line.confidence
-                val lineLanguages = line.recognizedLanguages
-                val lineCornerPoints = line.cornerPoints
-                val lineFrame = line.boundingBox
-                fulltext.add(lineText)
-                Log.d("Text", lineText)
-                linetext.add(
-                    Model(
-                        lineText,
-                        Points(lineFrame!!.bottom, lineFrame!!.left, lineFrame!!.right, lineFrame!!.top)
-                    )
-                )
-                for (element in line.elements) {
-                    val elementText = element.text
-                    val elementConfidence = element.confidence
-                    val elementLanguages = element.recognizedLanguages
-                    val elementCornerPoints = element.cornerPoints
-                    val elementFrame = element.boundingBox
-                    textRecognitionModels.add(TextRecognitionModel(index++, element.text))
-                }
-
-            }
-        }
-        /*  var smallest = Integer.MAX_VALUE
-          var smaller = Integer.MAX_VALUE
-          for (index in linetext.indices) {
-
-              if (linetext.get(index).zzbat.top < smallest) {
-                  smaller = smallest;
-                  smallest = linetext.get(index).zzbat.top
-              } else if (linetext.get(index).zzbat.top < smaller && linetext.get(index).zzbat.top > smallest) {
-                  smaller = linetext.get(index).zzbat.top
-
-              }
-          }*/
-        if (selectedIdProof == "NRIC") {
-            for (index in linetext.indices) {
-                if (linetext.get(index).text!!.contains("IDENTITY")) {
-                    id.add(linetext.get(index).text!!)
-                }
-            }
-            var sleft = 0
-            var ctop = 0
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Name") {
-                    btm = linetext.get(index).zzbat.bottom
-                    top = linetext.get(index).zzbat.top
-                }
-            }
-
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Race") {
-                    btm1 = linetext.get(index).zzbat.bottom
-                    top1 = linetext.get(index).zzbat.top
-
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Date of birth") {
-                    dobbtm = linetext.get(index).zzbat.bottom
-                    dobtop = linetext.get(index).zzbat.top
-
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Country of birth") {
-                    ctop = linetext.get(index).zzbat.top
-
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Sex") {
-                    sleft = linetext.get(index).zzbat.left
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > ftop && linetext.get(index).zzbat.bottom < fbottom) {
-                    name.add(linetext.get(index).text!!)
-                }
-
-            }
-            /*  for (index in linetext.indices)
-      {
-          if (linetext.get(index).zzbat.top>dobbtm && linetext.get(index).zzbat.bottom<ctop)
-          {
-              dob.add(linetext.get(index).text!!)
-          }
-      }*/
-            for (index in linetext.indices) {
-                if (linetext.get(index).text!!.contains("-")) {
-                    dob.add(linetext.get(index).text!!)
-                }
-            }
-            var c = 0;
-            var stream = ByteArrayOutputStream()
-            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            var byteArray = stream!!.toByteArray()
-            hideProgressDialog()
-            val intent = Intent(this, UserProfileActivity::class.java)
-            val args = Bundle()
-            args.putString("userComingFrom", "MainActivity")
-            args.putString("userComingBy", userComingBy)
-            args.putString("selectedIdProof", selectedIdProof)
-            args.putStringArrayList("ID", id)
-            args.putStringArrayList("Name", name)
-            args.putStringArrayList("DOB", dob)
-            intent.putExtra("BUNDLE", args)
-            intent.putExtra("image", byteArray);
-            /*intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
-            startActivity(intent)
-        } else if (selectedIdProof == "S-PASS") {
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Employer") {
-                    btm = linetext.get(index).zzbat.bottom
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Name") {
-                    top = linetext.get(index).zzbat.top
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.top < top) {
-                    employer.add(linetext.get(index).text!!)
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text!!.contains("S Pass No")) {
-                    top1 = linetext.get(index).zzbat.top
-                    fbottom = linetext.get(index).zzbat.bottom
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > top && linetext.get(index).zzbat.top < top1) {
-                    name.add(linetext.get(index).text!!)
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text!!.contains("Sector")) {
-                    left = linetext.get(index).zzbat.left
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > fbottom && linetext.get(index).zzbat.right < left) {
-                    id.add(linetext.get(index).text!!)
-                }
-            }
-
-            var stream = ByteArrayOutputStream()
-            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            var byteArray = stream!!.toByteArray()
-            hideProgressDialog()
-            val intent = Intent(this, UserProfileActivity::class.java)
-            val args = Bundle()
-            args.putString("userComingFrom", "MainActivity")
-            args.putString("userComingBy", userComingBy)
-            args.putString("selectedIdProof", selectedIdProof)
-            args.putStringArrayList("Employer", employer)
-            args.putStringArrayList("Name", name)
-            args.putStringArrayList("ID", id)
-            intent.putExtra("BUNDLE", args)
-            intent.putExtra("image", byteArray);
-            /*  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
-              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-              intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
-            startActivity(intent)
-        } else if (selectedIdProof == "DRIVING LICENSE") {
-
-            for (ind in linetext.indices) {
-                if (linetext.get(ind).text!!.contains("Number")) {
-                    btm = linetext.get(ind).zzbat.bottom
-                    val separated = linetext.get(ind).text!!.split("Number")
-                    separated[0]
-                    separated[1]
-                    var lnumber = separated[1]
-                    if (lnumber.contains(":")) {
-                        var licensenum = linetext.get(ind).text!!.split(":")
-                        licensenum[0]
-                        licensenum[1]
-                        id.add(licensenum[1])
-                    } else {
-                        id.add(lnumber)
-                    }
-
-                }
-            }
-            for (ind in linetext.indices) {
-                if (linetext.get(ind).text!!.contains("Date")) {
-                    top = linetext.get(ind).zzbat.top
-                }
-            }
-            for (ind in linetext.indices) {
-                if (linetext.get(ind).zzbat.top > btm && linetext.get(ind).zzbat.bottom < top) {
-                    name.add(linetext.get(ind).text!!)
-                }
-            }
-            /* for(ind in name.indices) {
-                 if(name.get(ind).contains("Name") || name.get(ind).contains("Date") || name.get(ind).contains(":"))
-                     {
-                         name.remove(name.get(ind))
-                     }
-             }*/
-            for (ind in linetext.indices) {
-                if (linetext.get(ind).text!!.contains("Birth")) {
-                    var d = linetext.get(ind).text!!
-                    var dobs = d.split("Date")
-                    dobs[0]
-                    dobs[1]
-                    var dateofbirth = dobs[1]
-                    if (dateofbirth.contains(":")) {
-                        var datofbirth = dateofbirth.split(":")
-                        datofbirth[0]
-                        datofbirth[1]
-                        var db = datofbirth[1]
-                        dob.add(db)
-                    } else {
-                        dob.add(dateofbirth)
-                    }
-                }
-            }
-            var c = 0;
-            var stream = ByteArrayOutputStream()
-            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            var byteArray = stream!!.toByteArray()
-            hideProgressDialog()
-            val intent = Intent(this, UserProfileActivity::class.java)
-            val args = Bundle()
-            args.putString("userComingFrom", "MainActivity")
-            args.putString("userComingBy", userComingBy)
-            args.putString("selectedIdProof", selectedIdProof)
-            args.putStringArrayList("DOB", dob)
-            args.putStringArrayList("Name", name)
-            args.putStringArrayList("ID", id)
-            intent.putExtra("BUNDLE", args)
-            intent.putExtra("image", byteArray)
-            /* intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
-             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-             intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
-            startActivity(intent)
-        } else if (selectedIdProof == "WORK PERMIT") {
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Name") {
-                    btm = linetext.get(index).zzbat.top
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Occupation") {
-                    top = linetext.get(index).zzbat.top
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Employer") {
-                    btm1 = linetext.get(index).zzbat.top
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text!!.contains("Sector")) {
-                    top1 = linetext.get(index).zzbat.top
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > top1 && linetext.get(index).zzbat.bottom < top) {
-                    name.add(linetext.get(index).text!!)
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < top1) {
-                    employer.add(linetext.get(index).text!!)
-                }
-            }
-            var c = 0;
-            var stream = ByteArrayOutputStream()
-            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            var byteArray = stream!!.toByteArray()
-            hideProgressDialog()
-            val intent = Intent(this, UserProfileActivity::class.java)
-            val args = Bundle()
-            args.putString("userComingFrom", "MainActivity")
-            args.putString("userComingBy", userComingBy)
-            args.putString("selectedIdProof", selectedIdProof)
-            args.putStringArrayList("DOB", dob)
-            args.putStringArrayList("Name", name)
-            args.putStringArrayList("ID", id)
-            intent.putExtra("BUNDLE", args)
-            intent.putExtra("image", byteArray)
-            /*  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
-              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-              intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
-            startActivity(intent)
-
-        }
-    }
-
     // for face
     private fun analyzeImageforface(image: Bitmap?) {
         if (image == null) {
@@ -674,16 +241,15 @@ class IdProofSelectionActivity : BaseActivty() {
                 detectFaces(it, mutableImage)
             }
             .addOnFailureListener {
-                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "There was some error, Please try again", Toast.LENGTH_SHORT).show()
             }
     }
-
     private fun detectFaces(faces: List<FirebaseVisionFace>?, image: Bitmap?) {
         if (faces == null || image == null) {
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
-      //  val canvas = Canvas(image)
+        val canvas = Canvas(image)
         val facePaint = Paint()
         facePaint.color = Color.GREEN
         facePaint.style = Paint.Style.STROKE
@@ -704,75 +270,6 @@ class IdProofSelectionActivity : BaseActivty() {
             var width = (faces.get(0).boundingBox.right + 40 - faces.get(0).boundingBox.left) + 60
             var height = ((faces.get(0).boundingBox.bottom + 50) - (faces.get(0).boundingBox.top - 100)) + 50
             cropped = Bitmap.createBitmap(image, startx, starty, width, height)
-            /* for ((index, face) in faces.withIndex()) {
-
-                canvas.drawRect(face.boundingBox, facePaint)
-
-                canvas.drawText(
-                    "Face$index",
-                    (face.boundingBox.centerX() - face.boundingBox.width() / 2) + 8F,
-                    (face.boundingBox.centerY() + face.boundingBox.height() / 2) - 8F,
-                    faceTextPaint
-                )
-
-                if (face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE) != null) {
-                    val leftEye = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE)!!
-                    canvas.drawCircle(leftEye.position.x, leftEye.position.y, 8F, landmarkPaint)
-                }
-                if (face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EYE) != null) {
-                    val rightEye = face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EYE)!!
-                    canvas.drawCircle(rightEye.position.x, rightEye.position.y, 8F, landmarkPaint)
-                }
-                if (face.getLandmark(FirebaseVisionFaceLandmark.NOSE_BASE) != null) {
-                    val nose = face.getLandmark(FirebaseVisionFaceLandmark.NOSE_BASE)!!
-                    canvas.drawCircle(nose.position.x, nose.position.y, 8F, landmarkPaint)
-                }
-                if (face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EAR) != null) {
-                    val leftEar = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EAR)!!
-                    canvas.drawCircle(leftEar.position.x, leftEar.position.y, 8F, landmarkPaint)
-                }
-                if (face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EAR) != null) {
-                    val rightEar = face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EAR)!!
-                    canvas.drawCircle(rightEar.position.x, rightEar.position.y, 8F, landmarkPaint)
-                }
-                if (face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_LEFT) != null && face.getLandmark(
-                        FirebaseVisionFaceLandmark.MOUTH_BOTTOM
-                    ) != null && face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_RIGHT) != null
-                ) {
-                    val leftMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_LEFT)!!
-                    val bottomMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_BOTTOM)!!
-                    val rightMouth = face.getLandmark(FirebaseVisionFaceLandmark.MOUTH_RIGHT)!!
-                    canvas.drawLine(
-                        leftMouth.position.x,
-                        leftMouth.position.y,
-                        bottomMouth.position.x,
-                        bottomMouth.position.y,
-                        landmarkPaint
-                    )
-                    canvas.drawLine(
-                        bottomMouth.position.x,
-                        bottomMouth.position.y,
-                        rightMouth.position.x,
-                        rightMouth.position.y,
-                        landmarkPaint
-                    )
-                }
-
-                faceDetectionModels.add(FaceDetectionModel(index, "Smiling Probability  ${face.smilingProbability}"))
-                faceDetectionModels.add(
-                    FaceDetectionModel(
-                        index,
-                        "Left Eye Open Probability  ${face.leftEyeOpenProbability}"
-                    )
-                )
-                faceDetectionModels.add(
-                    FaceDetectionModel(
-                        index,
-                        "Right Eye Open Probability  ${face.rightEyeOpenProbability}"
-                    )
-                )
-            }*/
-     //       analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, resultUri))
         } catch (e: Exception) {
             hideProgressDialog()
             CommonUtils.showToastMessage(this, "Please Try Again.")
@@ -780,17 +277,427 @@ class IdProofSelectionActivity : BaseActivty() {
 
 
     }
-
-  /*  val future = doAsync {
-        // do your background thread task
-       // result = someTask()
-
-        uiThread {
-            // use result here if you want to update ui
-         //   updateUI(result)
+    // for text
+    private fun analyzeImage(image: Bitmap?) {
+        if (image == null) {
+            Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+            return
         }
-    }*/
+        mutableImageTest = image
+        textRecognitionModels.clear()
+        val firebaseVisionImage = FirebaseVisionImage.fromBitmap(image)
+        val textRecognizer = FirebaseVision.getInstance().onDeviceTextRecognizer
+        textRecognizer.processImage(firebaseVisionImage)
+            .addOnSuccessListener {
+                recognizeText(it)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+            }
+    }
+    private fun recognizeText(result: FirebaseVisionText?/*, image: Bitmap?*/) {
+        if (result == null) {
+            Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+            return
+        }
+        clearData()
+        var index = 0
+        for (block in result.textBlocks) {
+            val blockText = block.text
+            val blockConfidence = block.confidence
+            val blockLanguages = block.recognizedLanguages
+            val blockCornerPoints = block.cornerPoints
+            val blockFrame = block.boundingBox
+            var right = blockFrame!!.right
+            var left = blockFrame!!.left
+            var top = blockFrame!!.top
+            var bottom = blockFrame!!.bottom
+            blocktext.add(Model(blockText, Points(blockFrame!!.bottom, blockFrame!!.left, blockFrame!!.right, blockFrame!!.top)))
+            for (line in block.lines) {
+                val lineText = line.text
+                val lineConfidence = line.confidence
+                val lineLanguages = line.recognizedLanguages
+                val lineCornerPoints = line.cornerPoints
+                val lineFrame = line.boundingBox
+                fulltext.add(lineText)
+                Log.d("Text", lineText)
+                linetext.add(Model(lineText, Points(lineFrame!!.bottom, lineFrame!!.left, lineFrame!!.right, lineFrame!!.top)))
+                for (element in line.elements) {
+                    val elementText = element.text
+                    val elementConfidence = element.confidence
+                    val elementLanguages = element.recognizedLanguages
+                    val elementCornerPoints = element.cornerPoints
+                    val elementFrame = element.boundingBox
+                    textRecognitionModels.add(TextRecognitionModel(index++, element.text))
+                }
+            }
+        }
+        if (selectedIdProof == "NRIC") {
+            for (index in linetext.indices) {
+                if (linetext.get(index).text!!.contains("IDENTITY") || linetext.get(index).text!!.contains("1DENTITY") || linetext.get(index).text!!.contains("CARD") || linetext.get(index).text!!.contains("CARD NO")) {
+                    id.add(linetext.get(index).text!!)
+                }
+            }
+            var sleft = 0
+            var ctop = 0
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Name" || linetext.get(index).text == "Nam") {
+                    btm = linetext.get(index).zzbat.bottom
+                    top = linetext.get(index).zzbat.top
+                }
+            }
+
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Race") {
+                    btm1 = linetext.get(index).zzbat.bottom
+                    top1 = linetext.get(index).zzbat.top
+
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Date of birth" || linetext.get(index).text == "Dateof birth" || linetext.get(index).text == "Date ofbirth" || linetext.get(index).text == " of birth" || linetext.get(index).text == "Date of") {
+                    dobbtm = linetext.get(index).zzbat.bottom
+                    dobtop = linetext.get(index).zzbat.top
+
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Country of birth" || linetext.get(index).text == "Countryof birth" || linetext.get(index).text == "Country of") {
+                    ctop = linetext.get(index).zzbat.top
+
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Sex" || linetext.get(index).text == "Se") {
+                    sleft = linetext.get(index).zzbat.left
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).zzbat.top > ftop && linetext.get(index).zzbat.bottom < fbottom) {
+                    name.add(linetext.get(index).text!!)
+                }
+
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text!!.contains("-")) {
+                    dob.add(linetext.get(index).text!!)
+                }
+            }
+            var c = 0;
+            var stream = ByteArrayOutputStream()
+            if(cropped == null)
+                return
+            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            var byteArray = stream!!.toByteArray()
+            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+             val imgUri =CommonUtils.getImageUri(this, bmp)
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
+            val args = Bundle()
+            args.putString("userComingFrom", "MainActivity")
+            args.putString("userComingBy", userComingBy)
+            args.putString("selectedIdProof", selectedIdProof)
+            args.putStringArrayList("ID", id)
+            args.putStringArrayList("Name", name)
+            args.putString("imgUri", imgUri.toString())
+            intent.putExtra("BUNDLE", args)
+            args.putStringArrayList("DOB", dob)
+            intent.putExtra("BUNDLE", args)
+            startActivity(intent)
+        }
+        else if (selectedIdProof == "S-PASS") {
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Employer" || (linetext.get(index).text) =="Empioyer" || (linetext.get(index).text) =="Emp" || (linetext.get(index).text) =="Employ") {
+                    btm = linetext.get(index).zzbat.bottom
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Name" || linetext.get(index).text =="Nam" || linetext.get(index).text == "me") {
+                    top = linetext.get(index).zzbat.top
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.top < top) {
+                    employer.add(linetext.get(index).text!!)
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text!!.contains("S Pass No") || linetext.get(index).text!!.contains("SPass No") || linetext.get(index).text!!.contains("SPass") || linetext.get(index).text!!.contains("SPassN")|| linetext.get(index).text!!.contains("SPassNo") || linetext.get(index).text!!.contains("S PassN"))
+                {
+                    top1 = linetext.get(index).zzbat.top
+                    fbottom = linetext.get(index).zzbat.bottom
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).zzbat.top > top && linetext.get(index).zzbat.top < top1) {
+                    name.add(linetext.get(index).text!!)
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text!!.contains("Sector") || linetext.get(index).text!!.contains("Sec") || linetext.get(index).text!!.contains("Sect") || linetext.get(index).text!!.contains("ector")|| linetext.get(index).text!!.contains("tor")) {
+                    left = linetext.get(index).zzbat.left
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).zzbat.top > fbottom && linetext.get(index).zzbat.right < left) {
+                    id.add(linetext.get(index).text!!)
+                }
+            }
+
+            var stream = ByteArrayOutputStream()
+            if(cropped == null)
+                return
+            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            var byteArray = stream!!.toByteArray()
+            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            val imgUri =CommonUtils.getImageUri(this, bmp)
+            if(employer.contains("EAGLE") || employer.contains("SECURITY ") || employer.contains("SERVICES ")) {
+                employer.clear()
+                employer.add("EAGLE SECURITY SERVICES PTE. LTD.")
+            }
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
+            val args = Bundle()
+            args.putString("userComingFrom", "MainActivity")
+            args.putString("userComingBy", userComingBy)
+            args.putString("selectedIdProof", selectedIdProof)
+            args.putStringArrayList("Employer", employer)
+            args.putStringArrayList("Name", name)
+            args.putStringArrayList("ID", id)
+            args.putString("imgUri", imgUri.toString())
+            intent.putExtra("BUNDLE", args)
+            startActivity(intent)
+        }
+        else if (selectedIdProof == "DRIVING LICENSE") {
+            for (ind in linetext.indices) {
+                if (linetext.get(ind).text!!.contains("Number") || linetext.get(ind).text!!.contains("mber") || linetext.get(ind).text!!.contains("Numb") || linetext.get(ind).text!!.contains("umber")  || linetext.get(ind).text!!.contains("Nmber")/*|| linetext.get(ind).text!!.contains("Lice") || linetext.get(ind).text!!.contains("Liem")*/) {
+                    btm = linetext.get(ind).zzbat.bottom
+                    var separated = listOf<String>()
+                    if(linetext.get(ind).text!!.contains("Number"))
+                     separated = linetext.get(ind).text!!.split("Number")
+                    else if(linetext.get(ind).text!!.contains("mber"))
+                        separated = linetext.get(ind).text!!.split("mber")
+                    else if(linetext.get(ind).text!!.contains("Numb"))
+                        separated = linetext.get(ind).text!!.split("Numb")
+                    else if(linetext.get(ind).text!!.contains("umber"))
+                        separated = linetext.get(ind).text!!.split("umber")
+                    separated[0]
+                    separated[1]
+                    var lnumber = separated[1]
+                    if (lnumber.contains(":")) {
+                        var licensenum = linetext.get(ind).text!!.split(":")
+                        licensenum[0]
+                        licensenum[1]
+                        id.add(licensenum[1])
+                    } else {
+                        id.add(lnumber)
+                    }
+
+                }
+            }
+            for (ind in linetext.indices) {
+                if (linetext.get(ind).text!!.contains("Date")||linetext.get(ind).text!!.contains("Dat") || linetext.get(ind).text!!.contains("te")) {
+                    top = linetext.get(ind).zzbat.top
+                }
+            }
+            for (ind in linetext.indices) {
+                if (linetext.get(ind).zzbat.top > btm && linetext.get(ind).zzbat.bottom < top) {
+                    name.add(linetext.get(ind).text!!)
+                }
+            }
+            for (ind in linetext.indices) {
+                if (linetext.get(ind).text!!.contains("Birth")) {
+                    var d = linetext.get(ind).text!!
+                    var dobs = d.split("Date")
+                    dobs[0]
+                    dobs[1]
+                    var dateofbirth = dobs[1]
+                    if (dateofbirth.contains(":")) {
+                        var datofbirth = dateofbirth.split(":")
+                        datofbirth[0]
+                        datofbirth[1]
+                        var db = datofbirth[1]
+                        dob.add(db)
+                    } else {
+                        dob.add(dateofbirth)
+                    }
+                }
+            }
+            var c = 0;
+            var stream = ByteArrayOutputStream()
+            if(cropped == null){
+                return
+            }
+            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            var byteArray = stream!!.toByteArray()
+            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            val imgUri =CommonUtils.getImageUri(this, bmp)
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
+            val args = Bundle()
+            args.putString("userComingFrom", "MainActivity")
+            args.putString("userComingBy", userComingBy)
+            args.putString("selectedIdProof", selectedIdProof)
+            args.putStringArrayList("DOB", dob)
+            args.putStringArrayList("Name", name)
+            args.putStringArrayList("ID", id)
+            args.putString("imgUri", imgUri.toString())
+            intent.putExtra("BUNDLE", args)
+            intent.putExtra("BUNDLE", args)
+            startActivity(intent)
+        }
+        else if (selectedIdProof == "WORK PERMIT") {
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Name") {
+                    btm = linetext.get(index).zzbat.top
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Occupation") {
+                    top = linetext.get(index).zzbat.top
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Employer" || linetext.get(index).text == "Emplo" || linetext.get(index).text == "Employor") {
+                    btm1 = linetext.get(index).zzbat.top
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text!!.contains("Sector")) {
+                    top1 = linetext.get(index).zzbat.top
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).zzbat.top > top1 && linetext.get(index).zzbat.bottom < top) {
+                    name.add(linetext.get(index).text!!)
+                }
+            }
+            for (index in linetext.indices) {
+                if (linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < top1) {
+                    employer.add(linetext.get(index).text!!)
+                }
+            }
+            var c = 0;
+            var stream = ByteArrayOutputStream()
+            if(cropped == null)
+                return
+            cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            var byteArray = stream!!.toByteArray()
+            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            val imgUri =CommonUtils.getImageUri(this, bmp)
+            hideProgressDialog()
+            val intent = Intent(this, UserProfileActivity::class.java)
+            val args = Bundle()
+            args.putString("userComingFrom", "MainActivity")
+            args.putString("userComingBy", userComingBy)
+            args.putString("selectedIdProof", selectedIdProof)
+            args.putStringArrayList("DOB", dob)
+            args.putStringArrayList("Name", name)
+            args.putStringArrayList("ID", id)
+            args.putString("imgUri", imgUri.toString())
+            intent.putExtra("BUNDLE", args)
+            intent.putExtra("BUNDLE", args)
+            /*  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
+              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+              intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
+            startActivity(intent)
+
+        }
+    }
 
 
+    private  fun getSelectedIdData(selectedIdProof :String){
+        when (selectedIdProof) {
+            "NRIC" ->{
+                for (index in linetext.indices) {
+                    if (linetext.get(index).text!!.contains("IDENTITY")) {
+                        id.add(linetext.get(index).text!!)
+                    }
+                }
+                var sleft = 0
+                var ctop = 0
+                for (index in linetext.indices) {
+                    if (linetext.get(index).text == "Name") {
+                        btm = linetext.get(index).zzbat.bottom
+                        top = linetext.get(index).zzbat.top
+                    }
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).text == "Race") {
+                        btm1 = linetext.get(index).zzbat.bottom
+                        top1 = linetext.get(index).zzbat.top
+
+                    }
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).text == "Date of birth") {
+                        dobbtm = linetext.get(index).zzbat.bottom
+                        dobtop = linetext.get(index).zzbat.top
+
+                    }
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).text == "Country of birth") {
+                        ctop = linetext.get(index).zzbat.top
+
+                    }
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).text == "Sex") {
+                        sleft = linetext.get(index).zzbat.left
+                    }
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).zzbat.top > ftop && linetext.get(index).zzbat.bottom < fbottom) {
+                        name.add(linetext.get(index).text!!)
+                    }
+
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).text!!.contains("-")) {
+                        dob.add(linetext.get(index).text!!)
+                    }
+                }
+                var c = 0;
+                var stream = ByteArrayOutputStream()
+                if(cropped == null)
+                    return
+                cropped!!.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                var byteArray = stream!!.toByteArray()
+                val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                val imgUri =CommonUtils.getImageUri(this, bmp)
+                startActivity(imgUri)
+        }
+            "S-PASS" ->{
+            }
+            "DRIVING LICENSE" ->{
+            }
+            "WORK PERMIT" ->{
+            }
+        }
+    }
+    private fun startActivity(imgUri:Uri){
+        hideProgressDialog()
+        val intent = Intent(this, UserProfileActivity::class.java)
+        val args = Bundle()
+        args.putString("userComingFrom", "MainActivity")
+        args.putString("userComingBy", userComingBy)
+        args.putString("selectedIdProof", selectedIdProof)
+        args.putStringArrayList("ID", id)
+        args.putStringArrayList("Name", name)
+        args.putString("imgUri", imgUri.toString())
+        intent.putExtra("BUNDLE", args)
+        args.putStringArrayList("DOB", dob)
+        intent.putExtra("BUNDLE", args)
+        startActivity(intent)
+    }
+    private fun clearData() {
+        blocktext.clear()
+        linetext.clear()
+        name.clear()
+        dob.clear()
+        id.clear()
+        employer.clear()    }
 }
 

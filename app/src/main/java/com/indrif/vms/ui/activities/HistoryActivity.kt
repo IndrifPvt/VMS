@@ -37,6 +37,8 @@ class HistoryActivity : BaseActivty() {
     private var month: Int = 0
     private var day: Int = 0
     private  var count =0;
+    private var toTime =""
+    private var fromTime = ""
     private var diff:Long?=null
     var fromdialog:DatePickerDialog?=null
     var todialog:DatePickerDialog?=null
@@ -188,14 +190,18 @@ class HistoryActivity : BaseActivty() {
             minutes = mins.toString()
         val aTime = StringBuilder().append(hours).append(':').append(minutes).append(" ").append(timeSet).toString()
         if(coming=="from") {
+            fromTime = aTime
             tv_history_from_time_value.setText(aTime)
         }
         else if(coming == "to")
         {
+            toTime= aTime
             tv_history_to_time_value.setText(aTime)
         }
         else
         {
+            fromTime = aTime
+            toTime= aTime
             tv_history_from_time_value.setText(aTime)
             tv_history_to_time_value.setText(aTime)
         }
@@ -246,9 +252,11 @@ class HistoryActivity : BaseActivty() {
         }
     }
     private fun userhistory() {
+        val fdateTime= fdate + " "+ fromTime
+        val todateTime= todate + " "+ toTime
         val mountMap = HashMap<String, String>()
-        mountMap.put("fromDate", fdate)
-        mountMap.put("toDate",todate)
+        mountMap.put("fromDate", fdateTime)
+        mountMap.put("toDate",todateTime)
         mountMap.put("siteId",PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID,""))
         mountMap.put("type", "0")
         /*try {

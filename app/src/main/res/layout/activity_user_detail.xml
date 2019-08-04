@@ -25,39 +25,42 @@
                 android:src="@mipmap/strip_top"/>
 
         <ImageView
-                android:id="@+id/iv_history_back"
+                android:id="@+id/iv_user_det_back"
                 android:layout_width="wrap_content"
-                android:layout_height="23dp"
-                android:padding="@dimen/_3sdp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
                 android:onClick="onClick"
-                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_arrow_back"/>
         <ImageView
-                android:id="@+id/iv_history_home"
+                android:id="@+id/iv_user_det_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_3sdp"
                 android:onClick="onClick"
-                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_14sdp"
                 android:layout_marginTop="@dimen/_17sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_home_black_24dp"/>
         <TextView
                 android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_10sdp"
                 android:onClick="onClick"
                 android:textSize="@dimen/_18sdp"
                 android:gravity="bottom"
-                android:layout_marginEnd="@dimen/_10sdp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/_90sdp"
                 android:textColor="@color/colorBlack"
                 android:fontFamily="@font/ralewayregular"
                 android:layout_marginTop="@dimen/_8sdp"
-                app:layout_constraintTop_toBottomOf="@+id/iv_history_back"
+                app:layout_constraintTop_toBottomOf="@+id/iv_user_det_back"
                 app:layout_constraintStart_toStartOf="parent"/>
         <TextView
                 android:id="@+id/tv_profile_txt"
@@ -78,9 +81,9 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/sc_history"
-            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_3sdp"
-            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            app:layout_constraintTop_toBottomOf="@id/cl_top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/iv_footer">
@@ -258,7 +261,7 @@
                     android:textColor="@color/colorBlack"
                     android:fontFamily="@font/ralewaybold"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_check_out_txt"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_check_out"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_mask_id"/>
             <TextView

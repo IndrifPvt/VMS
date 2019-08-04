@@ -60,6 +60,7 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
                 mountMap.put("fromDate", fromDate)
                 mountMap.put("toDate",toDate)
                 mountMap.put("type", "0")
+                mountMap.put("siteId",PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID,""))
                 userhistory()
 
             }
@@ -67,14 +68,16 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
                 mountMap.clear()
                 mountMap.put("fromDate", fromDate)
                 mountMap.put("toDate",toDate)
-                mountMap.put("type", "1")
+                mountMap.put("type", "2")
+                mountMap.put("siteId",PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID,""))
                 userhistory()
             }
             R.id.menu_check_in ->{
                 mountMap.clear()
                 mountMap.put("fromDate", fromDate)
                 mountMap.put("toDate",toDate)
-                mountMap.put("type", "2")
+                mountMap.put("type", "1")
+                mountMap.put("siteId",PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID,""))
                 userhistory()
             }
         }

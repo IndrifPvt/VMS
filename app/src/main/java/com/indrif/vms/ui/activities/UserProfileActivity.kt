@@ -63,15 +63,17 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         userComingBy = args.getString("userComingBy")
         if (args.getString("userComingFrom") == "IdProofOtherSelection") {
             et_id_type.setText(args.getString("IdType"))
+            input_layout_dob.visibility = View.GONE
         } else {
             selectedIdProof = args.getString("selectedIdProof") ?: ""
             nam = args.getStringArrayList("Name")
             id = args.getStringArrayList("ID")
-            val byteArray = getIntent().getByteArrayExtra("image")
-            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+           /* val byteArray = getIntent().getByteArrayExtra("image")
+            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)*/
             et_id_type.setText(selectedIdProof)
-            profile_image.setImageBitmap(bmp)
-            profileImageUri = getImageUri(this, bmp)
+            profileImageUri =  Uri.parse( args.getString("imgUri"))
+            CommonUtils.setImage(context, profile_image, profileImageUri.toString(), R.drawable.dummy_user)
+
             if (selectedIdProof == "NRIC") {
                 for (index in nam.indices) {
                     name = name + " " + nam.get(index)
@@ -84,17 +86,22 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                     d = id.get(index)
                     d = d + " "
                 }
-                val separated = d!!.split(".")
-                separated[0]
-                separated[1]
-                var nam = separated[1]
-                //  name.replace(0,(stringLength?.minus(4)))
-                et_id_no.setText(maskString(nam!!, 0, 6, '*'))
+                var nam = ""
+                if(d != null) {
+                    val separated = d!!.split(".")
+                    separated[0]
+                    separated[1]
+                    nam = separated[1]
+                }
+                idNumberForServer = nam.replace(" ","")
+                idNumberForServer = idNumberForServer.trim()
+                et_id_no.setText(maskString(idNumberForServer, 0, 6, '*'))
                 dob = args.getStringArrayList("DOB")
                 var dateofbirth = dob.get(0)
                 input_layout_dob.visibility = View.VISIBLE
                 et_id_dob.setText(dateofbirth)
-            } else if (selectedIdProof == "S-PASS") {
+            }
+            else if (selectedIdProof == "S-PASS") {
                 for (ind in nam!!.indices) {
                     if (nam.get(ind).contains("Sector") || nam.get(ind).contains(":")) {
 
@@ -114,13 +121,19 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                         tv_user_name.setText(firstname[0])
 
                 et_name.setText(name)
-                if (id.size > 0)
-                    et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*'))
+                if (id.size > 0) {
+                    idNumberForServer = id.get(0).replace(" ","")
+                    idNumberForServer = idNumberForServer.trim()
+                    et_id_no.setText(maskString(idNumberForServer, 0, 6, '*'))
+                }
                 employer = args.getStringArrayList("Employer")
                 input_layout_employer.visibility = View.VISIBLE
                 if (employer.size > 0)
                     et_id_employer.setText(employer.get(0))
-            } else if (selectedIdProof == "DRIVING LICENSE") {
+                else
+                    et_id_employer.setText("")
+            }
+            else if (selectedIdProof == "DRIVING LICENSE") {
                 for (ind in nam!!.indices) {
                     if (nam!!.get(ind).contains("Name") || nam.get(ind).contains("Date") || nam.get(ind).contains(":")) {
 
@@ -135,11 +148,19 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 var names = firstname[1]
                 tv_user_name.setText(names ?: "")
                 et_name.setText(name ?: "")
-                et_id_no.setText(maskString(id.get(0)!!, 0, 6, '*') ?: "")
+                if (id.size > 0){
+                    idNumberForServer = id.get(0).replace(" ", "")
+                idNumberForServer = idNumberForServer.trim()
+                    var idNoStr = idNumberForServer.split("S")
+                  idNumberForServer= "S"+idNoStr[1]
+                et_id_no.setText(maskString(idNumberForServer, 0, 6, '*') ?: "")
+            }
                 dob = args.getStringArrayList("DOB")
                 input_layout_dob.visibility = View.VISIBLE
+                if(dob.size>0)
                 et_id_dob.setText(dob.get(0) ?: "")
-            } else if (selectedIdProof == "WORK PERMIT") {
+            }
+            else if (selectedIdProof == "WORK PERMIT") {
                 for (ind in nam!!.indices) {
                     if (nam!!.get(ind).contains("Name") || nam.get(ind).contains("Sector") || nam.get(ind).contains(":")) {
 
@@ -165,21 +186,27 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 input_layout_employer.visibility = View.VISIBLE
             }
         }
+
         et_id_no.onFocusChangeListener = this
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (!hasFocus) {
-            if (et_id_no.text.toString().length > 4)
-                et_id_no.setText(maskString(et_id_no.text.toString(), 0, et_id_no.text.toString().length - 4, '*'))
-            else
-                et_id_no.setText(maskString(et_id_no.text.toString(), 0, et_id_no.text.toString().length - 1, '*'))
+            if (et_id_no.text.toString().length > 4) {
+                idNumberForServer = et_id_no.text.toString().trim()
+                idNumberForServer = idNumberForServer.replace(" ","")
+                et_id_no.setText(maskString(idNumberForServer, 0, et_id_no.text.toString().length - 4, '*'))
+            } else {
+                idNumberForServer = et_id_no.text.toString().trim()
+                idNumberForServer = idNumberForServer.replace(" ","")
+                et_id_no.setText(maskString(idNumberForServer, 0, et_id_no.text.toString().length - 1, '*'))
+            }
         }
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.iv_history_back -> {
+            R.id.iv_user_profile_back -> {
                 dob.clear()
                 id.clear()
                 employer.clear()
@@ -188,28 +215,96 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
                 finish()
                 overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
             }
+            R.id.iv_user_profile_home -> {
+                val i = Intent(applicationContext, DashBoardActivity::class.java)
+                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(i)
+                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in)
+            }
 
             R.id.profile_image -> {
                 selectImage()
             }
             R.id.btn_next_purpose -> {
-                if (profileImageUri != null) {
-                    val intent = Intent(this, SelectPurposeActivity::class.java)
-                    val args = Bundle()
-                    args.putString("userComingBy", userComingBy)
-                    args.putString("idType", et_id_type.text.toString().trim())
-                    args.putString("name", et_name.text.toString().trim())
-                    args.putString("idNumber", idNumberForServer)
-                    args.putString("dob", et_id_dob.text.toString().trim())
-                    args.putString("employer", et_id_employer.text.toString().trim())
-                    intent.putExtra("BUNDLE", args)
-                    intent.putExtra("imageUri", profileImageUri.toString())
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                if (selectedIdProof == "S-PASS") {
+                    if (idNumberForServer.isNotEmpty()) {
+                        val intent = Intent(this, SelectPurposeActivity::class.java)
+                        val args = Bundle()
+                        args.putString("userComingBy", userComingBy)
+                        args.putString("idType", et_id_type.text.toString().trim())
+                        args.putString("name", et_name.text.toString().trim())
+                        args.putString("idNumber", idNumberForServer)
+                        args.putString("dob", et_id_dob.text.toString().trim())
+                        args.putString("employer", et_id_employer.text.toString().trim())
+                        intent.putExtra("BUNDLE", args)
+                        intent.putExtra("imageUri", profileImageUri.toString())
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    } else {
+                        if (et_id_no.text.toString().trim().isEmpty()) {
+                            CommonUtils.showSnackbarMessage(
+                                context,
+                                "Please enter valid Id Number ",
+                                R.color.colorPrimary
+                            )
+                            return
+                        }
+                        val intent = Intent(this, SelectPurposeActivity::class.java)
+                        val args = Bundle()
+                        args.putString("userComingBy", userComingBy)
+                        args.putString("idType", et_id_type.text.toString().trim())
+                        args.putString("name", et_name.text.toString().trim())
+                        args.putString("idNumber", et_id_no.text.toString().trim())
+                        args.putString("dob", et_id_dob.text.toString().trim())
+                        args.putString("employer", et_id_employer.text.toString().trim())
+                        intent.putExtra("BUNDLE", args)
+                        intent.putExtra("imageUri", profileImageUri.toString())
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                        //CommonUtils.showSnackbarMessage(context, "Please select image by clicking on user Image", R.color.colorPrimary)
+                    }
                 } else {
-                    CommonUtils.showSnackbarMessage(context, "Please select image", R.color.colorPrimary)
+                   // val regexPat = "^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$".toRegex()
+                    if (idNumberForServer.isNotEmpty()/* && (idNumberForServer.matches(regexPat))*/) {
+                        val intent = Intent(this, SelectPurposeActivity::class.java)
+                        val args = Bundle()
+                        args.putString("userComingBy", userComingBy)
+                        args.putString("idType", et_id_type.text.toString().trim())
+                        args.putString("name", et_name.text.toString().trim())
+                        args.putString("idNumber", idNumberForServer)
+                        args.putString("dob", et_id_dob.text.toString().trim())
+                        args.putString("employer", et_id_employer.text.toString().trim())
+                        intent.putExtra("BUNDLE", args)
+                        intent.putExtra("imageUri", profileImageUri.toString())
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    } else {
+                        if (et_id_no.text.toString().trim().isEmpty()/* || !et_id_no.text.toString().trim().matches( regexPat)*/
+                        ) {
+                            CommonUtils.showSnackbarMessage(
+                                context,
+                                "Please enter valid Id Number ",
+                                R.color.colorPrimary
+                            )
+                            return
+                        }
+                        val intent = Intent(this, SelectPurposeActivity::class.java)
+                        val args = Bundle()
+                        args.putString("userComingBy", userComingBy)
+                        args.putString("idType", et_id_type.text.toString().trim())
+                        args.putString("name", et_name.text.toString().trim())
+                        args.putString("idNumber", et_id_no.text.toString().trim())
+                        args.putString("dob", et_id_dob.text.toString().trim())
+                        args.putString("employer", et_id_employer.text.toString().trim())
+                        intent.putExtra("BUNDLE", args)
+                        intent.putExtra("imageUri", profileImageUri.toString())
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                        //CommonUtils.showSnackbarMessage(context, "Please select image by clicking on user Image", R.color.colorPrimary)
+                    }
                 }
             }
+
         }
     }
 
@@ -431,10 +526,4 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         }
     }
 
-    private fun getImageUri(context: Context, inImage: Bitmap): Uri {
-        var bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        var path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path)
-    }
 }

@@ -70,6 +70,12 @@ class CommonUtils {
                     .into(imageView)
 
         }
+         fun getImageUri(context: Context, inImage: Bitmap): Uri {
+            var bytes = ByteArrayOutputStream()
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            var path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+            return Uri.parse(path)
+        }
 
         fun showMessagePopup(context: Context, title: String, message: String, icon: Int, clickListner: CustomAlertDialogListener, visibility: Int) {
             try {
