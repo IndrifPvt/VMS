@@ -4,7 +4,7 @@ class AppConstants {
     companion object {
         var SORT_BY_DATE = "dateTime"
         val DATE_FORMAT ="dd - MMM - yyyy"
-        val DATE_TIME_FORMAT ="dd-MMM-yyyy HH:mm:ss"
+        val DATE_TIME_FORMAT ="dd - MMM - yyyy HH:mm"
         val DATE_FORMAT_FOR_SERVER ="dd-MM-yyyy"
         val DATE_FORMAT_NUMBER ="dd-MM-yyyy"
         val ADD_TODAY_STR ="TODAY :- "

@@ -57,7 +57,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
         newname.clear()
         input_layout_dob.visibility = View.INVISIBLE
         input_layout_employer.visibility = View.INVISIBLE
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         var intent = intent
         var args = intent.getBundleExtra("BUNDLE")
         userComingBy = args.getString("userComingBy")

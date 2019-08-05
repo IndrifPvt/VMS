@@ -74,6 +74,9 @@ class SelectPurposeActivity : BaseActivty() {
             RequestBody.create(MediaType.parse("text/plain"), tv_select_level_value.text.toString().trim())
         checkInCheckOutHashMap["block"] =
             RequestBody.create(MediaType.parse("text/plain"), tv_select_block_value.text.toString().trim())
+        checkInCheckOutHashMap["checkInTime"] =
+            RequestBody.create(MediaType.parse("text/plain"), CommonUtils.getCurrentDateTime().trim())
+
         var imageUri = Uri.parse(intent.extras.getString("imageUri"))
         if (imageUri != null && !imageUri.toString().equals("null",false)) {
             val file = FileUtils.getFile(context, imageUri)
@@ -105,7 +108,7 @@ class SelectPurposeActivity : BaseActivty() {
     private fun getUserById(idNumber:String) {
         var mountMap=HashMap<String, String>()
         mountMap.put("idNumber",idNumber)
-       // mountMap.put("siteId",PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID,""))
+        mountMap.put("siteId",PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID,""))
 
         try {
             showProgressDialog()
@@ -230,6 +233,7 @@ class SelectPurposeActivity : BaseActivty() {
         } else if (args.getString("userComingBy").equals("checkOut", false)) {
             val mountMap = HashMap<String, String>()
             mountMap.put("idNumber", args.getString("idNumber"))
+            mountMap.put("checkOutTime",CommonUtils.getCurrentDateTime().trim())
             mountMap.put("siteId", PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID, ""))
             try {
                 showProgressDialog()
@@ -310,6 +314,7 @@ class SelectPurposeActivity : BaseActivty() {
         } else if (args.getString("userComingBy").equals("checkOut", false)) {
             val mountMap = HashMap<String, String>()
             mountMap.put("idNumber", args.getString("idNumber"))
+            mountMap.put("checkOutTime",CommonUtils.getCurrentDateTime().trim())
             mountMap.put("siteId", PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID, ""))
             try {
                 showProgressDialog()

@@ -301,9 +301,9 @@ class CommonUtils {
         }
 
         fun getCurrentDateTime(): String {
-            val date = Date()  // to get the date
-            val df = SimpleDateFormat(AppConstants.DATE_FORMAT) // getting date in this format
-            val formattedDate = df.format(date.time)
+            var c = Calendar.getInstance().getTime()
+            val df = SimpleDateFormat(AppConstants.DATE_TIME_FORMAT)
+           var formattedDate = df.format(c)
             return formattedDate;
         }
 
