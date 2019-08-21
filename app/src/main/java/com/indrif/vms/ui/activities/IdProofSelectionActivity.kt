@@ -62,6 +62,7 @@ class IdProofSelectionActivity : BaseActivty() {
     private var resultUri: Uri? = null
     private var id = ArrayList<String>()
     private var pd: ProgressDialog? = null
+    var wpermit: Int = 0
     var btm: Int = 0
     var top: Int = 0
     var dobbtm: Int = 0
@@ -548,17 +549,12 @@ class IdProofSelectionActivity : BaseActivty() {
         }
         else if (selectedIdProof == "WORK PERMIT") {
             for (index in linetext.indices) {
-                if (linetext.get(index).text == "Name") {
+                if (linetext.get(index).text == "Name" || linetext.get(index).text == "Nam" ) {
                     btm = linetext.get(index).zzbat.top
                 }
             }
             for (index in linetext.indices) {
-                if (linetext.get(index).text == "Occupation") {
-                    top = linetext.get(index).zzbat.top
-                }
-            }
-            for (index in linetext.indices) {
-                if (linetext.get(index).text == "Employer" || linetext.get(index).text == "Emplo" || linetext.get(index).text == "Employor") {
+                if (linetext.get(index).text == "Employer" || linetext.get(index).text == "Emplo" || linetext.get(index).text == "Employor" || linetext.get(index).text == "Emp") {
                     btm1 = linetext.get(index).zzbat.top
                 }
             }
@@ -568,14 +564,40 @@ class IdProofSelectionActivity : BaseActivty() {
                 }
             }
             for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > top1 && linetext.get(index).zzbat.bottom < top) {
-                    name.add(linetext.get(index).text!!)
+                if (linetext.get(index).text == "Occupation") {
+                    top = linetext.get(index).zzbat.top
                 }
             }
             for (index in linetext.indices) {
-                if (linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < top1) {
-                    employer.add(linetext.get(index).text!!)
+                if (linetext.get(index).text == "Work Permit No." || linetext.get(index).text == "Work Permit No" || linetext.get(index).text == "Work Permit" ) {
+                    wpermit = linetext.get(index).zzbat.top
                 }
+            }
+            if(top!=0) {
+                for (index in linetext.indices) {
+                    if (linetext.get(index).zzbat.top > top1 && linetext.get(index).zzbat.bottom < top) {
+                        name.add(linetext.get(index).text!!)
+                    }
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < top1) {
+                        employer.add(linetext.get(index).text!!)
+                    }
+                }
+            }
+            else
+            {
+                for (index in linetext.indices) {
+                    if (linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < btm) {
+                        employer.add(linetext.get(index).text!!)
+                    }
+                }
+                for (index in linetext.indices) {
+                    if (linetext.get(index).zzbat.top > btm && linetext.get(index).zzbat.bottom < wpermit) {
+                        name.add(linetext.get(index).text!!)
+                    }
+                }
+
             }
             var c = 0;
             var stream = ByteArrayOutputStream()
@@ -591,7 +613,7 @@ class IdProofSelectionActivity : BaseActivty() {
             args.putString("userComingFrom", "MainActivity")
             args.putString("userComingBy", userComingBy)
             args.putString("selectedIdProof", selectedIdProof)
-            args.putStringArrayList("DOB", dob)
+            args.putStringArrayList("Employer", employer)
             args.putStringArrayList("Name", name)
             args.putStringArrayList("ID", id)
             args.putString("imgUri", imgUri.toString())
