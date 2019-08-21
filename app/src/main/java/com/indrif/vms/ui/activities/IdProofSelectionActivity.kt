@@ -63,6 +63,7 @@ class IdProofSelectionActivity : BaseActivty() {
     private var id = ArrayList<String>()
     private var pd: ProgressDialog? = null
     var wpermit: Int = 0
+    var wpermitend: Int = 0
     var btm: Int = 0
     var top: Int = 0
     var dobbtm: Int = 0
@@ -571,6 +572,7 @@ class IdProofSelectionActivity : BaseActivty() {
             for (index in linetext.indices) {
                 if (linetext.get(index).text == "Work Permit No." || linetext.get(index).text == "Work Permit No" || linetext.get(index).text == "Work Permit" ) {
                     wpermit = linetext.get(index).zzbat.top
+                    wpermitend = linetext.get(index).zzbat.right
                 }
             }
             if(top!=0) {
@@ -597,7 +599,12 @@ class IdProofSelectionActivity : BaseActivty() {
                         name.add(linetext.get(index).text!!)
                     }
                 }
-
+                for (index in linetext.indices)
+                {
+                    if (linetext.get(index).zzbat.top > wpermit && linetext.get(index).zzbat.right > wpermitend  ) {
+                            id.add(linetext.get(index).text!!)
+                        }
+                }
             }
             var c = 0;
             var stream = ByteArrayOutputStream()

@@ -184,6 +184,11 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                     et_id_employer.setText(employer.get(0))
                 }
                 input_layout_employer.visibility = View.VISIBLE
+                if (id.size > 0) {
+                    idNumberForServer = id.get(0).replace(" ","")
+                    idNumberForServer = idNumberForServer.trim()
+                    et_id_no.setText(maskString(idNumberForServer, 0, 6, '*'))
+                }
             }
         }
 
