@@ -64,6 +64,7 @@ class IdProofSelectionActivity : BaseActivty() {
     private var pd: ProgressDialog? = null
     var wpermit: Int = 0
     var wpermitend: Int = 0
+    var sectorleft:Int =0
     var btm: Int = 0
     var top: Int = 0
     var dobbtm: Int = 0
@@ -555,7 +556,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 }
             }
             for (index in linetext.indices) {
-                if (linetext.get(index).text == "Employer" || linetext.get(index).text == "Emplo" || linetext.get(index).text == "Employor" || linetext.get(index).text == "Emp") {
+                if (linetext.get(index).text == "Employer" || linetext.get(index).text == "Emplo" || linetext.get(index).text == "Employor" || linetext.get(index).text == "Emp" ||  linetext.get(index).text == "Empioyer") {
                     btm1 = linetext.get(index).zzbat.top
                 }
             }
@@ -575,6 +576,11 @@ class IdProofSelectionActivity : BaseActivty() {
                     wpermitend = linetext.get(index).zzbat.right
                 }
             }
+            for (index in linetext.indices) {
+                if (linetext.get(index).text == "Sector:" || linetext.get(index).text == "Sector" || linetext.get(index).text == "Sect") {
+                    sectorleft = linetext.get(index).zzbat.left
+                }
+            }
             if(top!=0) {
                 for (index in linetext.indices) {
                     if (linetext.get(index).zzbat.top > top1 && linetext.get(index).zzbat.bottom < top) {
@@ -584,6 +590,12 @@ class IdProofSelectionActivity : BaseActivty() {
                 for (index in linetext.indices) {
                     if (linetext.get(index).zzbat.top > btm1 && linetext.get(index).zzbat.bottom < top1) {
                         employer.add(linetext.get(index).text!!)
+                    }
+                }
+                for (index in linetext.indices)
+                {
+                    if (linetext.get(index).zzbat.top > wpermit && linetext.get(index).zzbat.right < wpermitend  ) {
+                        id.add(linetext.get(index).text!!)
                     }
                 }
             }
@@ -601,7 +613,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 }
                 for (index in linetext.indices)
                 {
-                    if (linetext.get(index).zzbat.top > wpermit && linetext.get(index).zzbat.right > wpermitend  ) {
+                    if (linetext.get(index).zzbat.top > wpermit && linetext.get(index).zzbat.right < wpermitend  ) {
                             id.add(linetext.get(index).text!!)
                         }
                 }
