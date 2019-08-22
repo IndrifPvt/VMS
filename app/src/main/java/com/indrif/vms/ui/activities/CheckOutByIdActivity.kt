@@ -44,6 +44,7 @@ class CheckOutByIdActivity : BaseActivty() {
         val mountMap = HashMap<String, String>()
         mountMap.put("idNumber", idNumber)
         mountMap.put("siteId", PreferenceHandler.readString(applicationContext, PreferenceHandler.SITE_ID, ""))
+        mountMap.put("checkOutTime",CommonUtils.getCurrentDateTime().trim())
         try {
             showProgressDialog()
             compositeDrawable.add(
