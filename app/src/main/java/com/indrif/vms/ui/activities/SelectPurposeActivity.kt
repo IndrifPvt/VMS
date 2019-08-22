@@ -132,11 +132,9 @@ class SelectPurposeActivity : BaseActivty() {
                                         tv_select_block_value.setText(userObj.block)
                                 }
                                 else
-                                    CommonUtils.showSnackbarMessage(context, "No Data found regarding your id Number", R.color.colorPrimary)
-
+                                    CommonUtils.showAlertDialog(this, "No Data found regarding your id Number")
                             } else
-                                CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
-
+                            CommonUtils.showAlertDialog(this, result.data.status)
                         } catch (e: Exception) {
                             hideProgressDialog()
                             e.printStackTrace()
@@ -150,7 +148,6 @@ class SelectPurposeActivity : BaseActivty() {
             e.printStackTrace()
         }
     }
-
 
     private fun setAdapter() {
         val idProofArray = resources.getStringArray(R.array.purpose_array)
@@ -212,23 +209,23 @@ class SelectPurposeActivity : BaseActivty() {
                                     )
                                 } else {
                                     hideProgressDialog()
-                                    CommonUtils.showSnackbarMessage(this, result.data.status, R.color.colorPrimary)
+                                    CommonUtils.showAlertDialog(this, result.data.status)
                                 }
                             } catch (e: Exception) {
-                                CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
+                                CommonUtils.showAlertDialog(this, e.message.toString())
                                 hideProgressDialog()
                                 e.printStackTrace()
                             }
                         }, { error ->
                             hideProgressDialog()
-                            CommonUtils.showSnackbarMessage(context, error.message.toString(), R.color.colorPrimary)
+                            CommonUtils.showAlertDialog(this, error.message.toString())
                             error.printStackTrace()
                         })
                 )
             } catch (e: Exception) {
                 hideProgressDialog()
                 e.printStackTrace()
-                CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
+                CommonUtils.showAlertDialog(this, e.message.toString())
             }
         } else if (args.getString("userComingBy").equals("checkOut", false)) {
             val mountMap = HashMap<String, String>()
@@ -256,7 +253,7 @@ class SelectPurposeActivity : BaseActivty() {
                                     )
                                 } else {
                                     hideProgressDialog()
-                                    CommonUtils.showSnackbarMessage(this, result.data.status, R.color.colorPrimary)
+                                    CommonUtils.showAlertDialog(this, result.data.status)
                                 }
 
                             } catch (e: Exception) {
@@ -293,23 +290,23 @@ class SelectPurposeActivity : BaseActivty() {
                                     CommonUtils.showMessagePopup(context, result.message, result.data.status, R.mipmap.success, clickListner, View.GONE)
                                 } else {
                                     hideProgressDialog()
-                                    CommonUtils.showSnackbarMessage(this, result.data.status, R.color.colorPrimary)
+                                    CommonUtils.showAlertDialog(this, result.data.status)
                                 }
                             } catch (e: Exception) {
-                                CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
+                                CommonUtils.showAlertDialog(this, e.message.toString())
                                 hideProgressDialog()
                                 e.printStackTrace()
                             }
                         }, { error ->
                             hideProgressDialog()
-                            CommonUtils.showSnackbarMessage(context, error.message.toString(), R.color.colorPrimary)
+                            CommonUtils.showAlertDialog(this, error.message.toString())
                             error.printStackTrace()
                         })
                 )
             } catch (e: Exception) {
                 hideProgressDialog()
                 e.printStackTrace()
-                CommonUtils.showSnackbarMessage(context, e.message.toString(), R.color.colorPrimary)
+                CommonUtils.showAlertDialog(this, e.message.toString())
             }
         } else if (args.getString("userComingBy").equals("checkOut", false)) {
             val mountMap = HashMap<String, String>()
@@ -330,6 +327,7 @@ class SelectPurposeActivity : BaseActivty() {
                                     CommonUtils.showMessagePopup(this, result.message, result.data.status, R.mipmap.success, clickListner, View.GONE)
                                 } else {
                                     hideProgressDialog()
+                                    CommonUtils.showAlertDialog(this, result.data.status)
                                     CommonUtils.showSnackbarMessage(this, result.data.status, R.color.colorPrimary)
                                 }
 

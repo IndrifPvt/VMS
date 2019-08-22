@@ -8,6 +8,7 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -20,6 +21,7 @@ import android.provider.Settings
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -70,6 +72,26 @@ class CommonUtils {
                     .into(imageView)
 
         }
+        fun showAlertDialog(context:Context, message:String) {
+            val dialogBuilder = AlertDialog.Builder(context)
+
+            // set message of alert dialog
+            dialogBuilder.setMessage(message)
+                // if the dialog is cancelable
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("OK", DialogInterface.OnClickListener {
+                        dialog, id -> dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle("Alert!")
+            // show alert dialog
+            alert.show()
+        }
+
          fun getImageUri(context: Context, inImage: Bitmap): Uri {
             var bytes = ByteArrayOutputStream()
             inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)

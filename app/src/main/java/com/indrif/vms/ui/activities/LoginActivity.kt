@@ -43,9 +43,9 @@ class LoginActivity : BaseActivty() {
                     if (isNetworkConnected())
                         loginUser()
                     else
-                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_internet), R.color.colorPrimary)
+                        CommonUtils.showAlertDialog(this, resources.getString(R.string.err_msg_internet))
                 } else
-                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_email_address), R.color.colorPrimary)
+                    CommonUtils.showAlertDialog(this, resources.getString(R.string.err_msg_email_address))
             }
         }
     }

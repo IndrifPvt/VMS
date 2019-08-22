@@ -33,7 +33,7 @@ class ForgotPaaswordActivity : BaseActivty() {
                     else
                         CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_internet), R.color.colorPrimary)
                 } else
-                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_email_address), R.color.colorPrimary)
+                    CommonUtils.showAlertDialog(this,  resources.getString(R.string.err_msg_email_address))
             }
         }
     }
@@ -64,7 +64,7 @@ class ForgotPaaswordActivity : BaseActivty() {
                                         PreferenceHandler.writeBoolean(applicationContext, PreferenceHandler.IS_LOGGED_IN, false)
                                         CommonUtils.showMessagePopup(context, resources.getString(R.string.success_msg), resources.getString(R.string.password_reset_msg), R.mipmap.success, clickListner,View.GONE)
                                     } else
-                                        CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
+                                        CommonUtils.showAlertDialog(this,  result.data.status)
 
                                 } catch (e: Exception) {
                                     hideProgressDialog()

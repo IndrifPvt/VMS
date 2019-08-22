@@ -148,8 +148,7 @@ class CheckInOutDetailActivity : BaseActivty(), View.OnClickListener, PopupMenu.
                                     rv_checkinhistory.setAdapter(adapter)
                                 }
                             } else
-                                CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
-
+                                CommonUtils.showAlertDialog(this, result.data.status)
                         } catch (e: Exception) {
                             hideProgressDialog()
                             e.printStackTrace()

@@ -38,7 +38,7 @@ class ChangePasswordActivity : BaseActivty() {
             if (isNetworkConnected())
                 resetPassword()
             else
-                CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_internet), R.color.colorPrimary)
+                CommonUtils.showAlertDialog(this, resources.getString(R.string.err_msg_internet))
         }
     }
 
@@ -60,7 +60,7 @@ class ChangePasswordActivity : BaseActivty() {
                             if (result.code == ApiConstants.SUCCESS_CODE) {
                                 CommonUtils.showMessagePopup(context, resources.getString(R.string.success_msg), resources.getString(R.string.password_reset_msg), R.mipmap.success, clickListner,View.GONE)
                             } else
-                                CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
+                                CommonUtils.showAlertDialog(this, resources.getString(R.string.err_msg_internet))
 
                         } catch (e: Exception) {
                             hideProgressDialog()

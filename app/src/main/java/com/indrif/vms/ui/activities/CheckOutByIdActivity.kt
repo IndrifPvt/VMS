@@ -33,9 +33,9 @@ class CheckOutByIdActivity : BaseActivty() {
                     if (isNetworkConnected())
                         checkOutUser(et_id_number.text.trim().toString())
                     else
-                        CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_internet), R.color.colorPrimary)
+                        CommonUtils.showAlertDialog(this, resources.getString(R.string.err_msg_internet))
                 } else
-                    CommonUtils.showSnackbarMessage(context, resources.getString(R.string.err_msg_valid_id), R.color.colorPrimary)
+                    CommonUtils.showAlertDialog(this, resources.getString(R.string.err_msg_valid_id))
             }
         }
     }
@@ -59,7 +59,7 @@ class CheckOutByIdActivity : BaseActivty() {
                                 CommonUtils.showMessagePopup(this, result.message, result.data.status , R.mipmap.success, clickListner,View.GONE)
                             } else{
                                 hideProgressDialog()
-                                CommonUtils.showSnackbarMessage(this, result.data.status, R.color.colorPrimary)
+                                CommonUtils.showAlertDialog(this, result.data.status)
                             }
 
                         } catch (e: Exception) {

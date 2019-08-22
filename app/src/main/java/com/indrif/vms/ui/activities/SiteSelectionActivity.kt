@@ -57,7 +57,7 @@ class SiteSelectionActivity : BaseActivty() {
                           if (result.code == ApiConstants.SUCCESS_CODE) {
                                  setAdapter(result.data.sites)
                           } else
-                              CommonUtils.showSnackbarMessage(context, result.data.status, R.color.colorPrimary)
+                              CommonUtils.showAlertDialog(this,result.data.status)
 
                       } catch (e: Exception) {
                           hideProgressDialog()

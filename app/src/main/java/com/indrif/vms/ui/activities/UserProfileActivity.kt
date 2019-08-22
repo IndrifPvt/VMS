@@ -247,11 +247,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     } else {
                         if (et_id_no.text.toString().trim().isEmpty()) {
-                            CommonUtils.showSnackbarMessage(
-                                context,
-                                "Please enter valid Id Number ",
-                                R.color.colorPrimary
-                            )
+                            CommonUtils.showAlertDialog(this,"Please enter valid Id Number ")
                             return
                         }
                         val intent = Intent(this, SelectPurposeActivity::class.java)
@@ -286,11 +282,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                     } else {
                         if (et_id_no.text.toString().trim().isEmpty()/* || !et_id_no.text.toString().trim().matches( regexPat)*/
                         ) {
-                            CommonUtils.showSnackbarMessage(
-                                context,
-                                "Please enter valid Id Number ",
-                                R.color.colorPrimary
-                            )
+                           CommonUtils.showAlertDialog(this, "Please enter valid Id Number ")
                             return
                         }
                         val intent = Intent(this, SelectPurposeActivity::class.java)
@@ -391,33 +383,22 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     permissionCheck(0, 0)
                 } else
-                    CommonUtils.showSnackbarMessage(
-                        context,
-                        resources.getString(R.string.permision_denied),
-                        R.color.colorPrimary
-                    )
+                    CommonUtils.showAlertDialog(this, resources.getString(R.string.permision_denied))
 
-            AppConstants.REQUEST_CAMERA_PERMISSION_CODE ->
+
+                    AppConstants.REQUEST_CAMERA_PERMISSION_CODE ->
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (userChoosenTask == getString(R.string.take_photo))
                         selectionIntent(0)
                 } else
-                    CommonUtils.showSnackbarMessage(
-                        context,
-                        resources.getString(R.string.permision_denied),
-                        R.color.colorPrimary
-                    )
+                    CommonUtils.showAlertDialog(this, resources.getString(R.string.permision_denied))
 
             AppConstants.REQUEST_READ_STORAGE_PERMISSION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (userChoosenTask.equals(getString(R.string.choose_photo), ignoreCase = true))
                         selectionIntent(1)
                 } else
-                    CommonUtils.showSnackbarMessage(
-                        context,
-                        resources.getString(R.string.permision_denied),
-                        R.color.colorPrimary
-                    )
+                    CommonUtils.showAlertDialog(this, resources.getString(R.string.permision_denied))
             }
         }
     }
