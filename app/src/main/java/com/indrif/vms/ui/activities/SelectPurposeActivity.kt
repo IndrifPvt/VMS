@@ -23,6 +23,7 @@ import okhttp3.RequestBody
 
 class SelectPurposeActivity : BaseActivty() {
     var selectedPurpose = ""
+    var imageUri:Uri?=null
     lateinit var adapter:ArrayAdapter<CharSequence>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +78,7 @@ class SelectPurposeActivity : BaseActivty() {
         checkInCheckOutHashMap["checkInTime"] =
             RequestBody.create(MediaType.parse("text/plain"), CommonUtils.getCurrentDateTime().trim())
 
-        var imageUri = Uri.parse(intent.extras.getString("imageUri"))
+         imageUri = Uri.parse(intent.extras.getString("imageUri"))
         if (imageUri != null && !imageUri.toString().equals("null",false)) {
             val file = FileUtils.getFile(context, imageUri)
             val userImageBody = RequestBody.create(MediaType.parse("image/*"), file)
@@ -198,6 +199,7 @@ class SelectPurposeActivity : BaseActivty() {
                         .subscribe({ result ->
                             try {
                                 if (result.code == ApiConstants.SUCCESS_CODE) {
+                                    clearimage(imageUri!!)
                                     hideProgressDialog()
                                     CommonUtils.showMessagePopup(
                                         context,
@@ -344,6 +346,10 @@ class SelectPurposeActivity : BaseActivty() {
                 e.printStackTrace()
             }
         }
+    }
+    private fun clearimage(uri:Uri)
+    {
+        contentResolver.delete(uri, null, null);
     }
 }
 

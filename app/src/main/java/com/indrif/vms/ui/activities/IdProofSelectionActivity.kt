@@ -387,6 +387,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 }
             }
             var c = 0;
+            clearimage(mImageUri!!)
             var stream = ByteArrayOutputStream()
             if(cropped == null)
                 return
@@ -446,7 +447,7 @@ class IdProofSelectionActivity : BaseActivty() {
                     id.add(linetext.get(index).text!!)
                 }
             }
-
+            clearimage(mImageUri!!)
             var stream = ByteArrayOutputStream()
             if(cropped == null)
                 return
@@ -527,6 +528,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 }
             }
             var c = 0;
+            clearimage(mImageUri!!)
             var stream = ByteArrayOutputStream()
             if(cropped == null){
                 return
@@ -619,6 +621,7 @@ class IdProofSelectionActivity : BaseActivty() {
                 }
             }
             var c = 0;
+            clearimage(mImageUri!!)
             var stream = ByteArrayOutputStream()
             if(cropped == null)
                 return
@@ -740,5 +743,9 @@ class IdProofSelectionActivity : BaseActivty() {
         dob.clear()
         id.clear()
         employer.clear()    }
+    private fun clearimage(uri:Uri)
+    {
+        contentResolver.delete(uri, null, null);
+    }
 }
 
