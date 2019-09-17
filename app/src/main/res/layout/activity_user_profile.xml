@@ -109,6 +109,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorBlack"
                         android:gravity="start"
+                        android:textAllCaps="true"
                         android:drawablePadding="@dimen/_3sdp"
                         android:drawableEnd="@drawable/ic_edit"
                         android:fontFamily="@font/ralewayregular"

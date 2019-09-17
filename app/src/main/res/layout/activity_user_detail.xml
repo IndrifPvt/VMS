@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_10sdp"
                 android:onClick="onClick"
-                android:textSize="@dimen/_18sdp"
+                android:textSize="@dimen/_14sdp"
                 android:gravity="bottom"
                 android:singleLine="true"
                 android:ellipsize="end"
