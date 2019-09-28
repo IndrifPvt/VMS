@@ -277,6 +277,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         args.putString("employer", et_id_employer.text.toString().trim())
                         intent.putExtra("BUNDLE", args)
                         intent.putExtra("imageUri", profileImageUri.toString())
+                        intent.putExtra("imagelocation",mImageUri.toString())
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     } else {
@@ -295,6 +296,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         args.putString("employer", et_id_employer.text.toString().trim())
                         intent.putExtra("BUNDLE", args)
                         intent.putExtra("imageUri", profileImageUri.toString())
+                        intent.putExtra("imagelocation",mImageUri.toString())
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                         //CommonUtils.showSnackbarMessage(context, "Please select image by clicking on user Image", R.color.colorPrimary)

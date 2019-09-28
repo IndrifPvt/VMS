@@ -155,14 +155,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/colorBlack"
-                            android:gravity="start"
                             android:drawablePadding="@dimen/_3sdp"
                             android:drawableEnd="@drawable/ic_edit"
                             android:fontFamily="@font/ralewayregular"
                             android:textColorHint="@color/colorBlack"
                             android:textColor="@color/colorBlack"
                             android:imeOptions="flagNoExtractUi"
-                            android:inputType="text"/>
+                            android:inputType="textCapCharacters"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout

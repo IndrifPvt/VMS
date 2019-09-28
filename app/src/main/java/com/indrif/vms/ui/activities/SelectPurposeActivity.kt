@@ -24,6 +24,8 @@ import okhttp3.RequestBody
 class SelectPurposeActivity : BaseActivty() {
     var selectedPurpose = ""
     var imageUri:Uri?=null
+    var images:Uri?=null
+    var idtype:String?=null
     lateinit var adapter:ArrayAdapter<CharSequence>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +79,11 @@ class SelectPurposeActivity : BaseActivty() {
             RequestBody.create(MediaType.parse("text/plain"), tv_select_block_value.text.toString().trim())
         checkInCheckOutHashMap["checkInTime"] =
             RequestBody.create(MediaType.parse("text/plain"), CommonUtils.getCurrentDateTime().trim())
-
+         idtype = args.getString("idType")
          imageUri = Uri.parse(intent.extras.getString("imageUri"))
+         if(idtype=="OTHER") {
+             images = Uri.parse(intent.extras.getString("imagelocation"))
+         }
         if (imageUri != null && !imageUri.toString().equals("null",false)) {
             val file = FileUtils.getFile(context, imageUri)
             val userImageBody = RequestBody.create(MediaType.parse("image/*"), file)
@@ -132,8 +137,10 @@ class SelectPurposeActivity : BaseActivty() {
                                         tv_select_level_value.setText(userObj.level)
                                         tv_select_block_value.setText(userObj.block)
                                 }
-                                else
+                                else {
                                     CommonUtils.showAlertDialog(this, "No Data found regarding your id Number")
+
+                                }
                             } else
                             CommonUtils.showAlertDialog(this, result.data.status)
                         } catch (e: Exception) {
@@ -199,7 +206,13 @@ class SelectPurposeActivity : BaseActivty() {
                         .subscribe({ result ->
                             try {
                                 if (result.code == ApiConstants.SUCCESS_CODE) {
-                                    clearimage(imageUri!!)
+                                    if(idtype=="OTHER") {
+                                        clearimage(images!!)
+                                    }
+                                    else
+                                    {
+                                        clearimage(imageUri!!)
+                                    }
                                     hideProgressDialog()
                                     CommonUtils.showMessagePopup(
                                         context,
