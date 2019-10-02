@@ -80,7 +80,7 @@
                 android:hint="Id Number"
                 android:fontFamily="@font/ralewayregular"
                 android:imeOptions="flagNoExtractUi"
-                android:inputType="text"
+                android:inputType="textCapCharacters"
                 android:textColor="@color/colorBlack"/>
     </android.support.design.widget.TextInputLayout>
 

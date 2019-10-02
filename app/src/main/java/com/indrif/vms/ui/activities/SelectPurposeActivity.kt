@@ -26,6 +26,7 @@ class SelectPurposeActivity : BaseActivty() {
     var imageUri:Uri?=null
     var images:Uri?=null
     var idtype:String?=null
+    var phototype = ""
     lateinit var adapter:ArrayAdapter<CharSequence>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +101,7 @@ class SelectPurposeActivity : BaseActivty() {
         var intent = intent
         var args = intent.getBundleExtra("BUNDLE")
         var userName = args.getString("name")
+        phototype = args.getString("phototype")
          var  firstUserName = userName.split(" ")
         tv_user_name.text = firstUserName[0]
         if (args.getString("userComingBy").equals("checkIn", false))
@@ -206,12 +208,12 @@ class SelectPurposeActivity : BaseActivty() {
                         .subscribe({ result ->
                             try {
                                 if (result.code == ApiConstants.SUCCESS_CODE) {
-                                    if(idtype=="OTHER") {
-                                        clearimage(images!!)
-                                    }
-                                    else
-                                    {
-                                        clearimage(imageUri!!)
+                                    if(phototype=="camera") {
+                                        if (idtype == "OTHER") {
+                                            clearimage(images!!)
+                                        } else {
+                                            clearimage(imageUri!!)
+                                        }
                                     }
                                     hideProgressDialog()
                                     CommonUtils.showMessagePopup(

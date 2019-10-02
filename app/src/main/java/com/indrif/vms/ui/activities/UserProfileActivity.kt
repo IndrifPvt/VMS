@@ -26,6 +26,7 @@ import com.softuvo.utils.FileUtils.Companion.getUri
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.dialog_photo_select.*
+import kotlinx.android.synthetic.main.squarecamera__fragment_edit_save_photo.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
@@ -47,6 +48,7 @@ class UserProfileActivity : BaseActivty(), View.OnFocusChangeListener {
     private var profileImageUri: Uri? = null
     private var newname = ArrayList<String>()
     private var userComingBy = ""
+    private var phototype="camera"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -241,6 +243,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         args.putString("idNumber", idNumberForServer)
                         args.putString("dob", et_id_dob.text.toString().trim())
                         args.putString("employer", et_id_employer.text.toString().trim())
+                        args.putString("phototype",phototype)
                         intent.putExtra("BUNDLE", args)
                         intent.putExtra("imageUri", profileImageUri.toString())
                         startActivity(intent)
@@ -257,6 +260,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         args.putString("name", et_name.text.toString().trim())
                         args.putString("idNumber", et_id_no.text.toString().trim())
                         args.putString("dob", et_id_dob.text.toString().trim())
+                        args.putString("phototype",phototype)
                         args.putString("employer", et_id_employer.text.toString().trim())
                         intent.putExtra("BUNDLE", args)
                         intent.putExtra("imageUri", profileImageUri.toString())
@@ -274,6 +278,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         args.putString("name", et_name.text.toString().trim())
                         args.putString("idNumber", idNumberForServer)
                         args.putString("dob", et_id_dob.text.toString().trim())
+                        args.putString("phototype",phototype)
                         args.putString("employer", et_id_employer.text.toString().trim())
                         intent.putExtra("BUNDLE", args)
                         intent.putExtra("imageUri", profileImageUri.toString())
@@ -293,6 +298,7 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         args.putString("name", et_name.text.toString().trim())
                         args.putString("idNumber", et_id_no.text.toString().trim())
                         args.putString("dob", et_id_dob.text.toString().trim())
+                        args.putString("phototype",phototype)
                         args.putString("employer", et_id_employer.text.toString().trim())
                         intent.putExtra("BUNDLE", args)
                         intent.putExtra("imageUri", profileImageUri.toString())
@@ -347,11 +353,13 @@ getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
         dialog.show()
         dialog.iv_camera.setOnClickListener(View.OnClickListener {
             userChoosenTask = getString(R.string.take_photo)
+            phototype="camera";
             permissionCheck(0, 0)
             dialog.dismiss()
         })
         dialog.iv_gallery.setOnClickListener(View.OnClickListener {
             userChoosenTask = getString(R.string.choose_photo)
+            phototype = "gallery"
             permissionCheck(1, 1)
             dialog.dismiss()
         })

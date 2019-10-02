@@ -57,6 +57,7 @@
                 android:singleLine="true"
                 android:lines="1"
                 android:ellipsize="end"
+                android:textAllCaps="true"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:textColor="@color/colorBlack"
                 android:fontFamily="@font/ralewayregular"
